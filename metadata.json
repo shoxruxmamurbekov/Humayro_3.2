@@ -1,0 +1,8 @@
+{
+  "name": "Humayro_3.1",
+  "description": "AI-powered news intelligence platform delivering real-time global news synthesis, interactive world map, multi-source verification, and voice search.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
