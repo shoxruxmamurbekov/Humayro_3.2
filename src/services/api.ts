@@ -81,6 +81,30 @@ export async function fetchSystemMetrics(token: string): Promise<SystemMetrics |
   }
 }
 
+export interface RegionLiveWeather {
+  city: string;
+  temperatureC: number | null;
+  apparentC: number | null;
+  humidity: number | null;
+  windKmh: number | null;
+  code: number | null;
+  isDay: boolean;
+  observedAt: string | null;
+}
+
+export interface RegionLiveResponse {
+  regionKey: string;
+  articles: Article[];
+  weather: RegionLiveWeather[];
+  fetchedAt: string;
+}
+
+export async function fetchRegionLive(regionKey: string, lang: SupportedLanguage = 'uz'): Promise<RegionLiveResponse> {
+  const res = await fetch(`/api/region/${encodeURIComponent(regionKey)}/live?lang=${lang}`);
+  if (!res.ok) throw new Error('Region live network error');
+  return res.json();
+}
+
 export interface TrendingHotspotItem {
   id: string;
   query: string;

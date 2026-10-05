@@ -423,6 +423,7 @@ export default function App() {
           onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
           isRefreshing={isLiveRefreshing}
           lastUpdated={lastLiveUpdated}
+          lang={currentLang}
         />
 
         {/* AI Conversation & Terminal Stream */}

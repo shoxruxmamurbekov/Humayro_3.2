@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { getLiveNewsFeed, searchNews, getCacheStats, getTrendingHotspots } from './server/newsService.ts';
 import { synthesizeNews, generateArticle, getAiProviderInfo } from './server/aiService.ts';
+import { getRegionLive } from './server/regionService.ts';
 import type { SupportedLanguage, SystemMetrics } from './src/types/index.ts';
 
 dotenv.config();
@@ -44,6 +45,21 @@ app.get('/api/news/feed', async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Failed to retrieve news feed', articles: [] });
+  }
+});
+
+// API: Live per-region intelligence (latest news + live weather for the selected map region)
+app.get('/api/region/:key/live', async (req, res) => {
+  try {
+    const langRaw = req.query.lang as string;
+    const lang: SupportedLanguage = ALL_SUPPORTED_LANGUAGES.includes(langRaw as SupportedLanguage) ? (langRaw as SupportedLanguage) : 'uz';
+    const data = await getRegionLive(req.params.key, lang);
+    if (!data) {
+      return res.status(404).json({ success: false, error: 'Unknown region' });
+    }
+    res.json({ success: true, lang, ...data });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to retrieve live region data' });
   }
 });
 

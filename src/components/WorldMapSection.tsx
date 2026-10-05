@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Radio, Play, MapPin, Youtube, AlertTriangle, Layers, ExternalLink, Flame, Globe, Sparkles, Clock, RefreshCw } from 'lucide-react';
 import { TranslationDict } from '../i18n/translations';
-import { Article } from '../types';
+import { Article, SupportedLanguage } from '../types';
+import { useRegionLive } from '../services/useRegionLive';
 import { REGIONS_INTELLIGENCE_DATA, RegionIntelligence } from '../data/regionsData';
 import { RegionIntelligenceModal } from './RegionIntelligenceModal';
 import { CyberGlobe3D, Hotspot3D } from './CyberGlobe3D';
@@ -14,6 +15,7 @@ interface WorldMapSectionProps {
   onSelectArticle?: (article: Article) => void;
   isRefreshing?: boolean;
   lastUpdated?: Date;
+  lang?: SupportedLanguage;
 }
 
 interface HotspotPin extends Hotspot3D {
@@ -151,9 +153,12 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
   regionalArticles,
   onSelectArticle,
   isRefreshing = false,
-  lastUpdated
+  lastUpdated,
+  lang = 'uz'
 }) => {
   const [selectedKey, setSelectedKey] = useState<string>('central-asia');
+  // Live, region-specific news + weather for the currently selected region (auto-refreshes every 30s)
+  const regionLive = useRegionLive(selectedKey, lang);
   const [viewMode, setViewMode] = useState<'3d-globe' | '2d-radar'>('3d-globe');
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [activeModalRegion, setActiveModalRegion] = useState<RegionIntelligence | null>(
@@ -207,7 +212,10 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
   };
 
   const currentHotspot = dynamicHotspots.find(p => p.regionKey === selectedKey) || dynamicHotspots[0];
-  const liveNewsForSelected = regionalArticles?.[selectedKey] || [];
+  const liveNewsForSelected =
+    regionLive.data && regionLive.data.articles.length > 0
+      ? regionLive.data.articles
+      : regionalArticles?.[selectedKey] || [];
   const latestLiveNews = liveNewsForSelected.length > 0 ? liveNewsForSelected[0] : null;
 
   return (
@@ -604,7 +612,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
             </div>
           </div>
           <div className="font-mono text-[11px] text-zinc-500">
-            HUMAYRO_3.1 // REAL-TIME 3D HOLOGRAPHIC GEO-RADAR
+            HUMAYRO_3.2 // REAL-TIME 3D HOLOGRAPHIC GEO-RADAR
           </div>
         </div>
       </div>
@@ -621,6 +629,12 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
         dict={dict}
         liveArticles={liveNewsForSelected}
         onSelectArticle={onSelectArticle}
+        liveWeather={regionLive.data?.weather || []}
+        liveLoading={regionLive.isLoading}
+        liveError={regionLive.error}
+        liveLastUpdated={regionLive.lastUpdated}
+        liveCountdown={regionLive.countdown}
+        onRefreshLive={regionLive.refreshNow}
       />
     </section>
   );

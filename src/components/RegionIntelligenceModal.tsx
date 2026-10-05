@@ -19,6 +19,30 @@ import { RegionIntelligence, RegionVideoItem } from '../data/regionsData';
 import { TranslationDict } from '../i18n/translations';
 
 import { Article } from '../types';
+import type { RegionLiveWeather } from '../services/api';
+
+function weatherLabel(code: number | null): string {
+  if (code === null) return '—';
+  if (code === 0) return 'Ochiq';
+  if (code <= 3) return 'Qisman bulutli';
+  if (code <= 48) return 'Tumanli';
+  if (code <= 67) return 'Yomgʻirli';
+  if (code <= 77) return 'Qorli';
+  if (code <= 82) return 'Jala';
+  if (code <= 86) return 'Qor yogʻmoqda';
+  return 'Momaqaldiroq';
+}
+
+function timeAgo(iso: string): string {
+  const t = new Date(iso).getTime();
+  if (isNaN(t)) return '';
+  const min = Math.max(0, Math.floor((Date.now() - t) / 60000));
+  if (min < 1) return 'hozirgina';
+  if (min < 60) return `${min} daqiqa oldin`;
+  const h = Math.floor(min / 60);
+  if (h < 24) return `${h} soat oldin`;
+  return `${Math.floor(h / 24)} kun oldin`;
+}
 
 interface RegionIntelligenceModalProps {
   isOpen: boolean;
@@ -28,6 +52,12 @@ interface RegionIntelligenceModalProps {
   dict: TranslationDict;
   liveArticles?: Article[];
   onSelectArticle?: (article: Article) => void;
+  liveWeather?: RegionLiveWeather[];
+  liveLoading?: boolean;
+  liveError?: boolean;
+  liveLastUpdated?: Date | null;
+  liveCountdown?: number;
+  onRefreshLive?: () => void;
 }
 
 export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = ({
@@ -36,7 +66,13 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
   onClose,
   onAskAi,
   liveArticles = [],
-  onSelectArticle
+  onSelectArticle,
+  liveWeather = [],
+  liveLoading = false,
+  liveError = false,
+  liveLastUpdated = null,
+  liveCountdown,
+  onRefreshLive
 }) => {
   const [activeTab, setActiveTab] = useState<'events' | 'live-news' | 'videos' | 'analytics'>('live-news');
   const [selectedVideo, setSelectedVideo] = useState<RegionVideoItem | null>(null);
@@ -45,8 +81,8 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
     if (region && region.youtubeVideos && region.youtubeVideos.length > 0) {
       setSelectedVideo(region.youtubeVideos[0]);
     }
-    setActiveTab(liveArticles.length > 0 ? 'live-news' : 'events');
-  }, [region, liveArticles.length]);
+    setActiveTab('live-news');
+  }, [region]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -119,7 +155,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
 
         {/* Navigation Tabs Bar */}
         <div className="flex items-center gap-2 px-5 sm:px-6 pt-3 pb-2 border-b border-white/10 bg-black/40 text-xs sm:text-sm font-medium overflow-x-auto">
-          {liveArticles.length > 0 && (
+          {(
             <button
               type="button"
               onClick={() => setActiveTab('live-news')}
@@ -195,10 +231,61 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                     {region.name} boʻyicha eng soʻnggi tasdiqlangan jonli axborotlar
                   </span>
                 </div>
-                <span className="text-zinc-400 font-sans text-[11px]">
-                  Jami: {liveArticles.length} ta hisobot
-                </span>
+                <div className="flex items-center gap-3 text-zinc-400 font-sans text-[11px]">
+                  <span>
+                    {liveLastUpdated
+                      ? `Yangilandi: ${liveLastUpdated.toLocaleTimeString()}`
+                      : liveLoading
+                      ? 'Yuklanmoqda…'
+                      : ''}
+                    {typeof liveCountdown === 'number' && liveLastUpdated ? ` · ${liveCountdown}s` : ''}
+                  </span>
+                  {onRefreshLive && (
+                    <button
+                      type="button"
+                      onClick={onRefreshLive}
+                      disabled={liveLoading}
+                      className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 border border-white/10 cursor-pointer disabled:opacity-50"
+                    >
+                      {liveLoading ? '…' : 'Yangilash'}
+                    </button>
+                  )}
+                </div>
               </div>
+
+              {liveWeather.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {liveWeather.map(w => (
+                    <div key={w.city} className="p-3 rounded-2xl bg-white/[0.03] border border-white/10 text-xs">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-bold text-white">{w.city}</span>
+                        <span className="font-mono text-[#FFA84D] text-base">
+                          {w.temperatureC !== null ? `${Math.round(w.temperatureC)}°C` : '—'}
+                        </span>
+                      </div>
+                      <div className="text-zinc-400">
+                        {weatherLabel(w.code)}
+                        {w.humidity !== null && ` · ${w.humidity}%`}
+                        {w.windKmh !== null && ` · ${Math.round(w.windKmh)} km/s`}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {liveArticles.length === 0 && (
+                <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 text-center text-sm text-zinc-400">
+                  {liveLoading
+                    ? 'Soʻnggi xabarlar yuklanmoqda…'
+                    : liveError
+                    ? 'Jonli maʼlumotni olishda xatolik. Qayta urinib koʻring.'
+                    : 'Hozircha yangi xabar topilmadi.'}
+                </div>
+              )}
+
+              {liveError && liveArticles.length > 0 && (
+                <div className="text-[11px] text-amber-400">Yangilashda xatolik — oxirgi maʼlumot koʻrsatilmoqda.</div>
+              )}
 
               <div className="space-y-3.5">
                 {liveArticles.map((art, i) => (
@@ -212,7 +299,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                           {art.source}
                         </span>
                         <span className="text-[11px] font-mono text-zinc-400">
-                          {art.publishedAt ? new Date(art.publishedAt).toLocaleTimeString() : 'Hozirgina'}
+                          {art.publishedAt ? timeAgo(art.publishedAt) : 'Hozirgina'}
                         </span>
                       </div>
 
@@ -581,7 +668,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
           <div className="text-xs text-zinc-400 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-[#FF6A00]" />
             <span>
-              Humayro_3.1 real-vaqt global lentalar va YouTube video monitoringi
+              Humayro_3.2 real-vaqt global lentalar va YouTube video monitoringi
             </span>
           </div>
 
