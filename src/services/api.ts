@@ -1,4 +1,5 @@
 import { AiArticleResponse, AiSynthesisResponse, Article, SupportedLanguage, SystemMetrics } from '../types';
+import { getAuthHeaders, syncQuotaFromServer } from './userStore';
 
 export async function fetchLiveFeed(category?: string, lang: SupportedLanguage = 'uz'): Promise<Article[]> {
   try {
@@ -6,7 +7,9 @@ export async function fetchLiveFeed(category?: string, lang: SupportedLanguage =
     if (category && category !== 'all') params.append('category', category);
     if (lang) params.append('lang', lang);
     const queryString = params.toString() ? `?${params.toString()}` : '';
-    const res = await fetch(`/api/news/feed${queryString}`);
+    const res = await fetch(`/api/news/feed${queryString}`, {
+      headers: getAuthHeaders()
+    });
     if (!res.ok) throw new Error('Feed network error');
     const json = await res.json();
     return json.articles || [];
@@ -22,7 +25,9 @@ export async function searchArticles(query: string, category?: string, lang: Sup
     if (query) params.append('q', query);
     if (category && category !== 'all') params.append('category', category);
     if (lang) params.append('lang', lang);
-    const res = await fetch(`/api/news/search?${params.toString()}`);
+    const res = await fetch(`/api/news/search?${params.toString()}`, {
+      headers: getAuthHeaders()
+    });
     if (!res.ok) throw new Error('Search network error');
     const json = await res.json();
     return json.articles || [];
@@ -32,19 +37,43 @@ export async function searchArticles(query: string, category?: string, lang: Sup
   }
 }
 
+export async function fetchServerQuota(): Promise<{ used: number; limit: number; remaining: number } | null> {
+  try {
+    const res = await fetch('/api/user/quota', {
+      headers: getAuthHeaders()
+    });
+    if (!res.ok) return null;
+    const json = await res.json();
+    if (json.success && json.quota) {
+      syncQuotaFromServer(json.quota);
+      return json.quota;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export async function synthesizeAiQuery(query: string, lang: SupportedLanguage): Promise<AiSynthesisResponse> {
   const res = await fetch('/api/ai/synthesize', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    },
     body: JSON.stringify({ query, lang })
   });
 
-  if (!res.ok) {
-    const errData = await res.json().catch(() => ({}));
-    throw new Error(errData.error || 'AI synthesis service unavailable');
+  const json = await res.json().catch(() => ({}));
+
+  if (json.quota) {
+    syncQuotaFromServer(json.quota);
   }
 
-  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(json.error || 'AI synthesis service unavailable');
+  }
+
   return json.data;
 }
 
@@ -55,16 +84,23 @@ export async function generateAiArticle(
 ): Promise<AiArticleResponse> {
   const res = await fetch('/api/ai/article', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    },
     body: JSON.stringify({ topic, region, lang })
   });
 
-  if (!res.ok) {
-    const errData = await res.json().catch(() => ({}));
-    throw new Error(errData.error || 'Failed to synthesize article');
+  const json = await res.json().catch(() => ({}));
+
+  if (json.quota) {
+    syncQuotaFromServer(json.quota);
   }
 
-  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(json.error || 'Failed to synthesize article');
+  }
+
   return json.data;
 }
 
@@ -79,6 +115,30 @@ export async function fetchSystemMetrics(token: string): Promise<SystemMetrics |
   } catch {
     return null;
   }
+}
+
+export interface RegionLiveWeather {
+  city: string;
+  temperatureC: number | null;
+  apparentC: number | null;
+  humidity: number | null;
+  windKmh: number | null;
+  code: number | null;
+  isDay: boolean;
+  observedAt: string | null;
+}
+
+export interface RegionLiveResponse {
+  regionKey: string;
+  articles: Article[];
+  weather: RegionLiveWeather[];
+  fetchedAt: string;
+}
+
+export async function fetchRegionLive(regionKey: string, lang: SupportedLanguage = 'uz'): Promise<RegionLiveResponse> {
+  const res = await fetch(`/api/region/${encodeURIComponent(regionKey)}/live?lang=${lang}`);
+  if (!res.ok) throw new Error('Region live network error');
+  return res.json();
 }
 
 export interface TrendingHotspotItem {

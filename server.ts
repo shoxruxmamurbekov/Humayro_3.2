@@ -4,6 +4,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { getLiveNewsFeed, searchNews, getCacheStats, getTrendingHotspots } from './server/newsService.ts';
 import { synthesizeNews, generateArticle, getAiProviderInfo } from './server/aiService.ts';
+import { getRegionLive } from './server/regionService.ts';
+import { getRequiredAdminSecret, timingSafeAdminCheck } from './server/security.ts';
+import { generalApiLimiter, aiApiLimiter } from './server/rateLimit.ts';
+import { consumeQuota, getQuotaStatus } from './server/quotaService.ts';
 import type { SupportedLanguage, SystemMetrics } from './src/types/index.ts';
 
 dotenv.config();
@@ -14,7 +18,9 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
-const ADMIN_SECRET = process.env.ADMIN_SECRET || 'admin2026';
+
+// Security: Fail-fast startup if ADMIN_SECRET is not configured
+const ADMIN_SECRET = getRequiredAdminSecret();
 
 const startTime = Date.now();
 let totalSearches = 0;
@@ -26,6 +32,10 @@ const ALL_SUPPORTED_LANGUAGES: SupportedLanguage[] = [
 ];
 
 app.use(express.json());
+
+// Rate Limiting
+app.use('/api', generalApiLimiter);
+app.use('/api/ai', aiApiLimiter);
 
 // API: News Feed with Language Adaptation
 app.get('/api/news/feed', async (req, res) => {
@@ -44,6 +54,21 @@ app.get('/api/news/feed', async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Failed to retrieve news feed', articles: [] });
+  }
+});
+
+// API: Live per-region intelligence (latest news + live weather for the selected map region)
+app.get('/api/region/:key/live', async (req, res) => {
+  try {
+    const langRaw = req.query.lang as string;
+    const lang: SupportedLanguage = ALL_SUPPORTED_LANGUAGES.includes(langRaw as SupportedLanguage) ? (langRaw as SupportedLanguage) : 'uz';
+    const data = await getRegionLive(req.params.key, lang);
+    if (!data) {
+      return res.status(404).json({ success: false, error: 'Unknown region' });
+    }
+    res.json({ success: true, lang, ...data });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to retrieve live region data' });
   }
 });
 
@@ -92,13 +117,31 @@ app.get('/api/news/search', async (req, res) => {
   }
 });
 
+// API: User Quota Status
+app.get('/api/user/quota', (req, res) => {
+  const quota = getQuotaStatus(req);
+  res.json({
+    success: true,
+    quota
+  });
+});
+
 // API: AI Synthesis (Quick answer with sources & timeline)
 app.post('/api/ai/synthesize', async (req, res) => {
+  const quota = consumeQuota(req);
+  if (!quota.allowed) {
+    return res.status(429).json({
+      success: false,
+      error: quota.error || 'Daily query quota reached.',
+      quota
+    });
+  }
+
   aiRequests++;
   try {
     const { query, lang } = req.body;
     if (!query || typeof query !== 'string' || !query.trim()) {
-      return res.status(400).json({ success: false, error: 'Query is required' });
+      return res.status(400).json({ success: false, error: 'Query is required', quota });
     }
 
     const validLang: SupportedLanguage = ALL_SUPPORTED_LANGUAGES.includes(lang) ? lang : 'uz';
@@ -106,24 +149,35 @@ app.post('/api/ai/synthesize', async (req, res) => {
 
     res.json({
       success: true,
-      data: result
+      data: result,
+      quota
     });
   } catch (error) {
     failedRequests++;
     res.status(500).json({
       success: false,
-      error: 'Free AI capacity is temporarily busy. Please try again later.'
+      error: 'Free AI capacity is temporarily busy. Please try again later.',
+      quota
     });
   }
 });
 
 // API: AI Deep Article
 app.post('/api/ai/article', async (req, res) => {
+  const quota = consumeQuota(req);
+  if (!quota.allowed) {
+    return res.status(429).json({
+      success: false,
+      error: quota.error || 'Daily query quota reached.',
+      quota
+    });
+  }
+
   aiRequests++;
   try {
     const { topic, region, lang } = req.body;
     if (!topic || typeof topic !== 'string') {
-      return res.status(400).json({ success: false, error: 'Topic is required' });
+      return res.status(400).json({ success: false, error: 'Topic is required', quota });
     }
 
     const validLang: SupportedLanguage = ALL_SUPPORTED_LANGUAGES.includes(lang) ? lang : 'uz';
@@ -131,13 +185,15 @@ app.post('/api/ai/article', async (req, res) => {
 
     res.json({
       success: true,
-      data: article
+      data: article,
+      quota
     });
   } catch (error) {
     failedRequests++;
     res.status(500).json({
       success: false,
-      error: 'Failed to synthesize article brief'
+      error: 'Failed to synthesize article brief',
+      quota
     });
   }
 });
@@ -145,7 +201,7 @@ app.post('/api/ai/article', async (req, res) => {
 // API: Admin Metrics & System Status (Protected)
 app.get('/api/admin/metrics', async (req, res) => {
   const token = req.headers['x-admin-token'] || req.query.token;
-  if (token !== ADMIN_SECRET) {
+  if (!timingSafeAdminCheck(token, ADMIN_SECRET)) {
     return res.status(401).json({ success: false, error: 'Unauthorized admin access' });
   }
 
@@ -178,7 +234,7 @@ app.get('/api/admin/metrics', async (req, res) => {
 app.get('/api/health', (_req, res) => {
   res.json({
     status: 'ok',
-    product: 'Humayro_3.1',
+    product: 'Humayro_3.3',
     uptime: Math.floor((Date.now() - startTime) / 1000)
   });
 });

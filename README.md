@@ -1,163 +1,201 @@
-# Humayro_3.1 — AI News Intelligence
+# Humayro 3.3 — AI-Powered Global Intelligence Platform
 
-**Humayro_3.1** is an AI-powered global news intelligence platform designed with a **$0/month free-first architecture**. It combines multi-source verified news aggregation, real-time Google Search-grounded AI synthesis, an interactive 3D telemetry globe, continent hotspot intelligence, and multilingual voice search.
+<p align="center">
+  <img src="https://img.shields.io/badge/version-3.3.0-orange.svg" alt="Version 3.3.0" />
+  <img src="https://img.shields.io/badge/react-19.0-blue.svg" alt="React 19" />
+  <img src="https://img.shields.io/badge/vite-8.3-purple.svg" alt="Vite 8" />
+  <img src="https://img.shields.io/badge/tailwindcss-v4-38bdf8.svg" alt="Tailwind CSS v4" />
+  <img src="https://img.shields.io/badge/AI-Google_Gemini_2.5_Flash-green.svg" alt="Gemini AI" />
+  <img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="License MIT" />
+</p>
 
----
-
-## Features
-
-- **Real-Time AI News Synthesis**: Asks natural language questions about world events, returning objective summaries, structured event timelines, and cited verification sources.
-- **Multi-Source News Ingestion**: Aggregates verified RSS feeds from global news agencies (Reuters, BBC, Associated Press, NPR, Al Jazeera, MIT Tech Review) with intelligent deduplication and caching.
-- **3D Telemetry Earth Globe**: Interactive canvas-rendered wireframe Earth sphere with latitude/longitude lines, pulsing communication nodes, and mouse parallax tilt.
-- **Live Regional Hotspot Map**: Interactive SVG world map covering North America, Europe, Asia, Australia & Oceania, and Africa. Clicking any continent launches deep regional intelligence.
-- **Multilingual Support (4 Languages)**: Fully localized in **Uzbek** (Default), **English**, **Russian**, and **Korean**. AI responses and Speech Recognition dynamically adapt to the selected language.
-- **Web Speech Voice Search**: Natural voice inquiry support directly in the browser with visual listening pulse.
-- **Local-First Accounts & Bookmarking**: Sign up, log in, manage saved articles, view search history, and track daily quota with zero mandatory cloud configuration.
-- **Optional Supabase Cloud Sync**: Pre-configured integration for Supabase free-tier database and authentication.
-- **Protected Observability Console**: Built-in admin desk (`/api/admin/metrics`) monitoring search counts, AI usage, cache health, and provider latency.
-- **Dark & Light Mode**: Seamless theme switching with localStorage persistence and OS system detection.
+**Humayro 3.3** is a next-generation, high-performance **AI-Powered Global Intelligence & News Monitoring Platform**. It bridges the gap between breaking world headlines, deep AI causal synthesis, 2D military-grade tactical geo-radar telemetry, 3D holographic CyberGlobe exploration, and real-time per-region environmental and geopolitical metrics.
 
 ---
 
-## Architecture
+## 🌟 Key Features
+
+### 1. 🌐 Tactical 2D Geo-Radar & 3D Hologram CyberGlobe
+- **High-Definition 2D Tactical Radar Map**: Built with WGS84 equirectangular coordinate projection, latitude/longitude parallels (60°N, 30°N, Equator 0°, 30°S, 60°S), tactical HUD overlays, radar sweep indicators, and glowing continental corridors.
+- **3D CyberGlobe Hologram**: Canvas-based 3D globe with interactive coordinate points, rotation controls, and region focusing.
+- **8 Intelligence Sectors**:
+  - `[UZ/CA]` Uzbekistan & Central Asia (Heartland focus)
+  - `[KR/EA]` East Asia & Pacific Rim (Semiconductor & AI chip corridors)
+  - `[EU/BRU]` European Union (AI Act & Energy Security)
+  - `[US/NA]` North America (Silicon Valley AI & Markets)
+  - `[ME/GULF]` Middle East & Gulf (Vision 2030 & Strategic Transit)
+  - `[AFR]` African Continent (Tech startups & Critical minerals)
+  - `[SA/BRA]` South America (Agrotech & Bio-economy)
+  - `[OC/SYD]` Australia & Oceania (Green hydrogen & Space telemetry)
+
+### 2. ⚡ Regional Intelligence Workspace (Mintaqaviy Tahliliy Markaz)
+- **Geopolitical Dossier**: Executive summary, historical context, and current strategic posture.
+- **Real-Time Weather & Telemetry (Open-Meteo)**: Live temperature, humidity, wind, and sky condition for regional capital hubs (Tashkent, Samarkand, Seoul, Brussels, Washington, Dubai, Nairobi, etc.).
+- **Top Active Developments**: Real-time breaking developments with citations and direct AI deep-dive actions.
+- **Public Debates & Dilemmas**: Deep breakdown of public discourse, root causes, impact levels, and societal reactions.
+- **Key Indicators Matrix**: GDP growth, AI R&D investments, renewable energy transitions, and automation indices with trend badges.
+- **Curated YouTube Video Reports**: Integrated YouTube video briefs with embedded playback and channel attribution.
+- **One-Click AI Prompts**: Curated query chips to instantly launch deep neural synthesis.
+
+### 3. 🧠 Multimodal AI Synthesis Engine
+- **Search-Grounded Intelligence**: Powered by Google Gemini 2.5 Flash with live Google Search grounding.
+- **Multi-Provider Fallback**: Architecture supports automatic failover between Gemini, Groq (Llama 3.3), and OpenRouter.
+- **Structured Intelligence Briefs**:
+  - Top Viral Headline & Trend Index
+  - Executive Strategic Summary
+  - Public Sentiment & Discourse Analysis
+  - Key Drivers & Systemic Catalysts
+  - Chronological Event Timeline
+  - Historical Parallel Matrix & Wisdom Lessons
+  - Verified Sources Citation List
+  - Built-in Neural Audio Reader (TTS speech synthesis)
+
+### 4. 🌍 Universal 12-Language Localization
+- Fully localized in **12 languages**:
+  - 🇺🇿 **O'zbekcha** (Default)
+  - 🇰🇿 **Қазақша**
+  - 🇰🇬 **Кыргызча**
+  - 🇹🇯 **Тоҷикӣ**
+  - 🇹🇲 **Türkmençe**
+  - 🇦🇿 **Azərbaycanca**
+  - 🇹🇷 **Türkçe**
+  - 🇸🇦 **العربية**
+  - 🇮🇷 **فارسی**
+  - 🇷🇺 **Русский**
+  - 🇬🇧 **English**
+  - 🇰🇷 **한국어**
+- Complete UI, labels, prompts, metrics, indicators, and voice recognition dynamically synchronize to the selected language.
+
+### 5. 📡 Continuous Live Signal Stream
+- Auto-refreshes verified global RSS & Google News feeds every 30 seconds.
+- Live Signal Marquee with real-time signal score indicator.
+- Category filters: All, Uzbekistan, World, Technology, Economy, Science.
+- Magazine, Live Stream, and Terminal display modes.
+
+---
+
+## 🏗️ Architecture
 
 ```
-┌────────────────────────────────────────────────────────┐
-│                   Humayro_3.1 Frontend                 │
-│  (React 19 + TypeScript + Vite + Tailwind CSS + Canvas)│
-└───────────────────────────┬────────────────────────────┘
-                            │ /api/news/*, /api/ai/*
-┌───────────────────────────▼────────────────────────────┐
-│                  Express Node.js Server                │
-│                 (server.ts on Port 3000)               │
-├───────────────────────────┬────────────────────────────┤
-│     News Ingestion Layer  │      AI Adapter Layer      │
-│   (server/newsService.ts) │   (server/aiService.ts)    │
-└─────────────┬─────────────┴──────────────┬─────────────┘
-              │                            │
-   ┌──────────▼──────────┐      ┌──────────▼──────────┐
-   │ Verified Global RSS │      │  Google Gemini 2.5  │
-   │  Reuters, BBC, AP   │      │  (Search Grounding) │
-   │   GDELT Fallback    │      │  Groq / OpenRouter  │
-   └─────────────────────┘      └─────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│                   Humayro 3.3 Frontend                   │
+│   (React 19 + TypeScript + Vite 8 + Tailwind CSS v4)    │
+│   - IntelligenceHero & AI Search                        │
+│   - Tactical 2D Geo-Radar & 3D Hologram CyberGlobe       │
+│   - Regional Intelligence Workspace                     │
+│   - IntelligenceFeed & Right-Side Reader Drawer          │
+│   - AI Intelligence Brief (Synthesis & Voice)            │
+└────────────────────────────┬─────────────────────────────┘
+                             │ /api/*
+┌────────────────────────────▼─────────────────────────────┐
+│                 Full-Stack Express / Netlify             │
+│                 (server.ts / netlify/functions)          │
+├────────────────────────────┬─────────────────────────────┤
+│     News & Region Service  │      AI Service Adapter     │
+│  - RSS / Google News Ingest│  - Gemini 2.5 Flash Search  │
+│  - Open-Meteo Weather API  │  - Groq / OpenRouter Backup │
+│  - 30-second TTL Cache     │  - Historical Parallel Map  │
+└────────────────────────────┴─────────────────────────────┘
 ```
 
 ---
 
-## Tech Stack
+## 🚀 Quick Start
 
-- **Frontend**: React 19, TypeScript, Tailwind CSS, Lucide React, HTML5 2D Canvas
-- **Backend**: Express 4, Node.js (`tsx`), Fast XML Parser
-- **AI Engine**: `@google/genai` (Gemini 2.5 Flash with real-time Google Search grounding) + Groq/OpenRouter fallback adapter
-- **Build Tool**: Vite 8
+### 1. Clone the repository
+```bash
+git clone https://github.com/shoxruxmamurbekov/Humayro_3.3.git
+cd Humayro_3.3
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+Copy `.env.example` to `.env`:
+```bash
+cp .env.example .env
+```
+
+Edit `.env`:
+```env
+# Google Gemini API Key (Required for AI synthesis)
+GEMINI_API_KEY="your-gemini-api-key"
+
+# AI Provider ('gemini' | 'groq' | 'openrouter')
+AI_PROVIDER="gemini"
+
+# Admin Dashboard Secret Token (for /api/admin/metrics) - REQUIRED
+ADMIN_SECRET="your-strong-random-admin-secret-token"
+
+PORT="3000"
+```
+
+### 4. Run the development server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### 5. Build for production
+```bash
+npm run build
+npm start
+```
 
 ---
 
-## Free Services Used
+## 📦 Deployment Options
 
-All services are selected under generous $0/month free-tier policies:
+### Netlify (One-Click Serverless)
+The project includes pre-configured `netlify.toml` and `netlify/functions/api.ts`:
+1. Push code to GitHub.
+2. Link your repository in Netlify.
+3. Add `GEMINI_API_KEY` in Netlify Environment Variables.
+4. Deploy! All API requests (`/api/*`) are automatically routed to the serverless function.
 
-1. **Google Gemini API Free Tier**:
-   - Primary model: `gemini-2.5-flash` with Google Search grounding.
-   - Cost: Free tier available for developers (up to 15 RPM / 1,500 RPD).
-2. **Global Public RSS Feeds**:
-   - Cost: $0 (unlimited public consumption with respect to robots.txt and reasonable cache intervals).
-3. **GDELT Project v2 API**:
-   - Cost: $0 (public data project supported by Google Jigsaw).
-4. **Supabase Free Tier (Optional)**:
-   - Cost: $0 (up to 50,000 monthly active users and 500MB database).
-
-> *Note: Free-tier availability and limits may change over time according to third-party provider terms.*
+### Docker / Cloud Run / VPS
+```dockerfile
+FROM node:22-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
 
 ---
 
-## Environment Variables
+## 🛠️ GitHub Push Guide
 
-Copy `.env.example` to `.env` or configure them in your hosting provider:
+To upload this project to your GitHub repository:
 
 ```bash
-# Gemini API Key (injected automatically in AI Studio)
-GEMINI_API_KEY="your-gemini-key"
+# 1. Initialize git (if not already done)
+git init
 
-# AI Provider Strategy ('gemini' | 'groq' | 'openrouter')
-AI_PROVIDER="gemini"
-# GROQ_API_KEY=""
-# OPENROUTER_API_KEY=""
-# FALLBACK_AI_PROVIDER="groq"
+# 2. Add all files
+git add .
 
-# Protected Admin Console Passkey
-ADMIN_SECRET="admin2026"
+# 3. Create your release commit
+git commit -m "feat: release Humayro 3.3 with 2D geo-radar, regional workspace, and full i18n"
 
-# Optional Cloud Database (Supabase Free Tier)
-# VITE_SUPABASE_URL=""
-# VITE_SUPABASE_ANON_KEY=""
+# 4. Set the main branch
+git branch -M main
 
-PORT=3000
+# 5. Connect your remote repository
+git remote add origin https://github.com/shoxruxmamurbekov/Humayro_3.3.git
+# (Or if updating Humayro_3.2: git remote add origin https://github.com/shoxruxmamurbekov/Humayro_3.2.git)
+
+# 6. Push to GitHub
+git push -u origin main --force
 ```
 
 ---
 
-## Local Development
-
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Run full-stack development server**:
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:3000` in your browser.
-
-3. **Run production build**:
-   ```bash
-   npm run build
-   npm run start
-   ```
-
----
-
-## AI Provider Setup
-
-1. **Google Gemini (Recommended)**:
-   - Obtain a free API key at [Google AI Studio](https://aistudio.google.com/).
-   - Set `GEMINI_API_KEY="your_key"`.
-2. **Groq (Optional Fallback)**:
-   - Obtain a free API key at [console.groq.com](https://console.groq.com/).
-   - Set `GROQ_API_KEY="your_key"` and `FALLBACK_AI_PROVIDER="groq"`.
-
----
-
-## Deployment
-
-### Cloudflare Pages / Workers
-Build command: `npm run build`
-Output directory: `dist`
-
-### Netlify / Vercel
-Build command: `npm run build`
-Publish directory: `dist`
-
----
-
-## Security & Privacy
-
-- **No Secrets in Frontend**: All AI calls and API keys execute exclusively on the backend (`server.ts` / `/api/*`).
-- **Input Sanitization**: All incoming HTML from RSS XML feeds is stripped of script tags, unsafe entities, and markup before caching.
-- **Local-First Privacy**: Anonymous readers can bookmark articles and search without account creation or cloud tracking.
-
----
-
-## Rate Limits
-
-- **Anonymous Guest**: 50 free searches / day (tracked in browser storage).
-- **Registered Free Account**: 200 free searches / day.
-- **Graceful Error Handling**: If upstream AI limits are reached, the system falls back to summarizing matched local RSS wire feeds.
-
----
-
-## Known Limitations
-
-- Real-time speech recognition requires browser Web Speech API support (Google Chrome, Edge, Safari).
-- Free tier AI models may occasionally have momentary latency during peak global traffic.
+## 📄 License
+MIT License © 2026 Humayro Global Intelligence. All rights reserved.

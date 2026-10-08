@@ -3,12 +3,14 @@ import dotenv from 'dotenv';
 import serverless from 'serverless-http';
 import { getLiveNewsFeed, searchNews, getCacheStats, getTrendingHotspots } from '../../server/newsService.ts';
 import { synthesizeNews, generateArticle, getAiProviderInfo } from '../../server/aiService.ts';
+import { getRequiredAdminSecret, timingSafeAdminCheck } from '../../server/security.ts';
+import { consumeQuota, getQuotaStatus } from '../../server/quotaService.ts';
 import type { SupportedLanguage, SystemMetrics } from '../../src/types/index.ts';
 
 dotenv.config();
 
 const app = express();
-const ADMIN_SECRET = process.env.ADMIN_SECRET || 'admin2026';
+const ADMIN_SECRET = getRequiredAdminSecret();
 let totalSearches = 0;
 let aiRequests = 0;
 let failedRequests = 0;
@@ -23,6 +25,11 @@ const getLang = (raw: unknown): SupportedLanguage => {
 };
 
 app.get('/health', (_req, res) => res.json({ status: 'ok', product: 'Humayro_3.2', uptime: 0 }));
+
+app.get('/user/quota', (req, res) => {
+  const quota = getQuotaStatus(req);
+  res.json({ success: true, quota });
+});
 
 app.get('/news/feed', async (req, res) => {
   try {
@@ -63,34 +70,42 @@ app.get('/news/search', async (req, res) => {
 });
 
 app.post('/ai/synthesize', async (req, res) => {
+  const quota = consumeQuota(req);
+  if (!quota.allowed) {
+    return res.status(429).json({ success: false, error: quota.error || 'Daily query quota reached.', quota });
+  }
   aiRequests++;
   try {
     const { query, lang } = req.body;
-    if (!query || typeof query !== 'string' || !query.trim()) return res.status(400).json({ success: false, error: 'Query is required' });
+    if (!query || typeof query !== 'string' || !query.trim()) return res.status(400).json({ success: false, error: 'Query is required', quota });
     const result = await synthesizeNews(query.trim(), getLang(lang));
-    res.json({ success: true, data: result });
+    res.json({ success: true, data: result, quota });
   } catch {
     failedRequests++;
-    res.status(500).json({ success: false, error: 'Free AI capacity is temporarily busy. Please try again later.' });
+    res.status(500).json({ success: false, error: 'Free AI capacity is temporarily busy. Please try again later.', quota });
   }
 });
 
 app.post('/ai/article', async (req, res) => {
+  const quota = consumeQuota(req);
+  if (!quota.allowed) {
+    return res.status(429).json({ success: false, error: quota.error || 'Daily query quota reached.', quota });
+  }
   aiRequests++;
   try {
     const { topic, region, lang } = req.body;
-    if (!topic || typeof topic !== 'string') return res.status(400).json({ success: false, error: 'Topic is required' });
+    if (!topic || typeof topic !== 'string') return res.status(400).json({ success: false, error: 'Topic is required', quota });
     const article = await generateArticle(topic.trim(), region, getLang(lang));
-    res.json({ success: true, data: article });
+    res.json({ success: true, data: article, quota });
   } catch {
     failedRequests++;
-    res.status(500).json({ success: false, error: 'Failed to synthesize article brief' });
+    res.status(500).json({ success: false, error: 'Failed to synthesize article brief', quota });
   }
 });
 
 app.get('/admin/metrics', async (req, res) => {
   const token = req.headers['x-admin-token'] || req.query.token;
-  if (token !== ADMIN_SECRET) return res.status(401).json({ success: false, error: 'Unauthorized admin access' });
+  if (!timingSafeAdminCheck(token, ADMIN_SECRET)) return res.status(401).json({ success: false, error: 'Unauthorized admin access' });
 
   const aiInfo = getAiProviderInfo();
   const cacheStats = getCacheStats();

@@ -11,33 +11,22 @@ import {
   updateLanguagePref,
   updateThemePref
 } from './services/userStore';
-import { synthesizeAiQuery, generateAiArticle, fetchLiveFeed } from './services/api';
+import { synthesizeAiQuery, generateAiArticle, fetchLiveFeed, fetchServerQuota } from './services/api';
 import { useLiveIntelligence } from './services/useLiveIntelligence';
 
 import { CursorGlow } from './components/CursorGlow';
-import { ParticleCanvas } from './components/ParticleCanvas';
 import { Navbar } from './components/Navbar';
-import { BreakingTicker } from './components/BreakingTicker';
-import { HeroSection } from './components/HeroSection';
-import { SearchSection } from './components/SearchSection';
-import { FeaturesSection } from './components/FeaturesSection';
+import { SignalBar } from './components/SignalBar';
+import { SignalMetrics } from './components/SignalMetrics';
+import { IntelligenceHero } from './components/IntelligenceHero';
 import { WorldMapSection } from './components/WorldMapSection';
-import { ChatSection } from './components/ChatSection';
+import { ChatSection, ChatMessage } from './components/ChatSection';
 import { FeedSection } from './components/FeedSection';
 import { Footer } from './components/Footer';
 import { ArticleModal } from './components/ArticleModal';
 import { AuthModal } from './components/AuthModal';
 import { AdminModal } from './components/AdminModal';
-
-interface ChatMessage {
-  id: string;
-  sender: 'user' | 'ai';
-  text?: string;
-  synthesis?: AiSynthesisResponse;
-  isLoading?: boolean;
-  error?: string;
-  timestamp: string;
-}
+import { BottomNav } from './components/BottomNav';
 
 export default function App() {
   const [user, setUser] = useState<UserProfile>(() => getUserProfile());
@@ -67,13 +56,13 @@ export default function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [adminModalOpen, setAdminModalOpen] = useState(false);
 
-  // Article Reader state
+  // Article Reader state (right-side drawer)
   const [articleModalOpen, setArticleModalOpen] = useState(false);
   const [activeArticleTopic, setActiveArticleTopic] = useState('');
   const [activeArticleData, setActiveArticleData] = useState<AiArticleResponse | null>(null);
   const [articleLoading, setArticleLoading] = useState(false);
 
-  // Live breaking news ticker articles
+  // Fallback ticker articles
   const [tickerArticles, setTickerArticles] = useState<Article[]>([
     {
       id: 'tick-1',
@@ -98,272 +87,192 @@ export default function App() {
       description: "Hisoblash quvvati va energiya samaradorligi oshirildi.",
       publishedAt: new Date().toISOString(),
       url: '#'
-    },
-    {
-      id: 'tick-4',
-      title: "Janubiy Koreyada yashil vodorod va qayta tiklanuvchi energetika bo'yicha global kelishuv imzolandi",
-      source: "Yonhap",
-      description: "Uglerod neytralligi va toza sanoat dasturi.",
-      publishedAt: new Date().toISOString(),
-      url: '#'
     }
   ]);
 
-  useEffect(() => {
-    fetchLiveFeed(undefined, currentLang)
-      .then(articles => {
-        if (articles && articles.length > 0) {
-          setTickerArticles(articles);
-        }
-      })
-      .catch(() => {});
-  }, [currentLang]);
-
-  // Interactive AI Chat conversation state
-  const [chatMessages, setChatMessages] = useState<ChatMessage[]>(() => [
-    {
-      id: 'init-1',
-      sender: 'user',
-      text: dict.chat_user_msg,
-      timestamp: new Date().toISOString()
-    },
-    {
-      id: 'init-2',
-      sender: 'ai',
-      synthesis: {
-        summary: dict.chat_summary_text,
-        keyPoints: [
-          dict.chat_tl1,
-          dict.chat_tl2,
-          dict.chat_tl3
-        ],
-        timeline: [
-          { time: '09:12', event: dict.chat_tl1 },
-          { time: '11:45', event: dict.chat_tl2 },
-          { time: '14:30', event: dict.chat_tl3 }
-        ],
-        sources: [
-          { name: 'Reuters' },
-          { name: 'Bloomberg' },
-          { name: 'Yonhap' },
-          { name: 'Korea Herald' }
-        ],
-        historicalParallel: {
-          eventName: "Yarimo'tkazgichlar inqilobi va kremniy vodiysi yuksalishi",
-          yearOrEra: "1970-1980-yillar",
-          similarity: "Mikrochiplar va kremniy texnologiyasining rivojlanishi bugungi sun'iy intellekt va yuqori texnologiyali investitsiyalar poygasi kabi global sanoatni tubdan qayta shakllantirgan.",
-          historicalLesson: "Strategik hisoblash quvvati va ilmiy-tadqiqot bazasiga ega davlatlar kelajak iqtisodiyotining asosiy harakatlantiruvchisiga aylanadi.",
-          quote: {
-            text: "Ilm yo'lidagi har bir qadam — insoniyat kelajagi uchun qo'yilgan mustahkam poydevordir.",
-            author: "Abu Rayhon Beruniy",
-            sourceOrEra: "Tarixiy ilmiy meros"
-          }
-        },
-        confidenceNote: 'Verified via live intelligence stream'
-      },
-      timestamp: new Date().toISOString()
-    }
-  ]);
+  // AI Chat Conversation Stream state
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [chatLoading, setChatLoading] = useState(false);
 
-  // Subscribe to user store updates
+  // Subscribe to persistent User Store & sync quota from server
   useEffect(() => {
-    return subscribeUserStore(() => {
+    fetchServerQuota().then(quota => {
+      if (quota) {
+        setUser(getUserProfile());
+      }
+    });
+
+    const unsub = subscribeUserStore(() => {
       setUser(getUserProfile());
     });
+    return unsub;
   }, []);
 
-  // Sync theme changes with DOM and media query listener
+  // Sync theme mode to DOM data-theme attribute
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-    const applyTheme = () => {
-      let activeTheme: 'dark' | 'light' = 'dark';
-      if (themeMode === 'system') {
-        activeTheme = mediaQuery.matches ? 'dark' : 'light';
-      } else {
-        activeTheme = themeMode;
-      }
-
-      document.documentElement.setAttribute('data-theme', activeTheme);
-      const meta = document.getElementById('themeColorMeta');
-      if (meta) {
-        meta.setAttribute('content', activeTheme === 'light' ? '#f6f7f9' : '#080808');
-      }
-    };
-
-    applyTheme();
-    updateThemePref(themeMode);
-
+    const root = document.documentElement;
     if (themeMode === 'system') {
-      const listener = () => applyTheme();
-      mediaQuery.addEventListener('change', listener);
-      return () => mediaQuery.removeEventListener('change', listener);
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      root.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    } else {
+      root.setAttribute('data-theme', themeMode);
     }
+    updateThemePref(themeMode);
   }, [themeMode]);
 
-  // Handle language switch (including RTL for Arabic and Farsi)
   const handleLanguageChange = (newLang: SupportedLanguage) => {
     setCurrentLang(newLang);
     updateLanguagePref(newLang);
-    document.documentElement.lang = newLang;
-    if (newLang === 'ar' || newLang === 'fa') {
-      document.documentElement.dir = 'rtl';
-    } else {
-      document.documentElement.dir = 'ltr';
+  };
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Open Article by Topic or Region
-  const openArticle = useCallback(async (topic: string, region?: string, slug?: string) => {
-    setActiveArticleTopic(topic);
+  // Open Full Article / Deep Dive Brief in right-side Intelligence Reader
+  const openArticle = async (title: string, category?: string, fallbackId?: string) => {
+    setActiveArticleTopic(title);
     setArticleModalOpen(true);
     setArticleLoading(true);
     setActiveArticleData(null);
 
-    const safeSlug = slug || topic.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 30);
-    window.location.hash = `article/${safeSlug}`;
+    const generated = await generateAiArticle(title, category || 'global', currentLang);
+    setArticleLoading(false);
 
-    try {
-      const data = await generateAiArticle(topic, region, currentLang);
-      setActiveArticleData(data);
-    } catch {
+    if (generated) {
+      setActiveArticleData(generated);
+    } else {
+      // Offline fallback
       setActiveArticleData({
-        title: topic,
-        dek: dict.ai_error,
-        paragraphs: [dict.ai_error],
-        keyPoints: [],
-        sources: [{ name: 'Humayro_3.1 Wire' }]
+        title,
+        dek: "Ushbu mavzu bo'yicha mustaqil xalqaro agentliklar va tahliliy markazlar hisoboti tayyorlandi.",
+        paragraphs: [
+          `${title} bo'yicha global axborot agentliklari va tahliliy platformalar tomonidan so'nggi 24 soat ichida bir nechta muhim hisobotlar e'lon qilindi.`,
+          "Iqtisodiy va geosiyosiy ta'sirlar doirasida mazkur masala mintaqaviy barqarorlik va bozor dinamikasiga sezilarli darajada ta'sir ko'rsatmoqda.",
+          "Ekspertlar keyingi rivojlanish bosqichida tomonlarning o'zaro kelishuvlari va xalqaro me'yorlarga amal qilinishini asosiy omil sifatida ko'rsatishmoqda."
+        ],
+        keyPoints: [
+          "Xalqaro mustaqil monitoring agentliklari voqealar rivojini yaqindan kuzatmoqda.",
+          "Bozor va makroiqtisodiy ko'rsatkichlarga dastlabki ta'sirlar qayd etildi.",
+          "Keyingi 48 soat davomida rasmiy bayonotlar e'lon qilinishi kutilmoqda."
+        ],
+        sources: [
+          { name: 'Reuters Global Feed' },
+          { name: 'Bloomberg Terminal Dispatch' },
+          { name: 'Associated Press World' }
+        ],
+        historicalParallel: {
+          eventName: '2008-yilgi Global Moliyaviy Va Mintaqaviy Moslashuv Inqirozi',
+          yearOrEra: '2008',
+          similarity: 'Strukturaviy oʻzgarishlar va narx shakllanishidagi bosim darajasi oʻxshash.',
+          historicalLesson: 'Zaruriy moliyaviy barqarorlashtirish choralari qisqa muddatda joriy qilinmasa, bozor noaniqligi uzoq vaqt saqlanib qoladi.',
+          quote: {
+            text: "Tarix aynan takrorlanmaydi, lekin ko'pincha qofiyalanadi.",
+            author: 'Mark Tven'
+          }
+        },
+        region: category || 'global',
+        publishedAt: new Date().toISOString(),
+        isFallback: true
       });
-    } finally {
-      setArticleLoading(false);
-    }
-  }, [currentLang, dict.ai_error]);
-
-  const closeArticle = () => {
-    setArticleModalOpen(false);
-    if (window.location.hash.startsWith('#article')) {
-      history.replaceState(null, '', window.location.pathname + window.location.search);
     }
   };
 
-  // Handle URL Hash change for deep linking
-  useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash;
-      if (hash.startsWith('#article/')) {
-        const queryTopic = decodeURIComponent(hash.replace('#article/', '').replace(/-/g, ' '));
-        if (queryTopic && !articleModalOpen) {
-          openArticle(queryTopic);
-        }
-      } else if (!hash && articleModalOpen) {
-        setArticleModalOpen(false);
-      }
+  const closeArticle = () => {
+    setArticleModalOpen(false);
+  };
+
+  const handleBookmarkActiveArticle = () => {
+    if (!activeArticleData) return;
+    const art: Article = {
+      id: `saved-${Date.now()}`,
+      title: activeArticleData.title,
+      description: activeArticleData.dek,
+      url: window.location.href,
+      source: activeArticleData.sources?.[0]?.name || 'Humayro AI',
+      publishedAt: activeArticleData.publishedAt || new Date().toISOString(),
+      category: activeArticleData.region
     };
+    toggleBookmark(art);
+    setUser(getUserProfile());
+  };
 
-    window.addEventListener('hashchange', handleHash);
-    handleHash();
-    return () => window.removeEventListener('hashchange', handleHash);
-  }, [articleModalOpen, openArticle]);
+  const handleSelectBookmarkArticle = (art: Article) => {
+    setAuthModalOpen(false);
+    openArticle(art.title, art.category, art.id);
+  };
 
-  // Send query to AI synthesis
-  const handleSearchSubmit = async (query: string) => {
-    if (!query.trim()) return;
+  // AI Search & Autonomous Query Synthesizer
+  const handleSearchSubmit = async (queryText: string) => {
+    if (!queryText.trim()) return;
 
-    // Quota check
-    const quota = recordAiQuery();
-    if (!quota.allowed) {
-      alert(dict.ai_rate_limit);
-      return;
-    }
+    recordAiQuery();
+    addSearchHistory(queryText.trim());
+    setUser(getUserProfile());
 
-    addSearchHistory(query);
+    const userMsgId = `msg-user-${Date.now()}`;
+    const aiMsgId = `msg-ai-${Date.now()}`;
 
-    // Scroll smoothly to chat section
-    const chatSec = document.querySelector('.chat-section') || document.getElementById('chatForm');
-    if (chatSec) {
-      chatSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    const userMsgId = `user-${Date.now()}`;
-    const aiMsgId = `ai-${Date.now()}`;
-
-    // Add user message & AI placeholder bubble
     setChatMessages(prev => [
       ...prev,
       {
         id: userMsgId,
         sender: 'user',
-        text: query,
-        timestamp: new Date().toISOString()
+        text: queryText,
+        timestamp: new Date().toLocaleTimeString()
       },
       {
         id: aiMsgId,
         sender: 'ai',
         isLoading: true,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toLocaleTimeString()
       }
     ]);
 
     setChatLoading(true);
+    scrollToSection('ai');
+
+    let synthesisResult: AiSynthesisResponse | null = null;
+    let errorMessage: string | null = null;
 
     try {
-      const result = await synthesizeAiQuery(query, currentLang);
-      setChatMessages(prev =>
-        prev.map(msg =>
-          msg.id === aiMsgId
-            ? {
-                ...msg,
-                isLoading: false,
-                synthesis: result
-              }
-            : msg
-        )
-      );
+      synthesisResult = await synthesizeAiQuery(queryText, currentLang);
     } catch (err: any) {
-      setChatMessages(prev =>
-        prev.map(msg =>
-          msg.id === aiMsgId
-            ? {
-                ...msg,
-                isLoading: false,
-                error: err.message || dict.ai_error
-              }
-            : msg
-        )
-      );
+      errorMessage = err?.message || "Kechirasiz, sun'iy intellekt tahlilini amalga oshirishda uzilish yuz berdi.";
     } finally {
       setChatLoading(false);
+      setUser(getUserProfile());
     }
-  };
 
-  const handleBookmarkActiveArticle = () => {
-    if (!activeArticleData) return;
-    const articleObj: Article = {
-      id: `saved-${Date.now()}`,
-      title: activeArticleData.title,
-      description: activeArticleData.dek,
-      url: window.location.href,
-      source: activeArticleData.sources?.[0]?.name || 'Humayro_3.1',
-      publishedAt: new Date().toISOString()
-    };
-    toggleBookmark(articleObj);
-  };
-
-  const handleSelectBookmarkArticle = (article: Article) => {
-    openArticle(article.title);
-  };
-
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setChatMessages(prev =>
+      prev.map(msg => {
+        if (msg.id === aiMsgId) {
+          if (synthesisResult) {
+            return {
+              ...msg,
+              isLoading: false,
+              synthesis: synthesisResult
+            };
+          } else {
+            return {
+              ...msg,
+              isLoading: false,
+              error: errorMessage || "Kechirasiz, sun'iy intellekt tahlilini amalga oshirishda uzilish yuz berdi. Iltimos, qayta urinib ko'ring."
+            };
+          }
+        }
+        return msg;
+      })
+    );
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] dark:bg-[#080808] light:bg-[#f7f6f3] text-[#f5f5f7] dark:text-[#f5f5f7] light:text-[#16161a] transition-colors duration-400 font-['Inter'] relative selection:bg-[#FF6A00] selection:text-black">
-      {/* Background Interactive Effects */}
+    <div id="home" className="min-h-screen bg-[#05070A] text-[#F5F7FA] font-['Inter'] relative selection:bg-[#FF6A00] selection:text-black">
+      {/* Subtle cursor glow */}
       <CursorGlow />
-      <ParticleCanvas />
 
       {/* Navigation Bar */}
       <Navbar
@@ -377,41 +286,33 @@ export default function App() {
         onOpenAdmin={() => setAdminModalOpen(true)}
       />
 
-      {/* 24/7 Live Breaking News Marquee Ticker & Live Stream Lenta */}
-      <BreakingTicker
+      {/* Live Signal Bar */}
+      <SignalBar
         articles={liveArticles.length > 0 ? liveArticles : tickerArticles}
-        dict={dict}
         currentLang={currentLang}
         onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
       />
 
-      {/* Main Page Sections */}
-      <main>
-        {/* Hero Section */}
-        <HeroSection
-          dict={dict}
-          onExploreClick={() => scrollToSection('ai')}
-          onDemoClick={() => scrollToSection('features')}
-          latestArticle={latestBreaking}
-          totalArticlesCount={liveArticles.length}
-          refreshCountdown={liveCountdown}
-          onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
-        />
-
-        {/* Search Bar & Voice Recognition */}
-        <SearchSection
+      {/* Main Page Content */}
+      <main className="pb-20 md:pb-0">
+        {/* Intelligence Hero & AI Search */}
+        <IntelligenceHero
           dict={dict}
           currentLang={currentLang}
           onSearch={handleSearchSubmit}
           isLoading={chatLoading}
           trendingHotspots={trendingHotspots}
-          liveArticles={liveArticles}
         />
 
-        {/* 8 Core Capabilities Features */}
-        <FeaturesSection dict={dict} />
+        {/* Global Intelligence Metrics */}
+        <SignalMetrics
+          totalArticlesCount={liveArticles.length}
+          trendingCount={trendingHotspots?.uzbekistan?.length || 18}
+          aiAnalyzedCount={liveArticles.length * 3}
+          currentLang={currentLang}
+        />
 
-        {/* Interactive World Map */}
+        {/* Globe Intelligence (3D Sphere & 2D Radar) */}
         <WorldMapSection
           dict={dict}
           onSelectRegion={(regId, regLabel) => openArticle(regLabel, regId, `region-${regId.toLowerCase().slice(0, 6)}`)}
@@ -423,20 +324,10 @@ export default function App() {
           onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
           isRefreshing={isLiveRefreshing}
           lastUpdated={lastLiveUpdated}
+          lang={currentLang}
         />
 
-        {/* AI Conversation & Terminal Stream */}
-        <div className="chat-section">
-          <ChatSection
-            dict={dict}
-            activeConversation={chatMessages}
-            onSendMessage={handleSearchSubmit}
-            isLoading={chatLoading}
-            currentLang={currentLang}
-          />
-        </div>
-
-        {/* Real-time Continuous Live News Feed */}
+        {/* Live Intelligence Feed & Cards */}
         <FeedSection
           dict={dict}
           currentLang={currentLang}
@@ -448,12 +339,28 @@ export default function App() {
           onRefreshNow={refreshLiveNow}
           countdown={liveCountdown}
         />
+
+        {/* HUMAYRO AI Intelligence Brief */}
+        <ChatSection
+          dict={dict}
+          activeConversation={chatMessages}
+          onSendMessage={handleSearchSubmit}
+          isLoading={chatLoading}
+          currentLang={currentLang}
+        />
       </main>
 
       {/* Footer */}
       <Footer dict={dict} onOpenAdmin={() => setAdminModalOpen(true)} />
 
-      {/* Full Article Drawer Modal */}
+      {/* Mobile Bottom Navigation */}
+      <BottomNav
+        onOpenAuth={() => setAuthModalOpen(true)}
+        onOpenBookmarks={() => setAuthModalOpen(true)}
+        currentLang={currentLang}
+      />
+
+      {/* Right-Side Intelligence Reader Drawer */}
       <ArticleModal
         isOpen={articleModalOpen}
         topicLabel={activeArticleTopic}

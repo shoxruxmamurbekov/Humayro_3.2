@@ -18,7 +18,7 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
             <a href="#home" className="flex items-center gap-2.5 font-['Space_Grotesk'] font-bold text-xl text-white">
               <span className="w-2.5 h-2.5 rounded-full bg-[#FF6A00] shadow-[0_0_12px_#FF6A00] animate-pulse" />
               <span>
-                Humayro<span className="text-[#FF6A00]">_3.1</span>
+                Humayro<span className="text-[#FF6A00]">_3.2</span>
               </span>
             </a>
             <p className="text-zinc-400 text-sm max-w-sm leading-relaxed">
@@ -34,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
                 {dict.footer_product}
               </h4>
               <ul className="flex flex-col gap-2.5 text-sm text-zinc-400">
-                <li><a href="#features" className="hover:text-[#FF6A00] transition-colors">{dict.footer_features}</a></li>
+                <li><a href="#ai" className="hover:text-[#FF6A00] transition-colors">{dict.nav_ai}</a></li>
                 <li><a href="#map" className="hover:text-[#FF6A00] transition-colors">{dict.nav_explore}</a></li>
                 <li>
                   <button onClick={onOpenAdmin} className="hover:text-[#FF6A00] transition-colors text-left cursor-pointer">

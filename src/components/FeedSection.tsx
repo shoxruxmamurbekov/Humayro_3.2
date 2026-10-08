@@ -24,6 +24,7 @@ import {
 import { Article, SupportedLanguage } from '../types';
 import { TranslationDict } from '../i18n/translations';
 import { isArticleBookmarked, toggleBookmark } from '../services/userStore';
+import { IntelligenceCard } from './IntelligenceCard';
 
 interface FeedSectionProps {
   dict: TranslationDict;
@@ -237,16 +238,11 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
         {/* Header with Title and Mode Switcher */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-white/10">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-[11px] font-medium tracking-widest uppercase text-zinc-400 mb-3">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Doimiy Yangilanuvchi Jonli Lenta</span>
-            </div>
-
-            <h2 className="font-['Space_Grotesk'] text-3xl sm:text-5xl font-bold tracking-tight">
-              <span>{dict.feed_title1} </span>
-              <span className="bg-gradient-to-r from-[#FF6A00] to-[#FFA84D] bg-clip-text text-transparent">
-                {dict.feed_title2}
-              </span>
+            <span className="text-[10px] font-mono tracking-[0.2em] text-[#FF6A00] font-bold uppercase block mb-2">
+              LIVE INTELLIGENCE
+            </span>
+            <h2 className="font-editorial text-3xl sm:text-5xl font-medium tracking-tight text-[#F5F7FA]">
+              Signals worth understanding.
             </h2>
           </div>
 
@@ -368,88 +364,15 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filteredArticles.map((art, idx) => {
-                const bookmarked = bookmarkedIds.has(art.id) || isArticleBookmarked(art.id);
-                return (
-                  <div
-                    key={`${art.id}-${idx}`}
-                    onClick={() => onSelectArticle(art)}
-                    className="group relative p-5 rounded-3xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#FF6A00]/50 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(255,106,0,0.25)] cursor-pointer flex flex-col justify-between"
-                  >
-                    <div>
-                      {/* Card Header: Source & Published Time */}
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <span
-                          className={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold border ${getSourceBadgeClass(
-                            art.source
-                          )}`}
-                        >
-                          {art.source}
-                        </span>
-
-                        <div className="flex items-center gap-2">
-                          <span className="flex items-center gap-1 text-[11px] font-mono text-zinc-400">
-                            <Clock className="w-3 h-3 text-zinc-500" />
-                            {formatTimeAgo(art.publishedAt)}
-                          </span>
-
-                          <button
-                            type="button"
-                            onClick={e => handleToggleBookmark(e, art)}
-                            className="p-1 rounded-lg text-zinc-400 hover:text-[#FF6A00] transition-colors"
-                            title="Xatcho'pga qo'shish"
-                          >
-                            <Bookmark
-                              className={`w-3.5 h-3.5 ${
-                                bookmarked ? 'fill-[#FF6A00] text-[#FF6A00]' : ''
-                              }`}
-                            />
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="font-['Space_Grotesk'] text-base sm:text-lg font-bold text-white group-hover:text-[#FF8A24] transition-colors line-clamp-2 leading-snug mb-2">
-                        {art.title}
-                      </h3>
-
-                      {/* Excerpt */}
-                      {art.description && (
-                        <p className="text-xs text-zinc-400 line-clamp-3 leading-relaxed mb-4">
-                          {art.description}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Card Footer: Badges & Deep Brief Trigger */}
-                    <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        {art.isTrending ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30">
-                            <Flame className="w-3 h-3 fill-current text-rose-400" />
-                            Trendda
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-zinc-400">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-                            Tasdiqlangan
-                          </span>
-                        )}
-                        {art.category && (
-                          <span className="text-[10px] font-mono text-zinc-500">
-                            #{art.category}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="flex items-center gap-1 text-[#FF6A00] group-hover:translate-x-1 transition-transform font-semibold text-[11px]">
-                        <span>AI Tahlili</span>
-                        <Sparkles className="w-3.5 h-3.5" />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+              {filteredArticles.map((art, idx) => (
+                <IntelligenceCard
+                  key={`${art.id}-${idx}`}
+                  article={art}
+                  onClick={() => onSelectArticle(art)}
+                  onBookmarkChanged={() => setBookmarkedIds(new Set(bookmarkedIds))}
+                  currentLang={currentLang}
+                />
+              ))}
             </div>
           )}
         </div>
@@ -588,3 +511,6 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
     </section>
   );
 };
+
+export const IntelligenceFeed = FeedSection;
+

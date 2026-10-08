@@ -1,7 +1,28 @@
 import { Article, SearchHistoryItem, SupportedLanguage, ThemeMode, UserProfile } from '../types';
 
 const STORAGE_KEY = 'humayro31_user_profile';
-const GUEST_QUOTA_KEY = 'humayro31_guest_quota';
+const GUEST_TOKEN_KEY = 'humayro_stable_guest_token';
+
+export function getStableGuestToken(): string {
+  if (typeof window === 'undefined' || !window.localStorage) return 'guest-reader-default';
+  let token = localStorage.getItem(GUEST_TOKEN_KEY);
+  if (!token) {
+    token = 'gst-' + Math.random().toString(36).slice(2, 10) + '-' + Date.now().toString(36);
+    localStorage.setItem(GUEST_TOKEN_KEY, token);
+  }
+  return token;
+}
+
+export function getAuthHeaders(): Record<string, string> {
+  const profile = getUserProfile();
+  const headers: Record<string, string> = {
+    'x-guest-token': getStableGuestToken()
+  };
+  if (profile.email && profile.id && profile.id !== 'guest') {
+    headers['x-user-id'] = profile.id;
+  }
+  return headers;
+}
 
 const DEFAULT_PROFILE: UserProfile = {
   id: 'guest',
@@ -71,6 +92,15 @@ export function saveUserProfile(profile: UserProfile): void {
   } catch (e) {
     console.error('Failed to save profile:', e);
   }
+}
+
+export function syncQuotaFromServer(quota: { used: number; limit?: number; remaining?: number }): void {
+  if (!quota || typeof quota.used !== 'number') return;
+  const profile = getUserProfile();
+  const today = new Date().toISOString().slice(0, 10);
+  profile.dailyQueriesUsed = quota.used;
+  profile.lastQueryDate = today;
+  saveUserProfile(profile);
 }
 
 export function recordAiQuery(): { allowed: boolean; remaining: number } {

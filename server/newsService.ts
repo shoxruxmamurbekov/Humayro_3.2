@@ -1,5 +1,6 @@
 import { XMLParser } from 'fast-xml-parser';
 import { GoogleGenAI } from '@google/genai';
+import sanitizeHtml from 'sanitize-html';
 import type { Article, SupportedLanguage } from '../src/types/index.ts';
 
 interface CachedEntry<T> {
@@ -346,16 +347,15 @@ const LOCALIZED_CURATED_DISPATCHES: Partial<Record<SupportedLanguage, Article[]>
   ]
 };
 
-function cleanHtml(raw: string): string {
+export function cleanHtml(raw: string): string {
   if (!raw) return '';
-  return raw
-    .replace(/<[^>]*>/g, '')
+  const sanitized = sanitizeHtml(raw, {
+    allowedTags: [],
+    allowedAttributes: {},
+    disallowedTagsMode: 'discard'
+  });
+  return sanitized
     .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
     .replace(/\s+/g, ' ')
     .trim();
 }

@@ -147,15 +147,10 @@ export function useLiveIntelligence(currentLang: SupportedLanguage): LiveIntelli
         }
       }
 
-      // If not specifically matched to another region and category is Uzbekistan, put into central-asia
-      if (!matched) {
-        if (art.category?.toLowerCase() === 'uzbekistan') {
-          map['central-asia'].push(art);
-        } else if (art.category?.toLowerCase() === 'technology') {
-          map['north-america'].push(art);
-        } else {
-          map['europe'].push(art);
-        }
+      // Only Uzbekistan-tagged items fall back to central-asia; unmatched items are no longer
+      // dumped into arbitrary regions (real per-region data comes from /api/region/:key/live)
+      if (!matched && art.category?.toLowerCase() === 'uzbekistan') {
+        map['central-asia'].push(art);
       }
     }
 

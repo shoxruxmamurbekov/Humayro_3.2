@@ -56,7 +56,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
             </div>
             <div>
               <h3 className="font-['Space_Grotesk'] font-bold text-base sm:text-lg text-white">
-                Humayro_3.1 · System Intelligence Desk
+                Humayro 3.3 · System Intelligence Desk
               </h3>
               <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-mono">
                 Protected Observability Console
@@ -101,7 +101,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                   type="password"
                   value={tokenInput}
                   onChange={e => setTokenInput(e.target.value)}
-                  placeholder="admin2026"
+                  placeholder="Enter admin secret..."
                   className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white font-mono text-sm outline-none focus:border-[#FF6A00]"
                 />
               </div>
