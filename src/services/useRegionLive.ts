@@ -1,8 +1,49 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { SupportedLanguage } from '../types';
-import { fetchRegionLive, RegionLiveResponse } from './api';
+import { fetchRegionLive, fetchRegionVideos, RegionLiveResponse, RegionVideosResponse } from './api';
 
 const REGION_REFRESH_SECONDS = 30;
+const REGION_VIDEOS_REFRESH_MS = 5 * 60 * 1000;
+
+/**
+ * Live YouTube videos for the selected region (most-watched recent videos on its hottest headlines).
+ * Refreshes every 5 minutes; pass null when no region is selected.
+ */
+export function useRegionVideos(regionKey: string | null, lang: SupportedLanguage) {
+  const [data, setData] = useState<RegionVideosResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setData(null);
+    if (!regionKey) {
+      setIsLoading(false);
+      return;
+    }
+    let cancelled = false;
+    const load = () => {
+      setIsLoading(true);
+      fetchRegionVideos(regionKey, lang)
+        .then(res => {
+          if (!cancelled) setData(res);
+        })
+        .catch(() => {})
+        .finally(() => {
+          if (!cancelled) setIsLoading(false);
+        });
+    };
+    load();
+    const timer = setInterval(() => {
+      if (typeof document !== 'undefined' && document.hidden) return;
+      load();
+    }, REGION_VIDEOS_REFRESH_MS);
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, [regionKey, lang]);
+
+  return { data, isLoading };
+}
 
 export interface RegionLiveState {
   data: RegionLiveResponse | null;

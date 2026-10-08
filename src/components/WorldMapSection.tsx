@@ -27,8 +27,9 @@ import {
 } from 'lucide-react';
 import { TranslationDict } from '../i18n/translations';
 import { Article, SupportedLanguage } from '../types';
-import { useRegionLive } from '../services/useRegionLive';
-import { REGIONS_INTELLIGENCE_DATA, RegionIntelligence, RegionVideoItem } from '../data/regionsData';
+import { useRegionLive, useRegionVideos } from '../services/useRegionLive';
+import type { RegionVideo } from '../services/api';
+import { REGIONS_INTELLIGENCE_DATA, RegionIntelligence } from '../data/regionsData';
 import { RegionIntelligenceModal } from './RegionIntelligenceModal';
 import { CyberGlobe3D, Hotspot3D } from './CyberGlobe3D';
 import { getUiText, formatTimeAgoLocale } from '../i18n/uiTranslations';
@@ -220,12 +221,15 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
   const [workspaceTab, setWorkspaceTab] = useState<'overview' | 'events' | 'debates' | 'indicators' | 'videos' | 'live'>('overview');
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [activeModalRegion, setActiveModalRegion] = useState<RegionIntelligence | null>(null);
-  const [selectedVideoEmbed, setSelectedVideoEmbed] = useState<RegionVideoItem | null>(null);
+  const [selectedVideoEmbed, setSelectedVideoEmbed] = useState<RegionVideo | null>(null);
 
   const ui = getUiText(lang);
 
   // Live, region-specific news + weather for the currently selected region (auto-refreshes every 30s)
   const regionLive = useRegionLive(selectedKey, lang);
+  // Live YouTube videos: most-watched recent videos on this region's hottest headlines
+  const regionVideos = useRegionVideos(selectedKey, lang);
+  const liveVideos = regionVideos.data?.videos ?? [];
 
   // Dynamic hotspot pins with real article count
   const dynamicHotspots = useMemo(() => {
@@ -1031,7 +1035,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                     <div className="p-4 flex items-center justify-between bg-[#0B0F14]">
                       <div>
                         <h4 className="font-bold text-white text-sm">{selectedVideoEmbed.title}</h4>
-                        <span className="text-xs text-zinc-400 font-mono">{selectedVideoEmbed.channel} · {selectedVideoEmbed.duration}</span>
+                        <span className="text-xs text-zinc-400 font-mono">{selectedVideoEmbed.channel} · {new Date(selectedVideoEmbed.published).toLocaleDateString()}</span>
                       </div>
                       <button
                         type="button"
@@ -1045,7 +1049,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                 ) : null}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  {currentRegionData.youtubeVideos.map(vid => (
+                  {liveVideos.map(vid => (
                     <div
                       key={vid.id}
                       onClick={() => setSelectedVideoEmbed(vid)}
@@ -1057,13 +1061,13 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                             <Youtube className="w-4 h-4 fill-current" />
                             <span>{vid.channel}</span>
                           </span>
-                          <span>{vid.duration}</span>
+                          <span>{new Date(vid.published).toLocaleDateString()}</span>
                         </div>
                         <h4 className="font-editorial text-lg font-medium text-[#F5F7FA] group-hover:text-red-300 transition-colors mb-2">
                           {vid.title}
                         </h4>
                         <p className="text-xs text-[#7C8797] leading-relaxed">
-                          {vid.description}
+                          {regionVideos.data?.query ? `Mavzu: ${regionVideos.data.query}` : ''}
                         </p>
                       </div>
 
@@ -1146,6 +1150,10 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
         liveArticles={liveNewsForSelected}
         onSelectArticle={onSelectArticle}
         liveWeather={regionLive.data?.weather || []}
+        liveVideos={liveVideos}
+        videosLoading={regionVideos.isLoading}
+        videosConfigured={regionVideos.data?.configured ?? true}
+        videosSearchUrl={regionVideos.data?.searchUrl}
         liveLoading={regionLive.isLoading}
         liveError={regionLive.error}
         liveLastUpdated={regionLive.lastUpdated}

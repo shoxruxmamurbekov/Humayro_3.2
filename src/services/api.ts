@@ -141,6 +141,29 @@ export async function fetchRegionLive(regionKey: string, lang: SupportedLanguage
   return res.json();
 }
 
+export interface RegionVideo {
+  id: string;
+  title: string;
+  channel: string;
+  published: string;
+  thumbnail: string;
+}
+
+export interface RegionVideosResponse {
+  regionKey: string;
+  query: string;
+  configured: boolean;
+  searchUrl: string;
+  videos: RegionVideo[];
+  fetchedAt: string;
+}
+
+export async function fetchRegionVideos(regionKey: string, lang: SupportedLanguage = 'uz'): Promise<RegionVideosResponse> {
+  const res = await fetch(`/api/region/${encodeURIComponent(regionKey)}/videos?lang=${lang}`);
+  if (!res.ok) throw new Error('Region videos network error');
+  return res.json();
+}
+
 export interface TrendingHotspotItem {
   id: string;
   query: string;
