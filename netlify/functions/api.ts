@@ -5,6 +5,7 @@ import { getLiveNewsFeed, searchNews, getCacheStats, getTrendingHotspots } from 
 import { synthesizeNews, generateArticle, getAiProviderInfo } from '../../server/aiService.ts';
 import { getRequiredAdminSecret, timingSafeAdminCheck } from '../../server/security.ts';
 import { consumeQuota, getQuotaStatus } from '../../server/quotaService.ts';
+import { getRegionLive, getRegionVideos } from '../../server/regionService.ts';
 import type { SupportedLanguage, SystemMetrics } from '../../src/types/index.ts';
 
 dotenv.config();
@@ -39,6 +40,28 @@ app.get('/news/feed', async (req, res) => {
     res.json({ success: true, articles, count: articles.length, lang, updatedAt: new Date().toISOString() });
   } catch {
     res.status(500).json({ success: false, error: 'Failed to retrieve news feed', articles: [] });
+  }
+});
+
+// Live per-region news + weather (must mirror server.ts; previously missing here, causing 404 on Netlify)
+app.get('/region/:key/live', async (req, res) => {
+  try {
+    const data = await getRegionLive(req.params.key, getLang(req.query.lang));
+    if (!data) return res.status(404).json({ success: false, error: 'Unknown region' });
+    res.json({ success: true, lang: getLang(req.query.lang), ...data });
+  } catch {
+    res.status(500).json({ success: false, error: 'Failed to retrieve live region data' });
+  }
+});
+
+// Live YouTube videos for the selected region
+app.get('/region/:key/videos', async (req, res) => {
+  try {
+    const data = await getRegionVideos(req.params.key, getLang(req.query.lang));
+    if (!data) return res.status(404).json({ success: false, error: 'Unknown region' });
+    res.json({ success: true, lang: getLang(req.query.lang), ...data });
+  } catch {
+    res.status(500).json({ success: false, error: 'Failed to retrieve region videos' });
   }
 });
 

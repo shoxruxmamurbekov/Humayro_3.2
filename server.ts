@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { getLiveNewsFeed, searchNews, getCacheStats, getTrendingHotspots } from './server/newsService.ts';
 import { synthesizeNews, generateArticle, getAiProviderInfo } from './server/aiService.ts';
-import { getRegionLive } from './server/regionService.ts';
+import { getRegionLive, getRegionVideos } from './server/regionService.ts';
 import { getRequiredAdminSecret, timingSafeAdminCheck } from './server/security.ts';
 import { generalApiLimiter, aiApiLimiter } from './server/rateLimit.ts';
 import { consumeQuota, getQuotaStatus } from './server/quotaService.ts';
@@ -69,6 +69,21 @@ app.get('/api/region/:key/live', async (req, res) => {
     res.json({ success: true, lang, ...data });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Failed to retrieve live region data' });
+  }
+});
+
+// API: Live YouTube videos for the selected region (most-watched recent videos on the hottest headlines)
+app.get('/api/region/:key/videos', async (req, res) => {
+  try {
+    const langRaw = req.query.lang as string;
+    const lang: SupportedLanguage = ALL_SUPPORTED_LANGUAGES.includes(langRaw as SupportedLanguage) ? (langRaw as SupportedLanguage) : 'uz';
+    const data = await getRegionVideos(req.params.key, lang);
+    if (!data) {
+      return res.status(404).json({ success: false, error: 'Unknown region' });
+    }
+    res.json({ success: true, lang, ...data });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to retrieve region videos' });
   }
 });
 

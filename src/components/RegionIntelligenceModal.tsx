@@ -15,11 +15,11 @@ import {
   Search,
   CheckCircle2
 } from 'lucide-react';
-import { RegionIntelligence, RegionVideoItem } from '../data/regionsData';
+import { RegionIntelligence } from '../data/regionsData';
 import { TranslationDict } from '../i18n/translations';
 
 import { Article } from '../types';
-import type { RegionLiveWeather } from '../services/api';
+import type { RegionLiveWeather, RegionVideo } from '../services/api';
 
 function weatherLabel(code: number | null): string {
   if (code === null) return '—';
@@ -58,6 +58,10 @@ interface RegionIntelligenceModalProps {
   liveLastUpdated?: Date | null;
   liveCountdown?: number;
   onRefreshLive?: () => void;
+  liveVideos?: RegionVideo[];
+  videosLoading?: boolean;
+  videosConfigured?: boolean;
+  videosSearchUrl?: string;
 }
 
 export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = ({
@@ -66,6 +70,10 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
   onClose,
   onAskAi,
   liveArticles = [],
+  liveVideos = [],
+  videosLoading = false,
+  videosConfigured = true,
+  videosSearchUrl,
   onSelectArticle,
   liveWeather = [],
   liveLoading = false,
@@ -75,12 +83,10 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
   onRefreshLive
 }) => {
   const [activeTab, setActiveTab] = useState<'events' | 'live-news' | 'videos' | 'analytics'>('live-news');
-  const [selectedVideo, setSelectedVideo] = useState<RegionVideoItem | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<RegionVideo | null>(null);
 
   useEffect(() => {
-    if (region && region.youtubeVideos && region.youtubeVideos.length > 0) {
-      setSelectedVideo(region.youtubeVideos[0]);
-    }
+    setSelectedVideo(null);
     setActiveTab('live-news');
   }, [region]);
 
@@ -96,7 +102,17 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
 
   if (!isOpen || !region) return null;
 
-  const currentVideo = selectedVideo || (region.youtubeVideos && region.youtubeVideos[0]);
+  // Breaking list is built from LIVE headlines (not static data)
+  const liveEvents = liveArticles.slice(0, 6).map(a => ({
+    id: a.id,
+    category: a.isTrending ? 'Trend' : 'Live',
+    time: new Date(a.publishedAt).toLocaleString(),
+    title: a.title,
+    summary: a.description,
+    source: a.source
+  }));
+
+  const currentVideo = selectedVideo || liveVideos[0] || null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-in fade-in duration-200">
@@ -183,7 +199,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
             <Flame className="w-4 h-4" />
             <span>Qaynoq hodisalar va Muammolar</span>
             <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-black/30 font-mono">
-              {region.activeEvents.length + region.publicDebates.length}
+              {liveEvents.length + region.publicDebates.length}
             </span>
           </button>
 
@@ -199,7 +215,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
             <Youtube className="w-4 h-4 text-red-500 fill-current" />
             <span>YouTube Video Hisobotlar</span>
             <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-black/30 font-mono">
-              {region.youtubeVideos.length}
+              {liveVideos.length}
             </span>
           </button>
 
@@ -437,7 +453,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  {region.activeEvents.map(ev => (
+                  {liveEvents.map(ev => (
                     <div
                       key={ev.id}
                       className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between"
@@ -506,20 +522,13 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                         </span>
                         <span className="text-zinc-600">•</span>
                         <span className="text-xs font-mono text-zinc-400">
-                          Davomiyligi: {currentVideo.duration}
-                        </span>
-                        <span className="text-zinc-600">•</span>
-                        <span className="text-xs font-mono text-zinc-400">
-                          {currentVideo.published}
+                          {new Date(currentVideo.published).toLocaleString()}
                         </span>
                       </div>
 
                       <h3 className="font-['Space_Grotesk'] text-base sm:text-lg font-bold text-white mb-1">
                         {currentVideo.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl leading-relaxed">
-                        {currentVideo.description}
-                      </p>
                     </div>
 
                     <a
@@ -534,19 +543,23 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                   </div>
                 </div>
               ) : (
-                <div className="p-8 text-center text-zinc-500">
-                  Ushbu mintaqa boʻyicha video maʼlumot tayyorlanmoqda...
+                <div className="p-8 text-center text-zinc-500 text-sm">
+                  {videosLoading
+                    ? 'Mintaqa boʻyicha eng koʻp koʻrilgan videolar yuklanmoqda...'
+                    : !videosConfigured
+                    ? 'YouTube API kaliti sozlanmagan. Quyidagi qidiruv orqali videolarni koʻring.'
+                    : 'Hozircha bu mavzu boʻyicha mos video topilmadi. Quyidagi qidiruvni koʻring.'}
                 </div>
               )}
 
               {/* Video Playlist / Available Video Reports */}
               <div>
                 <h4 className="font-['Space_Grotesk'] text-sm font-bold text-zinc-300 uppercase tracking-wider mb-3">
-                  Tegishli video hisobotlar va tahlillar ({region.youtubeVideos.length})
+                  Eng koʻp koʻrilayotgan videolar (jonli) ({liveVideos.length})
                 </h4>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {region.youtubeVideos.map(vid => {
+                  {liveVideos.map(vid => {
                     const isPlaying = currentVideo?.id === vid.id;
                     return (
                       <div
@@ -560,7 +573,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                       >
                         <div className="relative w-20 h-14 rounded-lg bg-black/60 shrink-0 overflow-hidden flex items-center justify-center border border-white/10">
                           <img
-                            src={`https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`}
+                            src={vid.thumbnail || `https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`}
                             alt={vid.title}
                             className="w-full h-full object-cover"
                             onError={e => {
@@ -581,7 +594,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                             {vid.title}
                           </h5>
                           <span className="text-[10px] font-mono text-[#FF6A00]">
-                            ⏱ {vid.duration}
+                            {new Date(vid.published).toLocaleDateString()}
                           </span>
                         </div>
                       </div>
@@ -600,9 +613,10 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                 </div>
 
                 <a
-                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(
-                    region.name + ' yangiliklar xabarlari tahlil'
-                  )}`}
+                  href={
+                    videosSearchUrl ||
+                    `https://www.youtube.com/results?search_query=${encodeURIComponent(region.name + ' yangiliklar xabarlari tahlil')}`
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium shrink-0 cursor-pointer"

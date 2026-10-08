@@ -136,6 +136,35 @@ async function fetchWeather(city: { name: string; lat: number; lon: number }): P
   }
 }
 
+const STOP_WORDS = new Set(['this', 'that', 'with', 'from', 'after', 'over', 'says', 'said', 'will', 'have', 'been']);
+
+function titleTokens(title: string): Set<string> {
+  const words = title
+    .toLowerCase()
+    .replace(/\s+-\s+[^-]+$/, '')
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter(w => w.length >= 4 && !STOP_WORDS.has(w));
+  return new Set(words);
+}
+
+/**
+ * "Buzz" score: how many OTHER articles cover the same story (share >= 2 significant words).
+ * Stories reported by many outlets are treated as the most talked-about.
+ */
+function buzzScores(items: Article[]): number[] {
+  const sets = items.map(a => titleTokens(a.title));
+  return sets.map((s, i) => {
+    let count = 0;
+    for (let j = 0; j < sets.length; j++) {
+      if (i === j) continue;
+      let overlap = 0;
+      for (const w of s) if (sets[j].has(w)) overlap++;
+      if (overlap >= 2) count++;
+    }
+    return count;
+  });
+}
+
 function dedupeAndSort(lists: Article[][], regionKey: string): Article[] {
   const seen = new Set<string>();
   const merged: Article[] = [];
@@ -147,12 +176,22 @@ function dedupeAndSort(lists: Article[][], regionKey: string): Article[] {
       merged.push(a);
     }
   }
-  merged.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-  return merged.slice(0, 24).map((a, i) => ({
-    ...a,
-    id: `${regionKey}-${i}-${a.id}`,
-    category: 'Live Region'
-  }));
+
+  const scores = buzzScores(merged);
+  return merged
+    .map((a, i) => ({ a, score: scores[i] }))
+    .sort(
+      (x, y) =>
+        y.score - x.score || new Date(y.a.publishedAt).getTime() - new Date(x.a.publishedAt).getTime()
+    )
+    .slice(0, 24)
+    .map(({ a, score }, i) => ({
+      ...a,
+      id: `${regionKey}-${i}-${a.id}`,
+      category: 'Live Region',
+      trendScore: score,
+      isTrending: score >= 2
+    }));
 }
 
 export async function getRegionLive(regionKey: string, lang: SupportedLanguage): Promise<RegionLiveData | null> {
@@ -181,5 +220,109 @@ export async function getRegionLive(regionKey: string, lang: SupportedLanguage):
   }
 
   regionCache.set(cacheKey, { at: Date.now(), data });
+  return data;
+}
+
+// ---------- Live YouTube videos for the selected region ----------
+
+export interface RegionVideo {
+  id: string;
+  title: string;
+  channel: string;
+  published: string;
+  thumbnail: string;
+}
+
+export interface RegionVideosData {
+  regionKey: string;
+  query: string;
+  configured: boolean;
+  searchUrl: string;
+  videos: RegionVideo[];
+  fetchedAt: string;
+}
+
+const VIDEO_CACHE_TTL_MS = 10 * 60 * 1000;
+const VIDEO_WINDOW_MS = 3 * 24 * 60 * 60 * 1000;
+const videoCache = new Map<string, { at: number; data: RegionVideosData }>();
+
+async function youtubeSearch(q: string, lang: SupportedLanguage, apiKey: string): Promise<RegionVideo[]> {
+  const params = new URLSearchParams({
+    part: 'snippet',
+    type: 'video',
+    // Most-watched videos from the last few days = what people are actually talking about
+    order: 'viewCount',
+    publishedAfter: new Date(Date.now() - VIDEO_WINDOW_MS).toISOString(),
+    maxResults: '8',
+    safeSearch: 'moderate',
+    q,
+    key: apiKey
+  });
+  if (/^[a-z]{2}$/.test(lang)) params.set('relevanceLanguage', lang);
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 6000);
+  try {
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/search?${params.toString()}`, {
+      signal: controller.signal
+    });
+    if (!res.ok) return [];
+    const json: any = await res.json();
+    return (json.items ?? [])
+      .map((it: any): RegionVideo => ({
+        id: it.id?.videoId ?? '',
+        title: it.snippet?.title ?? '',
+        channel: it.snippet?.channelTitle ?? '',
+        published: it.snippet?.publishedAt ?? '',
+        thumbnail: it.snippet?.thumbnails?.high?.url ?? it.snippet?.thumbnails?.default?.url ?? ''
+      }))
+      .filter((v: RegionVideo) => v.id);
+  } catch {
+    return [];
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+export async function getRegionVideos(regionKey: string, lang: SupportedLanguage): Promise<RegionVideosData | null> {
+  const cfg = REGION_CONFIG[regionKey];
+  if (!cfg) return null;
+
+  const cacheKey = `${regionKey}:${lang}`;
+  const hit = videoCache.get(cacheKey);
+  if (hit && Date.now() - hit.at < VIDEO_CACHE_TTL_MS) return hit.data;
+
+  // Search by the hottest live headlines first, then fall back to the region's keywords
+  const live = await getRegionLive(regionKey, lang);
+  const headlineQueries = (live?.articles ?? [])
+    .slice(0, 2)
+    .map(a => a.title.replace(/\s+-\s+[^-]+$/, '').slice(0, 90).trim())
+    .filter(Boolean);
+  const queries = [...headlineQueries, cfg.queries[0]];
+
+  const apiKey = process.env.YOUTUBE_API_KEY || '';
+  let usedQuery = queries[0];
+  let videos: RegionVideo[] = [];
+
+  if (apiKey) {
+    for (const q of queries) {
+      videos = await youtubeSearch(q, lang, apiKey);
+      usedQuery = q;
+      if (videos.length > 0) break;
+    }
+  }
+
+  const data: RegionVideosData = {
+    regionKey,
+    query: usedQuery,
+    configured: Boolean(apiKey),
+    searchUrl: `https://www.youtube.com/results?search_query=${encodeURIComponent(usedQuery)}`,
+    videos,
+    fetchedAt: new Date().toISOString()
+  };
+
+  // Don't cache a failed lookup for long: retry sooner if the API call came back empty
+  if (apiKey && videos.length === 0 && hit) return hit.data;
+  videoCache.set(cacheKey, { at: Date.now(), data });
   return data;
 }
