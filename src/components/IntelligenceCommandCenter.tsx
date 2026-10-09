@@ -10,7 +10,7 @@ const signals = [
   { id: 3, region: 'east-asia' as Region, title: 'Aloqa signalidagi anomaliya', area: 'Sharqiy Osiyo', type: 'ALOQA', risk: 91, status: 'KRITIK', detail: 'Signal naqshidagi o‘zgarish chuqur tahlil uchun belgilandi.' }
 ];
 const regionNames: Record<Region, string> = { global: 'Global', 'central-asia': 'Markaziy Osiyo', europe: 'Yevropa', 'east-asia': 'Sharqiy Osiyo' };
-const responseNames: Record<ResponseMode, string> = { investigate: 'Chuqur tekshiruv', monitor: 'Kuzatuvni davom ettirish', contain: 'Xavfni cheklash', escalate: 'Yuqori darajaga yuborish };
+const responseNames: Record<ResponseMode, string> = { investigate: 'Chuqur tekshiruv', monitor: 'Kuzatuvni davom ettirish', contain: 'Xavfni cheklash', escalate: 'Yuqori darajaga yuborish' };
 
 export const IntelligenceCommandCenter: React.FC = () => {
   const [region, setRegion] = useState<Region>('global');
