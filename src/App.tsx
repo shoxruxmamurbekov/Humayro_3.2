@@ -20,7 +20,6 @@ import { SignalBar } from './components/SignalBar';
 import { SignalMetrics } from './components/SignalMetrics';
 import { IntelligenceCommandCenter } from './components/IntelligenceCommandCenter';
 import { IntelligenceHero } from './components/IntelligenceHero';
-import { WorldMapSection } from './components/WorldMapSection';
 import { ChatSection, ChatMessage } from './components/ChatSection';
 import { FeedSection } from './components/FeedSection';
 import { Footer } from './components/Footer';
@@ -314,21 +313,14 @@ export default function App() {
         />
 
         {/* Interactive HUMAYRO Intelligence Command Center */}
-        <IntelligenceCommandCenter />
-
-        {/* Globe Intelligence (3D Sphere & 2D Radar) */}
-        <WorldMapSection
-          dict={dict}
-          onSelectRegion={(regId, regLabel) => openArticle(regLabel, regId, `region-${regId.toLowerCase().slice(0, 6)}`)}
-          onAskAi={(query) => {
-            scrollToSection('ai');
-            handleSearchSubmit(query);
-          }}
+        <IntelligenceCommandCenter
+          articles={liveArticles}
           regionalArticles={regionalArticles}
-          onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
+          trendingHotspots={trendingHotspots}
           isRefreshing={isLiveRefreshing}
           lastUpdated={lastLiveUpdated}
-          lang={currentLang}
+          currentLang={currentLang}
+          onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
         />
 
         {/* Live Intelligence Feed & Cards */}

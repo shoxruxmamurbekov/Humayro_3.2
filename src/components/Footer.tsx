@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
               </h4>
               <ul className="flex flex-col gap-2.5 text-sm text-zinc-400">
                 <li><a href="#ai" className="hover:text-[#FF6A00] transition-colors">{dict.nav_ai}</a></li>
-                <li><a href="#map" className="hover:text-[#FF6A00] transition-colors">{dict.nav_explore}</a></li>
+                <li><a href="#command-center" className="hover:text-[#FF6A00] transition-colors">{dict.nav_explore}</a></li>
                 <li>
                   <button onClick={onOpenAdmin} className="hover:text-[#FF6A00] transition-colors text-left cursor-pointer">
                     {dict.nav_admin}
