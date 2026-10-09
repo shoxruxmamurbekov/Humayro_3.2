@@ -18,6 +18,7 @@ import { CursorGlow } from './components/CursorGlow';
 import { Navbar } from './components/Navbar';
 import { SignalBar } from './components/SignalBar';
 import { SignalMetrics } from './components/SignalMetrics';
+import { IntelligenceCommandCenter } from './components/IntelligenceCommandCenter';
 import { IntelligenceHero } from './components/IntelligenceHero';
 import { WorldMapSection } from './components/WorldMapSection';
 import { ChatSection, ChatMessage } from './components/ChatSection';
@@ -311,6 +312,9 @@ export default function App() {
           aiAnalyzedCount={liveArticles.length * 3}
           currentLang={currentLang}
         />
+
+        {/* Interactive HUMAYRO Intelligence Command Center */}
+        <IntelligenceCommandCenter />
 
         {/* Globe Intelligence (3D Sphere & 2D Radar) */}
         <WorldMapSection
