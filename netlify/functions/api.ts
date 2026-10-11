@@ -7,6 +7,7 @@ import { getRequiredAdminSecret, timingSafeAdminCheck } from '../../server/secur
 import { consumeQuota, getQuotaStatus } from '../../server/quotaService.ts';
 import { getRegionLive, getRegionVideos } from '../../server/regionService.ts';
 import type { SupportedLanguage, SystemMetrics } from '../../src/types/index.ts';
+import { newsroomHandler, newsroomAgentsHandler } from '../../server/newsroomRoutes.ts';
 
 dotenv.config();
 
@@ -31,6 +32,9 @@ app.get('/user/quota', (req, res) => {
   const quota = getQuotaStatus(req);
   res.json({ success: true, quota });
 });
+
+app.get('/newsroom/agents', newsroomAgentsHandler);
+app.get('/newsroom', newsroomHandler);
 
 app.get('/news/feed', async (req, res) => {
   try {

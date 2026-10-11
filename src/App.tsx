@@ -19,6 +19,7 @@ import { Navbar } from './components/Navbar';
 import { SignalBar } from './components/SignalBar';
 import { SignalMetrics } from './components/SignalMetrics';
 import { IntelligenceCommandCenter } from './components/IntelligenceCommandCenter';
+import { NewsroomSection } from './components/NewsroomSection';
 import { IntelligenceHero } from './components/IntelligenceHero';
 import { WorldMapSection } from './components/WorldMapSection';
 import { ChatSection, ChatMessage } from './components/ChatSection';
@@ -315,6 +316,9 @@ export default function App() {
 
         {/* Interactive HUMAYRO Intelligence Command Center */}
         <IntelligenceCommandCenter />
+
+        {/* AI newsroom: persona agents analyze news for the user's country and topics */}
+        <NewsroomSection currentLang={currentLang} />
 
         {/* Globe Intelligence (3D Sphere & 2D Radar) */}
         <WorldMapSection

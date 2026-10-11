@@ -9,6 +9,7 @@ import { getRequiredAdminSecret, timingSafeAdminCheck } from './server/security.
 import { generalApiLimiter, aiApiLimiter } from './server/rateLimit.ts';
 import { consumeQuota, getQuotaStatus } from './server/quotaService.ts';
 import type { SupportedLanguage, SystemMetrics } from './src/types/index.ts';
+import { newsroomHandler, newsroomAgentsHandler } from './server/newsroomRoutes.ts';
 
 dotenv.config();
 
@@ -56,6 +57,10 @@ app.get('/api/news/feed', async (req, res) => {
     res.status(500).json({ success: false, error: 'Failed to retrieve news feed', articles: [] });
   }
 });
+
+// API: AI newsroom (persona agents analyze country/topic-specific news)
+app.get('/api/newsroom/agents', newsroomAgentsHandler);
+app.get('/api/newsroom', newsroomHandler);
 
 // API: Live per-region intelligence (latest news + live weather for the selected map region)
 app.get('/api/region/:key/live', async (req, res) => {
@@ -272,10 +277,10 @@ async function setupServer() {
   }
 
   app.listen(Number(PORT), '0.0.0.0', () => {
-    console.log(`[Humayro_3.1] Intelligence server running on http://0.0.0.0:${PORT}`);
+    console.log(`[Humayro_3.2] Intelligence server running on http://0.0.0.0:${PORT}`);
   });
 }
 
 setupServer().catch(err => {
-  console.error('[Humayro_3.1] Failed to start server:', err);
+  console.error('[Humayro_3.2] Failed to start server:', err);
 });

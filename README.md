@@ -1,7 +1,7 @@
-# Humayro 3.3 — AI-Powered Global Intelligence Platform
+# Humayro 3.2 — AI-Powered Global Intelligence Platform
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.3.0-orange.svg" alt="Version 3.3.0" />
+  <img src="https://img.shields.io/badge/version-3.2.0-orange.svg" alt="Version 3.2.0" />
   <img src="https://img.shields.io/badge/react-19.0-blue.svg" alt="React 19" />
   <img src="https://img.shields.io/badge/vite-8.3-purple.svg" alt="Vite 8" />
   <img src="https://img.shields.io/badge/tailwindcss-v4-38bdf8.svg" alt="Tailwind CSS v4" />
@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="License MIT" />
 </p>
 
-**Humayro 3.3** is a next-generation, high-performance **AI-Powered Global Intelligence & News Monitoring Platform**. It bridges the gap between breaking world headlines, deep AI causal synthesis, 2D military-grade tactical geo-radar telemetry, 3D holographic CyberGlobe exploration, and real-time per-region environmental and geopolitical metrics.
+**Humayro 3.2** is a next-generation, high-performance **AI-Powered Global Intelligence & News Monitoring Platform**. It bridges the gap between breaking world headlines, deep AI causal synthesis, 2D military-grade tactical geo-radar telemetry, 3D holographic CyberGlobe exploration, and real-time per-region environmental and geopolitical metrics.
 
 ---
 
@@ -78,7 +78,7 @@
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│                   Humayro 3.3 Frontend                   │
+│                   Humayro 3.2 Frontend                   │
 │   (React 19 + TypeScript + Vite 8 + Tailwind CSS v4)    │
 │   - IntelligenceHero & AI Search                        │
 │   - Tactical 2D Geo-Radar & 3D Hologram CyberGlobe       │
@@ -104,8 +104,8 @@
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/shoxruxmamurbekov/Humayro_3.3.git
-cd Humayro_3.3
+git clone https://github.com/shoxruxmamurbekov/Humayro_3.2.git
+cd Humayro_3.2
 ```
 
 ### 2. Install dependencies
@@ -182,13 +182,13 @@ git init
 git add .
 
 # 3. Create your release commit
-git commit -m "feat: release Humayro 3.3 with 2D geo-radar, regional workspace, and full i18n"
+git commit -m "feat: release Humayro 3.2 with 2D geo-radar, regional workspace, and full i18n"
 
 # 4. Set the main branch
 git branch -M main
 
 # 5. Connect your remote repository
-git remote add origin https://github.com/shoxruxmamurbekov/Humayro_3.3.git
+git remote add origin https://github.com/shoxruxmamurbekov/Humayro_3.2.git
 # (Or if updating Humayro_3.2: git remote add origin https://github.com/shoxruxmamurbekov/Humayro_3.2.git)
 
 # 6. Push to GitHub

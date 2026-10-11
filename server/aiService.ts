@@ -77,7 +77,7 @@ export function getAiProviderInfo() {
 }
 
 // Active Gemini candidate models in order of verified operational status
-const CANDIDATE_MODELS = [
+export const CANDIDATE_MODELS = [
   'gemini-3.1-flash-lite',
   'gemini-flash-latest',
   'gemini-3.8-flash'
