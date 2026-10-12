@@ -31,12 +31,12 @@ export const IntelligenceCard: React.FC<IntelligenceCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className="group relative p-5 sm:p-6 rounded-2xl bg-[#0B0F14] border border-white/[0.08] hover:border-[#FF6A00]/40 transition-all duration-200 flex flex-col justify-between cursor-pointer hover:-translate-y-1 shadow-lg shadow-black/30 text-left"
+      className="group relative p-5 sm:p-6 rounded-2xl bg-[#0B0F14] border border-white/[0.08] hover:border-white/10 transition-all duration-200 flex flex-col justify-between cursor-pointer hover:-translate-y-1 shadow-lg shadow-black/30 text-left"
     >
       <div>
         {/* Top: Category Tag + Bookmark Button */}
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-[10px] font-mono tracking-[0.14em] text-[#FF6A00] font-bold">
+          <span className="text-[10px] font-mono tracking-[0.14em] text-(--accent) font-bold">
             {categoryTag}
           </span>
 
@@ -52,7 +52,7 @@ export const IntelligenceCard: React.FC<IntelligenceCardProps> = ({
               onClick={handleBookmark}
               className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
                 isBookmarked
-                  ? 'text-[#FF6A00] bg-[#FF6A00]/15'
+                  ? 'text-(--accent) bg-(--accent)/15'
                   : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.05]'
               }`}
               title={isBookmarked ? (currentLang === 'uz' ? 'Saqlangan' : currentLang === 'ru' ? 'Сохранено' : 'Saved') : (currentLang === 'uz' ? 'Saqlash' : currentLang === 'ru' ? 'Сохранить' : 'Bookmark')}

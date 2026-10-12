@@ -51,8 +51,8 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
       <div className="max-w-[1180px] mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-[#FF6A00] font-bold uppercase mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00] animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-(--accent) font-bold uppercase mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-(--accent) animate-pulse" />
             <span>{ui.brief_eyebrow}</span>
           </div>
 
@@ -85,7 +85,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
           <div className="p-6 sm:p-10 flex flex-col gap-8 max-h-[720px] overflow-y-auto">
             {activeConversation.length === 0 && (
               <div className="py-16 text-center text-[#7C8797] space-y-3">
-                <Sparkles className="w-8 h-8 text-[#FF6A00] mx-auto opacity-70" />
+                <Sparkles className="w-8 h-8 text-(--accent) mx-auto opacity-70" />
                 <p className="font-editorial text-xl text-[#F5F7FA]">
                   {ui.brief_empty_title}
                 </p>
@@ -102,7 +102,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
               >
                 {/* AI Badge Icon */}
                 {msg.sender === 'ai' && (
-                  <div className="w-9 h-9 rounded-xl bg-[#FF6A00]/15 border border-[#FF6A00]/30 flex items-center justify-center text-[#FF6A00] shrink-0 mt-1 font-bold text-xs">
+                  <div className="w-9 h-9 rounded-xl bg-(--accent)/15 border border-white/10 flex items-center justify-center text-(--accent) shrink-0 mt-1 font-bold text-xs">
                     AI
                   </div>
                 )}
@@ -124,8 +124,8 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
 
                   {/* Loading indicator */}
                   {msg.isLoading && (
-                    <div className="flex items-center gap-3 py-2 text-xs font-mono text-[#FF6A00]">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#FF6A00] animate-ping" />
+                    <div className="flex items-center gap-3 py-2 text-xs font-mono text-(--accent)">
+                      <span className="w-2.5 h-2.5 rounded-full bg-(--accent) animate-ping" />
                       <span>{currentLang === 'uz' ? 'GLOBAL SIGNALLAR TAHLIL QILINMOQDA...' : currentLang === 'ru' ? 'АНАЛИЗ ГЛОБАЛЬНЫХ СИГНАЛОВ...' : 'ANALYZING GLOBAL SIGNALS...'}</span>
                     </div>
                   )}
@@ -143,9 +143,9 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                     <div className="flex flex-col gap-6 text-left">
                       {/* 1. Viral Headline / Top Lead */}
                       {msg.synthesis.viralHeadline && (
-                        <div className="p-4 rounded-xl bg-[#11161D] border border-[#FF6A00]/25">
+                        <div className="p-4 rounded-xl bg-[#11161D] border border-white/10">
                           <div className="flex items-center justify-between gap-2 mb-2 text-xs font-mono">
-                            <span className="text-[#FF6A00] font-bold">
+                            <span className="text-(--accent) font-bold">
                               {ui.brief_top_signal}
                             </span>
                             {msg.synthesis.trendScore && (
@@ -162,7 +162,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
 
                       {/* 2. Executive Summary */}
                       <div>
-                        <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-[#FF6A00] mb-2">
+                        <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-(--accent) mb-2">
                           {ui.brief_summary}
                         </span>
                         <p className="font-editorial text-[#F5F7FA] text-lg sm:text-xl leading-relaxed">
@@ -193,13 +193,13 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                       {/* 5. Key Drivers / Points */}
                       {msg.synthesis.keyPoints && msg.synthesis.keyPoints.length > 0 && (
                         <div className="p-5 rounded-xl bg-[#11161D] border border-white/[0.08]">
-                          <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-[#FF6A00] mb-3">
+                          <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-(--accent) mb-3">
                             {ui.brief_keypoints}
                           </span>
                           <ul className="space-y-2.5 text-xs sm:text-sm text-zinc-300">
                             {msg.synthesis.keyPoints.map((point, i) => (
                               <li key={i} className="flex items-start gap-2.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00] shrink-0 mt-2" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-(--accent) shrink-0 mt-2" />
                                 <span className="leading-relaxed">{point}</span>
                               </li>
                             ))}
@@ -210,13 +210,13 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                       {/* 6. Chronological Timeline */}
                       {msg.synthesis.timeline && msg.synthesis.timeline.length > 0 && (
                         <div>
-                          <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-[#FF6A00] mb-2">
+                          <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-(--accent) mb-2">
                             {ui.brief_timeline}
                           </span>
                           <div className="space-y-2">
                             {msg.synthesis.timeline.map((item, idx) => (
                               <div key={idx} className="flex items-center gap-3 text-xs text-zinc-300 font-mono">
-                                <span className="text-[#FF6A00] font-bold shrink-0">{item.time}</span>
+                                <span className="text-(--accent) font-bold shrink-0">{item.time}</span>
                                 <span className="text-zinc-600">—</span>
                                 <span className="text-zinc-300 font-sans">{item.event}</span>
                               </div>
@@ -247,7 +247,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                                 key={idx}
                                 className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono bg-white/[0.03] border border-white/[0.08] text-zinc-300"
                               >
-                                <ShieldCheck className="w-3.5 h-3.5 text-[#FF6A00]" />
+                                <ShieldCheck className="w-3.5 h-3.5 text-(--accent)" />
                                 <span>{src.name}</span>
                               </span>
                             ))}
@@ -280,12 +280,12 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
               onChange={e => setInputVal(e.target.value)}
               placeholder={ui.brief_placeholder}
               disabled={isLoading}
-              className="flex-1 px-4 py-3 rounded-xl bg-[#0B0F14] border border-white/[0.1] text-sm text-[#F5F7FA] placeholder:text-zinc-500 focus:outline-none focus:border-[#FF6A00] transition-colors"
+              className="flex-1 px-4 py-3 rounded-xl bg-[#0B0F14] border border-white/[0.1] text-sm text-[#F5F7FA] placeholder:text-zinc-500 focus:outline-none focus:border-(--accent) transition-colors"
             />
             <button
               type="submit"
               disabled={isLoading || !inputVal.trim()}
-              className="px-5 py-3 rounded-xl bg-[#FF6A00] hover:bg-[#FF8A24] text-black font-bold text-xs sm:text-sm transition-all cursor-pointer disabled:opacity-40 flex items-center gap-2 shrink-0 shadow-md shadow-[#FF6A00]/20"
+              className="px-5 py-3 rounded-xl bg-(--accent) hover:bg-[#FF8A24] text-black font-bold text-xs sm:text-sm transition-all cursor-pointer disabled:opacity-40 flex items-center gap-2 shrink-0 shadow-md shadow-(--accent)/20"
             >
               <span>{ui.brief_send}</span>
               <Send className="w-3.5 h-3.5" />

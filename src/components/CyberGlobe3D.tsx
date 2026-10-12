@@ -754,7 +754,7 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
       {/* Floating HUD: Top Left Status Monitor */}
       <div className="absolute top-4 left-4 z-20 flex flex-col gap-1 pointer-events-none">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-[#FF6A00] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-(--accent) animate-pulse" />
           <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-300">
             Hologram 3D Sphere · 360° Realtime
           </span>
@@ -771,7 +771,7 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
           onClick={() => setAutoRotate(!autoRotate)}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-all cursor-pointer ${
             autoRotate
-              ? 'bg-[#FF6A00] text-black font-bold shadow-md'
+              ? 'bg-(--accent) text-black font-bold shadow-md'
               : 'text-zinc-300 hover:text-white bg-white/5'
           }`}
           title="Avtomatik aylanishni yoqish / to'xtatish"
@@ -806,7 +806,7 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
           className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-mono text-zinc-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
           title="Markaziy Osiyoga qaytish"
         >
-          <RotateCcw className="w-3.5 h-3.5 text-[#FF6A00]" />
+          <RotateCcw className="w-3.5 h-3.5 text-(--accent)" />
           <span className="hidden sm:inline">Qaytarish</span>
         </button>
       </div>
@@ -821,9 +821,9 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
             transform: 'translate(0, -50%)'
           }}
         >
-          <div className="w-64 p-3.5 rounded-2xl bg-[#0d0d12]/95 border border-[#FF6A00]/50 shadow-[0_10px_30px_rgba(255,106,0,0.25)] backdrop-blur-xl animate-in fade-in zoom-in-95 duration-100">
+          <div className="w-64 p-3.5 rounded-2xl bg-[#0d0d12]/95 border border-white/10 shadow-[0_10px_30px_rgba(255,106,0,0.25)] backdrop-blur-xl animate-in fade-in zoom-in-95 duration-100">
             <div className="flex items-center justify-between gap-2 mb-1.5">
-              <span className="font-mono text-xs font-bold text-[#FF6A00]">
+              <span className="font-mono text-xs font-bold text-(--accent)">
                 {hoveredHotspot.code}
               </span>
               <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30">
@@ -839,7 +839,7 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
             </p>
 
             <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 pt-2 border-t border-white/10">
-              <span className="flex items-center gap-1.5 text-[#FF6A00]">
+              <span className="flex items-center gap-1.5 text-(--accent)">
                 {hoveredHotspot.liveCount ? (
                   <>
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />

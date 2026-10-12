@@ -74,10 +74,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-white/[0.02]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#FF6A00]/15 flex items-center justify-center text-[#FF6A00]">
+            <div className="w-8 h-8 rounded-full bg-(--accent)/15 flex items-center justify-center text-(--accent)">
               <User className="w-4 h-4" />
             </div>
-            <h3 className="font-['Space_Grotesk'] font-bold text-lg text-white">
+            <h3 className="font-[Inter] font-bold text-lg text-white">
               {isGuest
                 ? isRegister
                   ? dict.auth_title_signup
@@ -101,7 +101,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               onClick={() => setActiveTab('profile')}
               className={`py-3 border-b-2 transition-colors cursor-pointer ${
                 activeTab === 'profile'
-                  ? 'border-[#FF6A00] text-[#FF6A00]'
+                  ? 'border-(--accent) text-(--accent)'
                   : 'border-transparent text-zinc-400 hover:text-white'
               }`}
             >
@@ -111,7 +111,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               onClick={() => setActiveTab('bookmarks')}
               className={`py-3 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
                 activeTab === 'bookmarks'
-                  ? 'border-[#FF6A00] text-[#FF6A00]'
+                  ? 'border-(--accent) text-(--accent)'
                   : 'border-transparent text-zinc-400 hover:text-white'
               }`}
             >
@@ -124,7 +124,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               onClick={() => setActiveTab('history')}
               className={`py-3 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
                 activeTab === 'history'
-                  ? 'border-[#FF6A00] text-[#FF6A00]'
+                  ? 'border-(--accent) text-(--accent)'
                   : 'border-transparent text-zinc-400 hover:text-white'
               }`}
             >
@@ -156,7 +156,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     value={name}
                     onChange={e => setName(e.target.value)}
                     placeholder="Humayro"
-                    className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm outline-none focus:border-[#FF6A00]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm outline-none focus:border-(--accent)"
                   />
                 </div>
               )}
@@ -171,13 +171,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="analyst@example.com"
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm outline-none focus:border-[#FF6A00]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm outline-none focus:border-(--accent)"
                 />
               </div>
 
               <button
                 type="submit"
-                className="mt-2 w-full py-3 rounded-full bg-[#FF6A00] text-black font-semibold text-sm hover:bg-[#FF8A24] transition-colors cursor-pointer"
+                className="mt-2 w-full py-3 rounded-full bg-(--accent) text-black font-semibold text-sm hover:bg-[#FF8A24] transition-colors cursor-pointer"
               >
                 {isRegister ? dict.auth_submit_signup : dict.auth_submit_signin}
               </button>
@@ -195,7 +195,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <div className="flex flex-col gap-6">
               {/* User badge */}
               <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#FF6A00] to-orange-950 flex items-center justify-center font-bold text-white text-base">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-(--accent) to-orange-950 flex items-center justify-center font-bold text-white text-base">
                   {user.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div>
@@ -208,13 +208,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
                 <div className="flex items-center justify-between text-xs mb-2">
                   <span className="font-medium text-zinc-300">{dict.auth_quota_label}</span>
-                  <span className="font-mono text-[#FF6A00]">
+                  <span className="font-mono text-(--accent)">
                     {user.dailyQueriesUsed} / {maxQueries}
                   </span>
                 </div>
                 <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-[#FF6A00] to-amber-400 transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-(--accent) to-amber-400 transition-all duration-500"
                     style={{ width: `${quotaPercent}%` }}
                   />
                 </div>
@@ -269,9 +269,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       onSelectArticle(art);
                       onClose();
                     }}
-                    className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-[#FF6A00]/40 transition-colors cursor-pointer flex flex-col gap-1"
+                    className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-white/10 transition-colors cursor-pointer flex flex-col gap-1"
                   >
-                    <span className="text-[10px] font-semibold uppercase tracking-wider text-[#FF6A00]">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-(--accent)">
                       {art.source}
                     </span>
                     <h5 className="text-sm font-medium text-white line-clamp-2">{art.title}</h5>

@@ -77,7 +77,7 @@ export function getAiProviderInfo() {
 }
 
 // Active Gemini candidate models in order of verified operational status
-const CANDIDATE_MODELS = [
+export const CANDIDATE_MODELS = [
   'gemini-3.1-flash-lite',
   'gemini-flash-latest',
   'gemini-3.8-flash'
@@ -247,7 +247,7 @@ export async function synthesizeNews(query: string, lang: SupportedLanguage = 'u
   if (process.env.GEMINI_API_KEY) {
     const ai = new GoogleGenAI();
 
-    const prompt = `Siz "Humayro_3.1" global axborot va sun'iy intellekt tahliliy platformasining bosh xalqaro tahlilchisisiz.
+    const prompt = `Siz "Humayro_3.2" global axborot va sun'iy intellekt tahliliy platformasining bosh xalqaro tahlilchisisiz.
 Foydalanuvchi savoli: "${query}"
 
 ENG MUHIM TALABLAR:
@@ -338,7 +338,7 @@ Quyidagi JSON formatida qat'iy va faqat JSON javob bering:
               ? parsed.sources
               : [{ name: 'Reuters' }, { name: 'BBC News' }, { name: 'Associated Press' }],
             historicalParallel: historical,
-            confidenceNote: parsed.confidenceNote || 'Humayro_3.1 real-time verified intelligence stream',
+            confidenceNote: parsed.confidenceNote || 'Humayro_3.2 real-time verified intelligence stream',
             isFallback: false
           };
         }
@@ -412,7 +412,7 @@ Quyidagi JSON formatida qat'iy va faqat JSON javob bering:
     ],
     sources: [{ name: 'Reuters' }, { name: 'BBC News' }, { name: 'Associated Press' }],
     historicalParallel: fallbackHistorical,
-    confidenceNote: 'Humayro_3.1 real-time intelligence stream',
+    confidenceNote: 'Humayro_3.2 real-time intelligence stream',
     isFallback: true
   };
 }
@@ -441,7 +441,7 @@ export async function generateArticle(
 
   if (process.env.GEMINI_API_KEY) {
     const ai = new GoogleGenAI();
-    const prompt = `Siz "Humayro_3.1" xalqaro tahliliy nashrining bosh muharririsiz.
+    const prompt = `Siz "Humayro_3.2" xalqaro tahliliy nashrining bosh muharririsiz.
 Mavzu: "${topic}" ${region ? `(Mintaqa: ${region})` : ''}.
 
 Vazifa: Ushbu mavzu bo'yicha eng so'nggi voqealar, xalqaro tahlillar, raqamlar va aniq faktlarga asoslangan chuqur, professional tahliliy maqola (brief) tayyorlang.
@@ -536,7 +536,7 @@ Quyidagi JSON formatida qat'iy javob bering:
     keyPoints: [
       `Asosiy voqea: ${lead.title}`,
       `Tasdiqlangan manba: ${lead.source}`,
-      `Humayro_3.1 jonli intellekt monitoringi faol`
+      `Humayro_3.2 jonli intellekt monitoringi faol`
     ],
     sources: [{ name: lead.source }, { name: 'Reuters' }, { name: 'Associated Press' }],
     historicalParallel: getFallbackHistoricalParallel(topic, lang),

@@ -37,7 +37,7 @@ function getAgencyBadgeStyle(sourceName: string) {
   if (s.includes('oʻza') || s.includes('uza') || s.includes('gazeta')) {
     return 'bg-teal-500/15 text-teal-400 border-teal-500/30';
   }
-  return 'bg-[#FF6A00]/15 text-[#FF8A24] border-[#FF6A00]/30';
+  return 'bg-(--accent)/15 text-[#FF8A24] border-white/10';
 }
 
 function formatRelativeTime(dateStr?: string, lang: SupportedLanguage = 'uz') {
@@ -193,7 +193,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
                     </span>
                   )}
 
-                  <span className="text-[#FF6A00]/40 font-mono text-[10px]" aria-hidden="true">
+                  <span className="text-(--accent)/40 font-mono text-[10px]" aria-hidden="true">
                     ◆
                   </span>
                 </button>
@@ -210,7 +210,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
             title={isPaused ? "Play marquee" : "Pause marquee"}
             className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-white/5"
           >
-            {isPaused ? <Play className="w-3 h-3 text-[#FF6A00]" /> : <Pause className="w-3 h-3" />}
+            {isPaused ? <Play className="w-3 h-3 text-(--accent)" /> : <Pause className="w-3 h-3" />}
           </button>
 
           <button
@@ -218,7 +218,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
             onClick={() => setDrawerOpen(prev => !prev)}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer border ${
               drawerOpen
-                ? 'bg-[#FF6A00] text-black border-[#FF6A00] shadow-[0_0_12px_rgba(255,106,0,0.4)]'
+                ? 'bg-(--accent) text-black border-(--accent) shadow-[0_0_12px_rgba(255,106,0,0.4)]'
                 : 'bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border-white/10'
             }`}
           >
@@ -240,8 +240,8 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10 mb-4">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#FF6A00] shadow-[0_0_8px_#FF6A00] animate-pulse" />
-                  <h3 className="font-['Space_Grotesk'] text-base sm:text-lg font-bold text-white tracking-tight">
+                  <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_8px_#FF6A00] animate-pulse" />
+                  <h3 className="font-[Inter] text-base sm:text-lg font-bold text-white tracking-tight">
                     {currentLenta.title}
                   </h3>
                 </div>
@@ -257,7 +257,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
                   onClick={() => setSelectedAgency('all')}
                   className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
                     selectedAgency === 'all'
-                      ? 'bg-[#FF6A00] text-black shadow-sm'
+                      ? 'bg-(--accent) text-black shadow-sm'
                       : 'bg-white/5 text-zinc-400 hover:text-white border border-white/5'
                   }`}
                 >
@@ -270,7 +270,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
                     onClick={() => setSelectedAgency(agency)}
                     className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition-all cursor-pointer ${
                       selectedAgency.toLowerCase() === agency.toLowerCase()
-                        ? 'bg-[#FF6A00] text-black shadow-sm'
+                        ? 'bg-(--accent) text-black shadow-sm'
                         : 'bg-white/5 text-zinc-400 hover:text-white border border-white/5'
                     }`}
                   >
@@ -292,7 +292,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
                       onSelectArticle(item);
                       setDrawerOpen(false);
                     }}
-                    className="group p-3.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#FF6A00]/40 transition-all cursor-pointer flex flex-col justify-between"
+                    className="group p-3.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-white/10 transition-all cursor-pointer flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2">
@@ -325,7 +325,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
                     </div>
 
                     <div className="flex items-center justify-between pt-3 mt-3 border-t border-white/5 text-[11px] text-zinc-400 group-hover:text-white">
-                      <span className="inline-flex items-center gap-1 font-mono text-[10px] text-[#FF6A00]">
+                      <span className="inline-flex items-center gap-1 font-mono text-[10px] text-(--accent)">
                         <Sparkles className="w-3 h-3" />
                         <span>AI Deep Brief</span>
                       </span>

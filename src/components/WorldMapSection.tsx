@@ -283,8 +283,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
       <div className="max-w-[1240px] mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-[#FF6A00] font-bold uppercase mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00] animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-(--accent) font-bold uppercase mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-(--accent) animate-pulse" />
             <span>{ui.map_eyebrow}</span>
           </div>
 
@@ -303,7 +303,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
               onClick={() => setViewMode('2d-radar')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
                 viewMode === '2d-radar'
-                  ? 'bg-[#FF6A00] text-black font-bold shadow-md shadow-[#FF6A00]/25'
+                  ? 'bg-(--accent) text-black font-bold shadow-md shadow-(--accent)/25'
                   : 'text-[#7C8797] hover:text-[#F5F7FA]'
               }`}
             >
@@ -317,7 +317,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
               onClick={() => setViewMode('3d-globe')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
                 viewMode === '3d-globe'
-                  ? 'bg-[#FF6A00] text-black font-bold shadow-md shadow-[#FF6A00]/25'
+                  ? 'bg-(--accent) text-black font-bold shadow-md shadow-(--accent)/25'
                   : 'text-[#7C8797] hover:text-[#F5F7FA]'
               }`}
             >
@@ -331,7 +331,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
         {/* Hotspots Quick Switch Bar */}
         <div className="flex items-center justify-center gap-2 flex-wrap mb-6">
           <span className="text-xs text-zinc-500 font-mono flex items-center gap-1 mr-1">
-            <Radio className="w-3.5 h-3.5 text-[#FF6A00] animate-pulse" />
+            <Radio className="w-3.5 h-3.5 text-(--accent) animate-pulse" />
             <span>{ui.map_select_region}</span>
           </span>
           {dynamicHotspots.map(h => {
@@ -343,8 +343,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                 onClick={() => handleSelectKeyOnly(h.regionKey)}
                 className={`px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
                   isSelected
-                    ? 'bg-[#FF6A00] text-black font-bold shadow-[0_0_15px_rgba(255,106,0,0.5)] scale-105'
-                    : 'bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-[#FF6A00]/50'
+                    ? 'bg-(--accent) text-black font-bold shadow-[0_0_15px_rgba(255,106,0,0.5)] scale-105'
+                    : 'bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-white/10'
                 }`}
               >
                 <span>{h.code}</span>
@@ -378,7 +378,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
           /* View Mode 2: High-Fidelity 2D Tactical Radar SVG Map */
           <div className="relative p-3 sm:p-6 rounded-3xl bg-[#0B0F14]/90 border border-white/10 backdrop-blur-2xl shadow-2xl overflow-hidden">
             {/* Top ambient orange indicator line */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#FF6A00] to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-(--accent) to-transparent pointer-events-none" />
 
             {/* Tactical HUD Header Bar */}
             <div className="flex items-center justify-between pb-3 mb-2 border-b border-white/[0.08] text-[10px] font-mono text-[#7C8797]">
@@ -389,7 +389,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                 <span className="text-zinc-500 hidden sm:inline">PROJECTION: EQUIRECTANGULAR WGS84</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-[#FF6A00] font-bold">TARGET: [{currentHotspot.code}]</span>
+                <span className="text-(--accent) font-bold">TARGET: [{currentHotspot.code}]</span>
                 <span className="text-zinc-600 hidden md:inline">|</span>
                 <span className="text-zinc-400 hidden md:inline">LAT {currentHotspot.lat.toFixed(1)}° LON {currentHotspot.lon.toFixed(1)}°</span>
                 <span className="text-zinc-600 hidden lg:inline">|</span>
@@ -398,7 +398,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
             </div>
 
             {/* Radar Sweep Effect */}
-            <div className="absolute inset-0 bg-radial from-[#FF6A00]/5 to-transparent pointer-events-none opacity-40" />
+            <div className="absolute inset-0 bg-radial from-(--accent)/5 to-transparent pointer-events-none opacity-40" />
 
             <svg
               className="w-full h-auto select-none rounded-2xl bg-[#05070A]/80 border border-white/[0.05]"
@@ -473,8 +473,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                      M335,40 L375,35 L385,60 L360,85 L335,75 Z"
                   className={`transition-all duration-300 cursor-pointer ${
                     selectedKey === 'north-america'
-                      ? 'fill-[#FF6A00]/30 stroke-[#FF6A00] stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
-                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-[#FF6A00]/20 hover:stroke-[#FF6A00]'
+                      ? 'fill-(--accent)/30 stroke-(--accent) stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
+                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-(--accent)/20 hover:stroke-(--accent)'
                   }`}
                   onClick={() => handleSelectKeyOnly('north-america')}
                 >
@@ -486,8 +486,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                   d="M245,245 L275,250 L310,270 L355,290 L375,325 L365,365 L340,410 L315,455 L295,475 L280,465 L285,420 L275,370 L255,320 L235,285 L235,260 Z"
                   className={`transition-all duration-300 cursor-pointer ${
                     selectedKey === 'south-america'
-                      ? 'fill-[#FF6A00]/30 stroke-[#FF6A00] stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
-                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-[#FF6A00]/20 hover:stroke-[#FF6A00]'
+                      ? 'fill-(--accent)/30 stroke-(--accent) stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
+                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-(--accent)/20 hover:stroke-(--accent)'
                   }`}
                   onClick={() => handleSelectKeyOnly('south-america')}
                 >
@@ -501,8 +501,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                      M490,50 L525,45 L535,75 L515,90 L490,65 Z"
                   className={`transition-all duration-300 cursor-pointer ${
                     selectedKey === 'europe'
-                      ? 'fill-[#FF6A00]/30 stroke-[#FF6A00] stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
-                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-[#FF6A00]/20 hover:stroke-[#FF6A00]'
+                      ? 'fill-(--accent)/30 stroke-(--accent) stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
+                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-(--accent)/20 hover:stroke-(--accent)'
                   }`}
                   onClick={() => handleSelectKeyOnly('europe')}
                 >
@@ -515,8 +515,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                      M570,325 L580,335 L575,365 L565,355 Z"
                   className={`transition-all duration-300 cursor-pointer ${
                     selectedKey === 'africa'
-                      ? 'fill-[#FF6A00]/30 stroke-[#FF6A00] stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
-                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-[#FF6A00]/20 hover:stroke-[#FF6A00]'
+                      ? 'fill-(--accent)/30 stroke-(--accent) stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
+                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-(--accent)/20 hover:stroke-(--accent)'
                   }`}
                   onClick={() => handleSelectKeyOnly('africa')}
                 >
@@ -528,8 +528,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                   d="M545,185 L590,175 L625,190 L645,230 L615,265 L580,260 L555,225 L545,195 Z"
                   className={`transition-all duration-300 cursor-pointer ${
                     selectedKey === 'middle-east'
-                      ? 'fill-[#FF6A00]/30 stroke-[#FF6A00] stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
-                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-[#FF6A00]/20 hover:stroke-[#FF6A00]'
+                      ? 'fill-(--accent)/30 stroke-(--accent) stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
+                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-(--accent)/20 hover:stroke-(--accent)'
                   }`}
                   onClick={() => handleSelectKeyOnly('middle-east')}
                 >
@@ -541,8 +541,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                   d="M575,115 L645,105 L690,115 L730,135 L710,165 L660,165 L605,155 L575,135 Z"
                   className={`transition-all duration-300 cursor-pointer ${
                     selectedKey === 'central-asia'
-                      ? 'fill-[#FF6A00]/45 stroke-[#FF6A00] stroke-2 filter drop-shadow-[0_0_15px_#FF6A00]'
-                      : 'fill-[#FF6A00]/20 stroke-[#FF6A00] stroke-1 hover:fill-[#FF6A00]/35'
+                      ? 'fill-(--accent)/45 stroke-(--accent) stroke-2 filter drop-shadow-[0_0_15px_#FF6A00]'
+                      : 'fill-(--accent)/20 stroke-(--accent) stroke-1 hover:fill-(--accent)/35'
                   }`}
                   onClick={() => handleSelectKeyOnly('central-asia')}
                 >
@@ -566,8 +566,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                      M760,250 L810,255 L825,285 L795,315 L750,300 Z"
                   className={`transition-all duration-300 cursor-pointer ${
                     selectedKey === 'east-asia'
-                      ? 'fill-[#FF6A00]/30 stroke-[#FF6A00] stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
-                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-[#FF6A00]/20 hover:stroke-[#FF6A00]'
+                      ? 'fill-(--accent)/30 stroke-(--accent) stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
+                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-(--accent)/20 hover:stroke-(--accent)'
                   }`}
                   onClick={() => handleSelectKeyOnly('east-asia')}
                 >
@@ -580,8 +580,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                      M965,390 L980,415 L965,425 Z"
                   className={`transition-all duration-300 cursor-pointer ${
                     selectedKey === 'oceania'
-                      ? 'fill-[#FF6A00]/30 stroke-[#FF6A00] stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
-                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-[#FF6A00]/20 hover:stroke-[#FF6A00]'
+                      ? 'fill-(--accent)/30 stroke-(--accent) stroke-[1.8] filter drop-shadow-[0_0_10px_#FF6A00]'
+                      : 'fill-[#3B82F6]/[0.08] stroke-[#3B82F6]/40 hover:fill-(--accent)/20 hover:stroke-(--accent)'
                   }`}
                   onClick={() => handleSelectKeyOnly('oceania')}
                 >
@@ -690,27 +690,27 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
         {/* ========================================================================= */}
         <div className="mt-8 rounded-3xl bg-[#0B0F14] border border-white/[0.1] shadow-2xl overflow-hidden text-left">
           {/* Workspace Top Header: Region Passport & Telemetry */}
-          <div className="p-6 sm:p-8 border-b border-white/[0.08] bg-gradient-to-r from-white/[0.02] via-[#FF6A00]/[0.03] to-transparent">
+          <div className="p-6 sm:p-8 border-b border-white/[0.08] bg-gradient-to-r from-white/[0.02] via-(--accent)/[0.03] to-transparent">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               {/* Region Identity */}
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#FF6A00]/15 border border-[#FF6A00]/30 flex items-center justify-center text-[#FF6A00] shrink-0 font-bold shadow-lg shadow-[#FF6A00]/10">
+                <div className="w-12 h-12 rounded-2xl bg-(--accent)/15 border border-white/10 flex items-center justify-center text-(--accent) shrink-0 font-bold shadow-lg shadow-(--accent)/10">
                   <MapPin className="w-6 h-6" />
                 </div>
 
                 <div>
                   <div className="flex items-center gap-2.5 flex-wrap mb-2">
-                    <h3 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold tracking-tight text-[#F5F7FA]">
+                    <h3 className="font-[Inter] text-2xl sm:text-3xl font-bold tracking-tight text-[#F5F7FA]">
                       {currentRegionData.name}
                     </h3>
-                    <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#FF6A00]/15 text-[#FF6A00] border border-[#FF6A00]/30">
+                    <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-(--accent)/15 text-(--accent) border border-white/10">
                       [{currentRegionData.code}]
                     </span>
                     <span
                       className={`text-[10px] font-mono px-3 py-1 rounded-full uppercase tracking-wider font-bold border flex items-center gap-1.5 ${
                         currentRegionData.status === 'critical'
                           ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
-                          : 'bg-[#FF6A00]/15 text-[#FFA84D] border-[#FF6A00]/30'
+                          : 'bg-(--accent)/15 text-[#FFA84D] border-white/10'
                       }`}
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-current animate-ping" />
@@ -731,14 +731,14 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                   onClick={() => onAskAi(`${currentRegionData.name} mintaqasi bo'yicha eng so'nggi tahliliy xulosa va geosiyosiy vaziyat`)}
                   className="px-4 py-2.5 rounded-xl text-xs font-bold bg-white/[0.05] hover:bg-white/[0.1] text-[#F5F7FA] border border-white/[0.1] transition-all cursor-pointer flex items-center gap-2"
                 >
-                  <Sparkles className="w-4 h-4 text-[#FF6A00]" />
+                  <Sparkles className="w-4 h-4 text-(--accent)" />
                   <span>{ui.map_ask_ai}</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => handleOpenRegion(selectedKey)}
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#FF6A00] hover:bg-[#FF8A24] text-black transition-all cursor-pointer flex items-center gap-2 shadow-lg shadow-[#FF6A00]/25"
+                  className="px-5 py-2.5 rounded-xl text-xs font-bold bg-(--accent) hover:bg-[#FF8A24] text-black transition-all cursor-pointer flex items-center gap-2 shadow-lg shadow-(--accent)/25"
                 >
                   <Play className="w-3.5 h-3.5 fill-current" />
                   <span>{ui.map_open_workspace}</span>
@@ -750,7 +750,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
             {regionLive.data?.weather && regionLive.data.weather.length > 0 && (
               <div className="mt-6 pt-5 border-t border-white/[0.06] flex items-center gap-4 overflow-x-auto text-xs font-mono">
                 <div className="flex items-center gap-2 text-[#7C8797] shrink-0 font-medium">
-                  <CloudSun className="w-4 h-4 text-[#FF6A00]" />
+                  <CloudSun className="w-4 h-4 text-(--accent)" />
                   <span>{ui.map_live_weather}:</span>
                 </div>
                 {regionLive.data.weather.map((w, idx) => (
@@ -759,7 +759,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                     className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/[0.03] border border-white/[0.06] shrink-0"
                   >
                     <span className="text-[#F5F7FA] font-bold">{w.city}</span>
-                    <span className="text-[#FF6A00] font-bold">{w.temperatureC !== null ? `${w.temperatureC > 0 ? '+' : ''}${w.temperatureC}°C` : '—'}</span>
+                    <span className="text-(--accent) font-bold">{w.temperatureC !== null ? `${w.temperatureC > 0 ? '+' : ''}${w.temperatureC}°C` : '—'}</span>
                     <span className="text-zinc-400">· {weatherLabel(w.code, lang)}</span>
                     {w.humidity !== null && (
                       <span className="text-zinc-500 hidden sm:inline">({w.humidity}% nam)</span>
@@ -777,7 +777,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
               onClick={() => setWorkspaceTab('overview')}
               className={`py-3.5 px-3 border-b-2 transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                 workspaceTab === 'overview'
-                  ? 'border-[#FF6A00] text-[#FF6A00] font-bold'
+                  ? 'border-(--accent) text-(--accent) font-bold'
                   : 'border-transparent text-[#7C8797] hover:text-[#F5F7FA]'
               }`}
             >
@@ -790,7 +790,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
               onClick={() => setWorkspaceTab('events')}
               className={`py-3.5 px-3 border-b-2 transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                 workspaceTab === 'events'
-                  ? 'border-[#FF6A00] text-[#FF6A00] font-bold'
+                  ? 'border-(--accent) text-(--accent) font-bold'
                   : 'border-transparent text-[#7C8797] hover:text-[#F5F7FA]'
               }`}
             >
@@ -803,7 +803,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
               onClick={() => setWorkspaceTab('debates')}
               className={`py-3.5 px-3 border-b-2 transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                 workspaceTab === 'debates'
-                  ? 'border-[#FF6A00] text-[#FF6A00] font-bold'
+                  ? 'border-(--accent) text-(--accent) font-bold'
                   : 'border-transparent text-[#7C8797] hover:text-[#F5F7FA]'
               }`}
             >
@@ -816,7 +816,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
               onClick={() => setWorkspaceTab('indicators')}
               className={`py-3.5 px-3 border-b-2 transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                 workspaceTab === 'indicators'
-                  ? 'border-[#FF6A00] text-[#FF6A00] font-bold'
+                  ? 'border-(--accent) text-(--accent) font-bold'
                   : 'border-transparent text-[#7C8797] hover:text-[#F5F7FA]'
               }`}
             >
@@ -829,7 +829,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
               onClick={() => setWorkspaceTab('videos')}
               className={`py-3.5 px-3 border-b-2 transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                 workspaceTab === 'videos'
-                  ? 'border-[#FF6A00] text-[#FF6A00] font-bold'
+                  ? 'border-(--accent) text-(--accent) font-bold'
                   : 'border-transparent text-[#7C8797] hover:text-[#F5F7FA]'
               }`}
             >
@@ -859,7 +859,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
             {workspaceTab === 'overview' && (
               <div className="space-y-6">
                 <div className="p-6 rounded-2xl bg-[#11161D] border border-white/[0.08]">
-                  <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-[#FF6A00] mb-2">
+                  <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-(--accent) mb-2">
                     GEOSIYOSIY VA IQTISODIY HUJJAT // STRATEGIK XULOSA
                   </span>
                   <p className="font-editorial text-lg sm:text-xl text-[#F5F7FA] leading-relaxed">
@@ -873,7 +873,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                     <div key={i} className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
                       <span className="block text-xs text-[#7C8797] font-mono mb-1">{ind.label}</span>
                       <div className="flex items-center justify-between">
-                        <span className="font-['Space_Grotesk'] text-xl sm:text-2xl font-bold text-[#F5F7FA]">
+                        <span className="font-[Inter] text-xl sm:text-2xl font-bold text-[#F5F7FA]">
                           {ind.value}
                         </span>
                         <span className={`text-xs font-mono font-bold ${
@@ -897,9 +897,9 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                         key={i}
                         type="button"
                         onClick={() => onAskAi(topic)}
-                        className="px-3 py-1.5 rounded-lg bg-white/[0.03] hover:bg-[#FF6A00]/15 border border-white/[0.08] hover:border-[#FF6A00]/40 text-xs text-zinc-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+                        className="px-3 py-1.5 rounded-lg bg-white/[0.03] hover:bg-(--accent)/15 border border-white/[0.08] hover:border-white/10 text-xs text-zinc-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
                       >
-                        <Sparkles className="w-3 h-3 text-[#FF6A00]" />
+                        <Sparkles className="w-3 h-3 text-(--accent)" />
                         <span>{topic}</span>
                       </button>
                     ))}
@@ -914,11 +914,11 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                 {currentRegionData.activeEvents.map(ev => (
                   <div
                     key={ev.id}
-                    className="p-5 rounded-2xl bg-[#11161D] border border-white/[0.08] hover:border-[#FF6A00]/40 transition-all flex flex-col justify-between"
+                    className="p-5 rounded-2xl bg-[#11161D] border border-white/[0.08] hover:border-white/10 transition-all flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between text-xs font-mono text-[#7C8797] mb-2.5">
-                        <span className="text-[#FF6A00] font-bold">{ev.category}</span>
+                        <span className="text-(--accent) font-bold">{ev.category}</span>
                         <span>{ev.time}</span>
                       </div>
                       <h4 className="font-editorial text-lg font-medium text-[#F5F7FA] mb-2.5 leading-snug">
@@ -934,7 +934,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                       <button
                         type="button"
                         onClick={() => onAskAi(`${ev.title} — tafsilotlari va sabablari`)}
-                        className="text-[#FF6A00] hover:text-[#FF8A24] font-bold flex items-center gap-1 cursor-pointer"
+                        className="text-(--accent) hover:text-[#FF8A24] font-bold flex items-center gap-1 cursor-pointer"
                       >
                         <span>AI Tahlil</span>
                         <ChevronRight className="w-3 h-3" />
@@ -954,7 +954,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                       <h4 className="font-editorial text-xl font-medium text-[#F5F7FA]">
                         {deb.title}
                       </h4>
-                      <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-[#FF6A00]/15 text-[#FF6A00] border border-[#FF6A00]/30 font-bold shrink-0">
+                      <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-(--accent)/15 text-(--accent) border border-white/10 font-bold shrink-0">
                         Taʼsir: {deb.impactLevel}
                       </span>
                     </div>
@@ -965,13 +965,13 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-white/[0.06] text-xs">
                       <div>
-                        <span className="block font-mono text-[#FF6A00] font-bold mb-2 uppercase text-[10px]">
+                        <span className="block font-mono text-(--accent) font-bold mb-2 uppercase text-[10px]">
                           Asosiy sabablar va omillar:
                         </span>
                         <ul className="space-y-1.5 text-zinc-400">
                           {deb.causes.map((c, ci) => (
                             <li key={ci} className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00] shrink-0 mt-1.5" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-(--accent) shrink-0 mt-1.5" />
                               <span>{c}</span>
                             </li>
                           ))}
@@ -1001,7 +1001,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                       <span className="text-xs font-mono text-[#7C8797] uppercase tracking-wider block mb-2">
                         {ind.label}
                       </span>
-                      <span className="font-['Space_Grotesk'] text-3xl font-bold text-[#F5F7FA] block">
+                      <span className="font-[Inter] text-3xl font-bold text-[#F5F7FA] block">
                         {ind.value}
                       </span>
                     </div>
@@ -1071,7 +1071,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                         </p>
                       </div>
 
-                      <div className="mt-4 pt-3 border-t border-white/[0.05] flex items-center justify-between text-xs text-[#FF6A00] font-mono font-bold">
+                      <div className="mt-4 pt-3 border-t border-white/[0.05] flex items-center justify-between text-xs text-(--accent) font-mono font-bold">
                         <span>Videoni tomosha qilish</span>
                         <Play className="w-3.5 h-3.5 fill-current" />
                       </div>
@@ -1088,11 +1088,11 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                   <div
                     key={`${art.id}-${idx}`}
                     onClick={() => onSelectArticle && onSelectArticle(art)}
-                    className="p-5 rounded-2xl bg-[#11161D] border border-white/[0.08] hover:border-[#FF6A00]/40 transition-all cursor-pointer flex flex-col justify-between"
+                    className="p-5 rounded-2xl bg-[#11161D] border border-white/[0.08] hover:border-white/10 transition-all cursor-pointer flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between text-xs font-mono text-[#7C8797] mb-2.5">
-                        <span className="text-[#FF6A00] font-bold uppercase">{art.category || 'MINTAQA'}</span>
+                        <span className="text-(--accent) font-bold uppercase">{art.category || 'MINTAQA'}</span>
                         <span>{formatTimeAgoLocale(art.publishedAt, lang)}</span>
                       </div>
                       <h4 className="font-editorial text-lg font-medium text-[#F5F7FA] mb-2 leading-snug">
@@ -1106,7 +1106,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                     </div>
                     <div className="pt-3 mt-3 border-t border-white/[0.05] flex items-center justify-between text-xs font-mono text-[#7C8797]">
                       <span className="text-zinc-400 truncate">{art.source}</span>
-                      <span className="text-[#FF6A00] font-bold">Batafsil →</span>
+                      <span className="text-(--accent) font-bold">Batafsil →</span>
                     </div>
                   </div>
                 ))}
@@ -1119,7 +1119,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
         <div className="flex items-center justify-between flex-wrap gap-4 mt-6 pt-4 border-t border-white/5 text-xs text-zinc-400">
           <div className="flex items-center gap-6 flex-wrap">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#FF6A00] shadow-[0_0_8px_#FF6A00] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_8px_#FF6A00] animate-pulse" />
               <span>3D Sfera & Jonli taktika radar monitoringi</span>
             </div>
             <div className="flex items-center gap-2">
@@ -1132,7 +1132,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
             </div>
           </div>
           <div className="font-mono text-[11px] text-zinc-500">
-            HUMAYRO_3.3 // DEFENSE-GRADE GEO-SPATIAL INTELLIGENCE
+            HUMAYRO_3.2 // DEFENSE-GRADE GEO-SPATIAL INTELLIGENCE
           </div>
         </div>
       </div>

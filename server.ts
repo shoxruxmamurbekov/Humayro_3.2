@@ -7,8 +7,10 @@ import { synthesizeNews, generateArticle, getAiProviderInfo } from './server/aiS
 import { getRegionLive, getRegionVideos } from './server/regionService.ts';
 import { getRequiredAdminSecret, timingSafeAdminCheck } from './server/security.ts';
 import { generalApiLimiter, aiApiLimiter } from './server/rateLimit.ts';
+import { securityHeaders } from './server/securityHeaders.ts';
 import { consumeQuota, getQuotaStatus } from './server/quotaService.ts';
 import type { SupportedLanguage, SystemMetrics } from './src/types/index.ts';
+import { newsroomHandler, newsroomAgentsHandler } from './server/newsroomRoutes.ts';
 
 dotenv.config();
 
@@ -16,6 +18,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+// Behind Netlify / Cloud Run / a reverse proxy the client IP is in X-Forwarded-For.
+app.set('trust proxy', 1);
+app.use(securityHeaders);
 const PORT = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -56,6 +61,10 @@ app.get('/api/news/feed', async (req, res) => {
     res.status(500).json({ success: false, error: 'Failed to retrieve news feed', articles: [] });
   }
 });
+
+// API: AI newsroom (persona agents analyze country/topic-specific news)
+app.get('/api/newsroom/agents', newsroomAgentsHandler);
+app.get('/api/newsroom', aiApiLimiter, newsroomHandler);
 
 // API: Live per-region intelligence (latest news + live weather for the selected map region)
 app.get('/api/region/:key/live', async (req, res) => {
@@ -215,7 +224,8 @@ app.post('/api/ai/article', async (req, res) => {
 
 // API: Admin Metrics & System Status (Protected)
 app.get('/api/admin/metrics', async (req, res) => {
-  const token = req.headers['x-admin-token'] || req.query.token;
+  // Header only: query-string tokens leak into logs, history and Referer headers.
+  const token = req.headers['x-admin-token'];
   if (!timingSafeAdminCheck(token, ADMIN_SECRET)) {
     return res.status(401).json({ success: false, error: 'Unauthorized admin access' });
   }
@@ -272,10 +282,10 @@ async function setupServer() {
   }
 
   app.listen(Number(PORT), '0.0.0.0', () => {
-    console.log(`[Humayro_3.1] Intelligence server running on http://0.0.0.0:${PORT}`);
+    console.log(`[Humayro_3.2] Intelligence server running on http://0.0.0.0:${PORT}`);
   });
 }
 
 setupServer().catch(err => {
-  console.error('[Humayro_3.1] Failed to start server:', err);
+  console.error('[Humayro_3.2] Failed to start server:', err);
 });

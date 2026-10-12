@@ -125,28 +125,28 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
         onClick={e => e.stopPropagation()}
       >
         {/* Top ambient glow line */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#FF6A00] to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-(--accent) to-transparent" />
 
         {/* Modal Header */}
         <div className="p-5 sm:p-6 border-b border-white/10 flex items-start justify-between gap-4 bg-white/[0.02]">
           <div className="flex items-start gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-[#FF6A00]/15 border border-[#FF6A00]/30 flex items-center justify-center text-[#FF6A00] shrink-0 mt-0.5">
+            <div className="w-11 h-11 rounded-2xl bg-(--accent)/15 border border-white/10 flex items-center justify-center text-(--accent) shrink-0 mt-0.5">
               <Radio className="w-5 h-5 animate-pulse" />
             </div>
 
             <div>
               <div className="flex items-center gap-2.5 flex-wrap mb-1">
-                <h2 className="font-['Space_Grotesk'] text-xl sm:text-2xl font-bold tracking-tight text-white">
+                <h2 className="font-[Inter] text-xl sm:text-2xl font-bold tracking-tight text-white">
                   {region.name}
                 </h2>
-                <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#FF6A00]/15 text-[#FF6A00] border border-[#FF6A00]/30">
+                <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-(--accent)/15 text-(--accent) border border-white/10">
                   {region.code}
                 </span>
                 <span
                   className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold border flex items-center gap-1.5 ${
                     region.status === 'critical'
                       ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
-                      : 'bg-[#FF6A00]/15 text-[#FFA84D] border-[#FF6A00]/30'
+                      : 'bg-(--accent)/15 text-[#FFA84D] border-white/10'
                   }`}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-current animate-ping" />
@@ -192,7 +192,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
             onClick={() => setActiveTab('events')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'events'
-                ? 'bg-[#FF6A00] text-black font-bold shadow-md'
+                ? 'bg-(--accent) text-black font-bold shadow-md'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -208,7 +208,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
             onClick={() => setActiveTab('videos')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'videos'
-                ? 'bg-[#FF6A00] text-black font-bold shadow-md'
+                ? 'bg-(--accent) text-black font-bold shadow-md'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -224,7 +224,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
             onClick={() => setActiveTab('analytics')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'analytics'
-                ? 'bg-[#FF6A00] text-black font-bold shadow-md'
+                ? 'bg-(--accent) text-black font-bold shadow-md'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -317,7 +317,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                         </span>
                       </div>
 
-                      <h4 className="font-['Space_Grotesk'] text-base sm:text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-2 leading-snug">
+                      <h4 className="font-[Inter] text-base sm:text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-2 leading-snug">
                         {art.title}
                       </h4>
 
@@ -349,7 +349,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                               onClose();
                               onSelectArticle(art);
                             }}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#FF6A00] text-black hover:bg-[#FF8A24] transition-all cursor-pointer font-sans"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-(--accent) text-black hover:bg-[#FF8A24] transition-all cursor-pointer font-sans"
                           >
                             <Sparkles className="w-3.5 h-3.5 fill-current" />
                             <span>AI Chuqur Tahlil</span>
@@ -380,7 +380,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
             <div className="space-y-6 animate-in fade-in duration-200">
               {/* Region Overview Banner */}
               <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                <span className="font-semibold text-[#FF6A00] block mb-1">
+                <span className="font-semibold text-(--accent) block mb-1">
                   Mintaqaviy Umumiy Manzara:
                 </span>
                 {region.summary}
@@ -389,8 +389,8 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
               {/* Public Debates & Underlying Problems */}
               <div>
                 <div className="flex items-center gap-2 mb-3.5">
-                  <AlertTriangle className="w-4 h-4 text-[#FF6A00]" />
-                  <h3 className="font-['Space_Grotesk'] text-base sm:text-lg font-bold text-white tracking-tight">
+                  <AlertTriangle className="w-4 h-4 text-(--accent)" />
+                  <h3 className="font-[Inter] text-base sm:text-lg font-bold text-white tracking-tight">
                     Jamoatchilik muhokamasiga sabab boʻlayotgan asosiy muammolar
                   </h3>
                 </div>
@@ -399,11 +399,11 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                   {region.publicDebates.map((issue, idx) => (
                     <div
                       key={idx}
-                      className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-[#FF6A00]/40 transition-all flex flex-col gap-3"
+                      className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/10 transition-all flex flex-col gap-3"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <h4 className="font-semibold text-sm sm:text-base text-zinc-100 flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-(--accent)" />
                           <span>{issue.title}</span>
                         </h4>
 
@@ -424,7 +424,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                         <ul className="space-y-1 text-xs text-zinc-400">
                           {issue.causes.map((c, ci) => (
                             <li key={ci} className="flex items-start gap-2">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-[#FF6A00] shrink-0 mt-0.5" />
+                              <CheckCircle2 className="w-3.5 h-3.5 text-(--accent) shrink-0 mt-0.5" />
                               <span>{c}</span>
                             </li>
                           ))}
@@ -447,7 +447,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
               <div>
                 <div className="flex items-center gap-2 mb-3.5">
                   <Flame className="w-4 h-4 text-rose-500" />
-                  <h3 className="font-['Space_Grotesk'] text-base sm:text-lg font-bold text-white tracking-tight">
+                  <h3 className="font-[Inter] text-base sm:text-lg font-bold text-white tracking-tight">
                     Ayni daqiqalarda sodir boʻlayotgan xabarlar
                   </h3>
                 </div>
@@ -483,7 +483,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                         <button
                           type="button"
                           onClick={() => onAskAi(`${region.name}: ${ev.title}`)}
-                          className="text-[#FF6A00] hover:underline flex items-center gap-1 cursor-pointer font-medium"
+                          className="text-(--accent) hover:underline flex items-center gap-1 cursor-pointer font-medium"
                         >
                           <span>AI tahlil</span>
                           <Sparkles className="w-3 h-3" />
@@ -502,7 +502,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
               {/* Primary YouTube Video Screen */}
               {currentVideo ? (
                 <div className="space-y-4">
-                  <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black border border-[#FF6A00]/30 shadow-2xl">
+                  <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black border border-white/10 shadow-2xl">
                     <iframe
                       src={`https://www.youtube-nocookie.com/embed/${currentVideo.id}?autoplay=0&rel=0&modestbranding=1`}
                       title={currentVideo.title}
@@ -526,7 +526,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                         </span>
                       </div>
 
-                      <h3 className="font-['Space_Grotesk'] text-base sm:text-lg font-bold text-white mb-1">
+                      <h3 className="font-[Inter] text-base sm:text-lg font-bold text-white mb-1">
                         {currentVideo.title}
                       </h3>
                     </div>
@@ -554,7 +554,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
 
               {/* Video Playlist / Available Video Reports */}
               <div>
-                <h4 className="font-['Space_Grotesk'] text-sm font-bold text-zinc-300 uppercase tracking-wider mb-3">
+                <h4 className="font-[Inter] text-sm font-bold text-zinc-300 uppercase tracking-wider mb-3">
                   Eng koʻp koʻrilayotgan videolar (jonli) ({liveVideos.length})
                 </h4>
 
@@ -567,7 +567,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                         onClick={() => setSelectedVideo(vid)}
                         className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 ${
                           isPlaying
-                            ? 'bg-[#FF6A00]/10 border-[#FF6A00] shadow-[0_0_15px_rgba(255,106,0,0.2)]'
+                            ? 'bg-(--accent)/10 border-(--accent) shadow-[0_0_15px_rgba(255,106,0,0.2)]'
                             : 'bg-white/[0.02] border-white/10 hover:border-white/20 hover:bg-white/[0.04]'
                         }`}
                       >
@@ -593,7 +593,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                           <h5 className="font-semibold text-xs text-white line-clamp-2 leading-snug mb-1">
                             {vid.title}
                           </h5>
-                          <span className="text-[10px] font-mono text-[#FF6A00]">
+                          <span className="text-[10px] font-mono text-(--accent)">
                             {new Date(vid.published).toLocaleDateString()}
                           </span>
                         </div>
@@ -606,7 +606,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
               {/* Live YouTube Search Discovery Trigger */}
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                 <div className="flex items-center gap-2 text-zinc-400">
-                  <Search className="w-4 h-4 text-[#FF6A00]" />
+                  <Search className="w-4 h-4 text-(--accent)" />
                   <span>
                     Ushbu mintaqaga oid boshqa jonli YouTube videolarni qidirmoqchimisiz?
                   </span>
@@ -640,10 +640,10 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                     <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block mb-1">
                       {ind.label}
                     </span>
-                    <strong className="font-['Space_Grotesk'] text-xl sm:text-2xl font-bold text-white block">
+                    <strong className="font-[Inter] text-xl sm:text-2xl font-bold text-white block">
                       {ind.value}
                     </strong>
-                    <div className="flex items-center justify-center gap-1 text-[11px] text-[#FF6A00] mt-1 font-mono">
+                    <div className="flex items-center justify-center gap-1 text-[11px] text-(--accent) mt-1 font-mono">
                       <TrendingUp className="w-3 h-3" />
                       <span>Barqaror oʻsish</span>
                     </div>
@@ -653,8 +653,8 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
 
               {/* Featured Discussion Topics */}
               <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/10">
-                <h4 className="font-['Space_Grotesk'] text-sm font-bold text-white mb-3 flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-[#FF6A00]" />
+                <h4 className="font-[Inter] text-sm font-bold text-white mb-3 flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-(--accent)" />
                   <span>Faol qidiruv va tahlil teglari</span>
                 </h4>
 
@@ -664,7 +664,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                       key={i}
                       type="button"
                       onClick={() => onAskAi(topic)}
-                      className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-[#FF6A00] hover:text-black border border-white/10 text-xs text-zinc-300 font-medium transition-all cursor-pointer"
+                      className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-(--accent) hover:text-black border border-white/10 text-xs text-zinc-300 font-medium transition-all cursor-pointer"
                     >
                       # {topic}
                     </button>
@@ -678,9 +678,9 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
         {/* Modal Footer Call to Action */}
         <div className="p-4 sm:p-5 border-t border-white/10 bg-black/50 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-xs text-zinc-400 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#FF6A00]" />
+            <Sparkles className="w-4 h-4 text-(--accent)" />
             <span>
-              Humayro_3.3 real-vaqt global lentalar va YouTube video monitoringi
+              Humayro_3.2 real-vaqt global lentalar va YouTube video monitoringi
             </span>
           </div>
 
@@ -688,7 +688,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
             <button
               type="button"
               onClick={() => onAskAi(`${region.name} bo'yicha eng so'nggi yangiliklar, muammolar va tahlil`)}
-              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-[#FF6A00] text-black hover:bg-[#FF8A24] transition-all cursor-pointer shadow-lg"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-(--accent) text-black hover:bg-[#FF8A24] transition-all cursor-pointer shadow-lg"
             >
               <Sparkles className="w-4 h-4" />
               <span>AI bilan chuqur tahlil qilish</span>

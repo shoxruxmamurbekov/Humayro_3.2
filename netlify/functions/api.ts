@@ -7,10 +7,15 @@ import { getRequiredAdminSecret, timingSafeAdminCheck } from '../../server/secur
 import { consumeQuota, getQuotaStatus } from '../../server/quotaService.ts';
 import { getRegionLive, getRegionVideos } from '../../server/regionService.ts';
 import type { SupportedLanguage, SystemMetrics } from '../../src/types/index.ts';
+import { newsroomHandler, newsroomAgentsHandler } from '../../server/newsroomRoutes.ts';
+import { generalApiLimiter, aiApiLimiter } from '../../server/rateLimit.ts';
+import { securityHeaders } from '../../server/securityHeaders.ts';
 
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', 1);
+app.use(securityHeaders);
 const ADMIN_SECRET = getRequiredAdminSecret();
 let totalSearches = 0;
 let aiRequests = 0;
@@ -19,6 +24,8 @@ let failedRequests = 0;
 const ALL_SUPPORTED_LANGUAGES: SupportedLanguage[] = ['uz','kk','ky','tg','tk','az','tr','ar','fa','en','ru','ko'];
 
 app.use(express.json());
+app.use(generalApiLimiter);
+app.use('/ai', aiApiLimiter);
 
 const getLang = (raw: unknown): SupportedLanguage => {
   const value = typeof raw === 'string' ? raw : 'uz';
@@ -31,6 +38,9 @@ app.get('/user/quota', (req, res) => {
   const quota = getQuotaStatus(req);
   res.json({ success: true, quota });
 });
+
+app.get('/newsroom/agents', newsroomAgentsHandler);
+app.get('/newsroom', aiApiLimiter, newsroomHandler);
 
 app.get('/news/feed', async (req, res) => {
   try {
@@ -127,7 +137,8 @@ app.post('/ai/article', async (req, res) => {
 });
 
 app.get('/admin/metrics', async (req, res) => {
-  const token = req.headers['x-admin-token'] || req.query.token;
+  // Header only: query-string tokens leak into logs, history and Referer headers.
+  const token = req.headers['x-admin-token'];
   if (!timingSafeAdminCheck(token, ADMIN_SECRET)) return res.status(401).json({ success: false, error: 'Unauthorized admin access' });
 
   const aiInfo = getAiProviderInfo();

@@ -138,14 +138,14 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
       <div className="max-w-[780px] mx-auto p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
         {/* Header label */}
         <div className="flex items-center gap-2.5 text-xs font-semibold tracking-widest uppercase text-zinc-400 mb-5">
-          <span className="w-2 h-2 rounded-full bg-[#FF6A00] shadow-[0_0_10px_#FF6A00] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_10px_#FF6A00] animate-pulse" />
           <span>{dict.search_label}</span>
         </div>
 
         {/* Search bar form */}
         <form
           onSubmit={handleSubmit}
-          className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-black/50 border border-white/10 focus-within:border-[#FF6A00] transition-colors"
+          className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-black/50 border border-white/10 focus-within:border-(--accent) transition-colors"
         >
           <Search className="w-5 h-5 text-zinc-500 shrink-0 ml-1" />
           <input
@@ -172,7 +172,7 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
               onClick={handleToggleVoice}
               className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all cursor-pointer ${
                 isListening
-                  ? 'bg-[#FF6A00] text-black shadow-[0_0_15px_#FF6A00] animate-pulse'
+                  ? 'bg-(--accent) text-black shadow-[0_0_15px_#FF6A00] animate-pulse'
                   : 'bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10 border border-white/5'
               }`}
               title={isListening ? dict.voice_listening : 'Voice Search'}
@@ -186,7 +186,7 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
           <button
             type="submit"
             disabled={isLoading}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-[#FF6A00] text-black hover:bg-[#FF8A24] transition-all shrink-0 cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-(--accent) text-black hover:bg-[#FF8A24] transition-all shrink-0 cursor-pointer disabled:opacity-50"
           >
             <span>{dict.search_btn}</span>
             <ArrowRight className="w-4 h-4 hidden sm:inline" />
@@ -212,7 +212,7 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
                 onClick={() => setTrendTab('uz')}
                 className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer ${
                   trendTab === 'uz'
-                    ? 'bg-[#FF6A00] text-black shadow-sm'
+                    ? 'bg-(--accent) text-black shadow-sm'
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
@@ -223,7 +223,7 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
                 onClick={() => setTrendTab('gl')}
                 className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer ${
                   trendTab === 'gl'
-                    ? 'bg-[#FF6A00] text-black shadow-sm'
+                    ? 'bg-(--accent) text-black shadow-sm'
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
@@ -238,10 +238,10 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
                 key={item.id}
                 type="button"
                 onClick={() => handleChipClick(item.query)}
-                className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-zinc-300 bg-white/[0.04] border border-white/10 hover:border-[#FF6A00] hover:text-white hover:bg-[#FF6A00]/10 transition-all cursor-pointer shadow-sm text-left"
+                className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-zinc-300 bg-white/[0.04] border border-white/10 hover:border-(--accent) hover:text-white hover:bg-(--accent)/10 transition-all cursor-pointer shadow-sm text-left"
                 title={item.publicBuzzNote}
               >
-                <span className="text-[10px] font-bold text-[#FF6A00] font-mono group-hover:scale-110 transition-transform">
+                <span className="text-[10px] font-bold text-(--accent) font-mono group-hover:scale-110 transition-transform">
                   {item.viralTag.slice(0, 2)}
                 </span>
                 <span>{item.title}</span>

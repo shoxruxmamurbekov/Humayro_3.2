@@ -19,6 +19,7 @@ import { Navbar } from './components/Navbar';
 import { SignalBar } from './components/SignalBar';
 import { SignalMetrics } from './components/SignalMetrics';
 import { IntelligenceCommandCenter } from './components/IntelligenceCommandCenter';
+import { NewsroomSection } from './components/NewsroomSection';
 import { IntelligenceHero } from './components/IntelligenceHero';
 import { WorldMapSection } from './components/WorldMapSection';
 import { ChatSection, ChatMessage } from './components/ChatSection';
@@ -120,6 +121,13 @@ export default function App() {
     }
     updateThemePref(themeMode);
   }, [themeMode]);
+
+  // RTL: arabic and persian set document direction; all others stay LTR
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute('lang', currentLang);
+    root.setAttribute('dir', currentLang === 'ar' || currentLang === 'fa' ? 'rtl' : 'ltr');
+  }, [currentLang]);
 
   const handleLanguageChange = (newLang: SupportedLanguage) => {
     setCurrentLang(newLang);
@@ -271,7 +279,7 @@ export default function App() {
   };
 
   return (
-    <div id="home" className="min-h-screen bg-[#05070A] text-[#F5F7FA] font-['Inter'] relative selection:bg-[#FF6A00] selection:text-black">
+    <div id="home" className="min-h-screen bg-[#05070A] text-[#F5F7FA] font-[Inter] relative selection:bg-(--accent) selection:text-black">
       {/* Subtle cursor glow */}
       <CursorGlow />
 
@@ -315,6 +323,9 @@ export default function App() {
 
         {/* Interactive HUMAYRO Intelligence Command Center */}
         <IntelligenceCommandCenter />
+
+        {/* AI newsroom: persona agents analyze news for the user's country and topics */}
+        <NewsroomSection currentLang={currentLang} />
 
         {/* Globe Intelligence (3D Sphere & 2D Radar) */}
         <WorldMapSection

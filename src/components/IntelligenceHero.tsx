@@ -130,15 +130,15 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
     <section id="search" className="relative pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 text-center z-10">
       <div className="max-w-[980px] mx-auto">
         {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-[#FF6A00] font-bold uppercase mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00] animate-pulse" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-(--accent) font-bold uppercase mb-6">
+          <span className="w-1.5 h-1.5 rounded-full bg-(--accent) animate-pulse" />
           <span>{ui.hero_eyebrow}</span>
         </div>
 
         {/* Editorial Headline */}
         <h1 className="font-editorial text-4xl sm:text-6xl lg:text-[76px] font-medium leading-[1.02] tracking-tight text-[#F5F7FA] max-w-[860px] mx-auto">
           {ui.hero_title_1}<br />
-          <span className="italic text-[#FF6A00]">{ui.hero_title_2}</span>
+          <span className="italic text-(--accent)">{ui.hero_title_2}</span>
         </h1>
 
         {/* Subtitle */}
@@ -150,7 +150,7 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
         <div className="mt-8 max-w-[760px] mx-auto">
           <form
             onSubmit={handleSubmit}
-            className="relative flex items-center p-2 rounded-2xl bg-[#0B0F14] border border-white/[0.12] focus-within:border-[#FF6A00] focus-within:ring-1 focus-within:ring-[#FF6A00]/40 transition-all shadow-2xl shadow-black/60"
+            className="relative flex items-center p-2 rounded-2xl bg-[#0B0F14] border border-white/[0.12] focus-within:border-(--accent) focus-within:ring-1 focus-within:ring-(--accent)/40 transition-all shadow-2xl shadow-black/60"
           >
             <div className="pl-3.5 pr-2 text-[#7C8797]">
               <Search className="w-5 h-5 text-zinc-400" />
@@ -195,7 +195,7 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
               <button
                 type="submit"
                 disabled={isLoading || !inputVal.trim()}
-                className="flex items-center gap-1.5 px-5 py-3 rounded-xl bg-[#FF6A00] hover:bg-[#FF8A24] text-black font-bold text-xs sm:text-sm transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shadow-md shadow-[#FF6A00]/25"
+                className="flex items-center gap-1.5 px-5 py-3 rounded-xl bg-(--accent) hover:bg-[#FF8A24] text-black font-bold text-xs sm:text-sm transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shadow-md shadow-(--accent)/25"
               >
                 {isLoading ? (
                   <>
@@ -222,7 +222,7 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
                 type="button"
                 onClick={() => setTrendTab('uz')}
                 className={`px-2 py-0.5 rounded transition-colors cursor-pointer ${
-                  trendTab === 'uz' ? 'bg-[#FF6A00] text-black font-bold' : 'text-zinc-400 hover:text-white'
+                  trendTab === 'uz' ? 'bg-(--accent) text-black font-bold' : 'text-zinc-400 hover:text-white'
                 }`}
               >
                 {ui.tab_uzbekistan}
@@ -231,7 +231,7 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
                 type="button"
                 onClick={() => setTrendTab('gl')}
                 className={`px-2 py-0.5 rounded transition-colors cursor-pointer ${
-                  trendTab === 'gl' ? 'bg-[#FF6A00] text-black font-bold' : 'text-zinc-400 hover:text-white'
+                  trendTab === 'gl' ? 'bg-(--accent) text-black font-bold' : 'text-zinc-400 hover:text-white'
                 }`}
               >
                 {ui.tab_global}
