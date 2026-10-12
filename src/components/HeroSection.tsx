@@ -50,25 +50,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         {latestArticle && (
           <div
             onClick={() => onSelectArticle && onSelectArticle(latestArticle)}
-            className="group mb-6 max-w-2xl px-4 py-2 rounded-full bg-white/[0.05] hover:bg-white/[0.09] border border-[#FF6A00]/40 backdrop-blur-xl flex items-center justify-center gap-2 text-xs transition-all cursor-pointer shadow-lg hover:scale-102"
+            className="group mb-6 max-w-2xl px-4 py-2 rounded-full bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 backdrop-blur-xl flex items-center justify-center gap-2 text-xs transition-all cursor-pointer shadow-lg hover:scale-102"
           >
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#FF6A00] text-black shrink-0">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-(--accent) text-black shrink-0">
               ⚡ SOʻNGGI: {latestArticle.source}
             </span>
             <span className="text-zinc-200 truncate group-hover:text-[#FF8A24] transition-colors font-medium">
               {latestArticle.title}
             </span>
-            <span className="text-[10px] text-[#FF6A00] shrink-0 font-mono hidden sm:inline">
+            <span className="text-[10px] text-(--accent) shrink-0 font-mono hidden sm:inline">
               Oʻqish ↗
             </span>
           </div>
         )}
 
         {/* Display Headline */}
-        <h1 className="font-['Space_Grotesk'] text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08] mb-6">
+        <h1 className="font-[Inter] text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08] mb-6">
           <span>{dict.hero_title1}</span>
           <br />
-          <span className="bg-gradient-to-r from-[#FF6A00] via-[#FF8A24] to-[#FFA84D] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-(--accent) via-[#FF8A24] to-[#FFA84D] bg-clip-text text-transparent">
             {dict.hero_title2}
           </span>
         </h1>
@@ -81,7 +81,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         {/* Real-time Telemetry Metrics Pill Bar */}
         <div className="flex items-center justify-center gap-4 sm:gap-6 flex-wrap mb-10 text-xs font-mono text-zinc-400">
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-(--accent)" />
             <span>48+ Xalqaro Agentliklar</span>
           </div>
           <div className="w-px h-3 bg-white/10 hidden sm:block" />
@@ -100,7 +100,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={onExploreClick}
-            className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-semibold text-sm bg-[#FF6A00] text-black shadow-[0_10px_30px_-10px_rgba(255,106,0,0.5)] hover:shadow-[0_20px_45px_-10px_rgba(255,106,0,0.6)] hover:-translate-y-0.5 transition-all overflow-hidden cursor-pointer"
+            className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-semibold text-sm bg-(--accent) text-black shadow-[0_10px_30px_-10px_rgba(255,106,0,0.5)] hover:shadow-[0_20px_45px_-10px_rgba(255,106,0,0.6)] hover:-translate-y-0.5 transition-all overflow-hidden cursor-pointer"
           >
             <span>{dict.hero_cta_primary}</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -111,7 +111,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             onClick={onDemoClick}
             className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-medium text-sm bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.08] text-zinc-200 backdrop-blur-xl hover:-translate-y-0.5 transition-all cursor-pointer"
           >
-            <div className="w-6 h-6 rounded-full bg-[#FF6A00] flex items-center justify-center text-black">
+            <div className="w-6 h-6 rounded-full bg-(--accent) flex items-center justify-center text-black">
               <Play className="w-3 h-3 fill-current ml-0.5" />
             </div>
             <span>{dict.hero_cta_ghost}</span>
@@ -122,7 +122,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {/* Scroll down indicator */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-500 text-[10px] uppercase tracking-widest pointer-events-none">
         <span>{dict.scroll_label}</span>
-        <div className="w-px h-9 bg-gradient-to-b from-[#FF6A00] to-transparent animate-pulse" />
+        <div className="w-px h-9 bg-gradient-to-b from-(--accent) to-transparent animate-pulse" />
       </div>
     </section>
   );

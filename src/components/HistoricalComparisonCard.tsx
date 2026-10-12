@@ -76,7 +76,7 @@ export const HistoricalComparisonCard: React.FC<HistoricalComparisonCardProps> =
         <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/[0.05] border border-amber-500/25 flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 mb-2">
-              <History className="w-3.5 h-3.5 text-[#FF6A00]" />
+              <History className="w-3.5 h-3.5 text-(--accent)" />
               <span>{dict.history_column}</span>
             </div>
             <h5 className="text-sm sm:text-base font-bold text-amber-100 mb-2 leading-snug">

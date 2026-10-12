@@ -35,7 +35,7 @@ export const SignalMetrics: React.FC<SignalMetricsProps> = ({
             <Activity className="w-3.5 h-3.5 text-blue-400" />
           </div>
           <div className="mt-3">
-            <span className="font-['Space_Grotesk'] font-bold text-2xl sm:text-3xl text-[#F5F7FA] tracking-tight">
+            <span className="font-[Inter] font-bold text-2xl sm:text-3xl text-[#F5F7FA] tracking-tight">
               {formatNum(displayTotal)}
             </span>
             <span className="block text-[11px] text-[#7C8797] mt-1 font-mono">
@@ -45,13 +45,13 @@ export const SignalMetrics: React.FC<SignalMetricsProps> = ({
         </div>
 
         {/* Metric 2: AI Analyzed */}
-        <div className="p-5 rounded-2xl bg-[#0B0F14] border border-white/[0.07] hover:border-[#FF6A00]/30 transition-colors flex flex-col justify-between">
+        <div className="p-5 rounded-2xl bg-[#0B0F14] border border-white/[0.07] hover:border-white/10 transition-colors flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs font-mono text-[#7C8797]">
             <span className="tracking-wider uppercase">{ui.metrics_analyzed}</span>
-            <ShieldCheck className="w-3.5 h-3.5 text-[#FF6A00]" />
+            <ShieldCheck className="w-3.5 h-3.5 text-(--accent)" />
           </div>
           <div className="mt-3">
-            <span className="font-['Space_Grotesk'] font-bold text-2xl sm:text-3xl text-[#F5F7FA] tracking-tight">
+            <span className="font-[Inter] font-bold text-2xl sm:text-3xl text-[#F5F7FA] tracking-tight">
               {formatNum(displayAnalyzed)}
             </span>
             <span className="block text-[11px] text-[#7C8797] mt-1 font-mono">
@@ -67,7 +67,7 @@ export const SignalMetrics: React.FC<SignalMetricsProps> = ({
             <Flame className="w-3.5 h-3.5 text-[#22C55E]" />
           </div>
           <div className="mt-3">
-            <span className="font-['Space_Grotesk'] font-bold text-2xl sm:text-3xl text-[#F5F7FA] tracking-tight">
+            <span className="font-[Inter] font-bold text-2xl sm:text-3xl text-[#F5F7FA] tracking-tight">
               {formatNum(displayTrending)}
             </span>
             <span className="block text-[11px] text-[#7C8797] mt-1 font-mono">

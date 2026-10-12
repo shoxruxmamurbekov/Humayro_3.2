@@ -182,7 +182,7 @@ function getSourceBadgeClass(sourceName: string): string {
   if (s.includes('al jazeera')) return 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
   if (s.includes('dw') || s.includes('deutsche')) return 'bg-blue-500/15 text-blue-400 border-blue-500/30';
   if (s.includes('uza') || s.includes("o'za") || s.includes('gazeta')) return 'bg-teal-500/15 text-teal-400 border-teal-500/30';
-  return 'bg-[#FF6A00]/15 text-[#FF8A24] border-[#FF6A00]/30';
+  return 'bg-(--accent)/15 text-[#FF8A24] border-white/10';
 }
 
 export const FeedSection: React.FC<FeedSectionProps> = ({
@@ -238,7 +238,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
         {/* Header with Title and Mode Switcher */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-white/10">
           <div>
-            <span className="text-[10px] font-mono tracking-[0.2em] text-[#FF6A00] font-bold uppercase block mb-2">
+            <span className="text-[10px] font-mono tracking-[0.2em] text-(--accent) font-bold uppercase block mb-2">
               LIVE INTELLIGENCE
             </span>
             <h2 className="font-editorial text-3xl sm:text-5xl font-medium tracking-tight text-[#F5F7FA]">
@@ -253,7 +253,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
               onClick={() => setViewMode('live-stream')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'live-stream'
-                  ? 'bg-[#FF6A00] text-black shadow-[0_0_15px_rgba(255,106,0,0.35)] font-bold'
+                  ? 'bg-(--accent) text-black shadow-[0_0_15px_rgba(255,106,0,0.35)] font-bold'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
@@ -269,7 +269,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
               onClick={() => setViewMode('magazine')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'magazine'
-                  ? 'bg-[#FF6A00] text-black shadow-[0_0_15px_rgba(255,106,0,0.35)] font-bold'
+                  ? 'bg-(--accent) text-black shadow-[0_0_15px_rgba(255,106,0,0.35)] font-bold'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
@@ -282,7 +282,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
               onClick={() => setViewMode('terminal')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'terminal'
-                  ? 'bg-[#FF6A00] text-black shadow-[0_0_15px_rgba(255,106,0,0.35)] font-bold'
+                  ? 'bg-(--accent) text-black shadow-[0_0_15px_rgba(255,106,0,0.35)] font-bold'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
@@ -301,7 +301,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
             </span>
             <span className="text-zinc-600 hidden sm:inline">|</span>
             <span className="text-zinc-400">
-              Avtomatik yangilanish: <span className="text-[#FF6A00] font-bold">{countdown}s</span>
+              Avtomatik yangilanish: <span className="text-(--accent) font-bold">{countdown}s</span>
             </span>
             <span className="text-zinc-600 hidden sm:inline">|</span>
             <span className="text-zinc-500 text-[11px]">
@@ -315,9 +315,9 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
                 type="button"
                 onClick={onRefreshNow}
                 disabled={isRefreshing}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-[#FF6A00] hover:text-black border border-white/10 text-zinc-300 font-mono text-xs transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-(--accent) hover:text-black border border-white/10 text-zinc-300 font-mono text-xs transition-all cursor-pointer active:scale-95 disabled:opacity-50"
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-[#FF6A00]' : ''}`} />
+                <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-(--accent)' : ''}`} />
                 <span>{isRefreshing ? 'Yuklanmoqda...' : 'Hoziroq yangilash'}</span>
               </button>
             )}
@@ -334,8 +334,8 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-medium shrink-0 transition-all cursor-pointer flex items-center gap-1.5 ${
                   selectedCategory === cat.id
-                    ? 'bg-[#FF6A00] text-black font-bold shadow-md scale-102'
-                    : 'bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:border-[#FF6A00]/40'
+                    ? 'bg-(--accent) text-black font-bold shadow-md scale-102'
+                    : 'bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:border-white/10'
                 }`}
               >
                 <span>{cat.label}</span>
@@ -357,7 +357,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
           {filteredArticles.length === 0 ? (
             <div className="py-16 text-center rounded-3xl bg-white/[0.02] border border-white/10">
-              <RefreshCw className="w-8 h-8 text-[#FF6A00] animate-spin mx-auto mb-3" />
+              <RefreshCw className="w-8 h-8 text-(--accent) animate-spin mx-auto mb-3" />
               <p className="text-zinc-400 font-mono text-sm">
                 Xalqaro agentliklardan jonli yangiliklar oqimi olinmoqda...
               </p>
@@ -391,20 +391,20 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
                 <div
                   key={`${topic.key}-${index}`}
                   onClick={() => onSelectTopic(label)}
-                  className="group w-[260px] aspect-[3/4] p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-[#FF6A00]/50 backdrop-blur-xl flex flex-col justify-between cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(255,106,0,0.3)] shrink-0 relative overflow-hidden"
+                  className="group w-[260px] aspect-[3/4] p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/10 backdrop-blur-xl flex flex-col justify-between cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(255,106,0,0.3)] shrink-0 relative overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#FF6A00]/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-(--accent)/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase text-[#FF6A00] bg-[#FF6A00]/10 border border-[#FF6A00]/20">
+                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase text-(--accent) bg-(--accent)/10 border border-white/10">
                         {dict.trending_now}
                       </span>
                       <span className="font-mono text-[10px] text-zinc-500">
                         {topic.regionCode}
                       </span>
                     </div>
-                    <h3 className="font-['Space_Grotesk'] text-xl font-bold text-white group-hover:text-[#FF6A00] transition-colors leading-tight">
+                    <h3 className="font-[Inter] text-xl font-bold text-white group-hover:text-(--accent) transition-colors leading-tight">
                       {label}
                     </h3>
                   </div>
@@ -413,7 +413,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
                     <span className="text-xs text-zinc-400 font-medium truncate max-w-[150px]">
                       {topic.sources}
                     </span>
-                    <div className="w-10 h-10 rounded-xl bg-[#FF6A00]/10 border border-[#FF6A00]/20 flex items-center justify-center text-[#FF6A00] group-hover:bg-[#FF6A00] group-hover:text-black transition-colors shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-(--accent)/10 border border-white/10 flex items-center justify-center text-(--accent) group-hover:bg-(--accent) group-hover:text-black transition-colors shrink-0">
                       {topic.icon}
                     </div>
                   </div>
@@ -460,7 +460,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
                       <tr
                         key={article.id || idx}
                         onClick={() => onSelectArticle(article)}
-                        className="hover:bg-[#FF6A00]/[0.06] transition-colors cursor-pointer group"
+                        className="hover:bg-(--accent)/[0.06] transition-colors cursor-pointer group"
                       >
                         <td className="py-3.5 px-6 font-mono text-zinc-400 whitespace-nowrap">
                           {formatTimeAgo(article.publishedAt)}
@@ -487,7 +487,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
                               e.stopPropagation();
                               onSelectArticle(article);
                             }}
-                            className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-semibold bg-white/5 group-hover:bg-[#FF6A00] group-hover:text-black transition-all cursor-pointer text-zinc-300"
+                            className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-semibold bg-white/5 group-hover:bg-(--accent) group-hover:text-black transition-all cursor-pointer text-zinc-300"
                           >
                             <span>AI Tahlil</span>
                             <Sparkles className="w-3 h-3" />

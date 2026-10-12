@@ -31,7 +31,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       <button
         type="button"
         onClick={() => scrollTo('home')}
-        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-[#FF6A00] transition-colors cursor-pointer"
+        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-(--accent) transition-colors cursor-pointer"
       >
         <Home className="w-4 h-4" />
         <span className="text-[10px] font-mono tracking-wider">{ui.bnav_home}</span>
@@ -51,9 +51,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       <button
         type="button"
         onClick={() => scrollTo('search')}
-        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#FF6A00] transition-colors cursor-pointer"
+        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-(--accent) transition-colors cursor-pointer"
       >
-        <div className="w-8 h-8 rounded-full bg-[#FF6A00] text-black flex items-center justify-center shadow-md shadow-[#FF6A00]/30 -mt-2">
+        <div className="w-8 h-8 rounded-full bg-(--accent) text-black flex items-center justify-center shadow-md shadow-(--accent)/30 -mt-2">
           <Sparkles className="w-4 h-4" />
         </div>
         <span className="text-[9px] font-mono tracking-wider font-bold">{ui.bnav_ai}</span>
@@ -66,7 +66,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           if (onOpenBookmarks) onOpenBookmarks();
           else scrollTo('feed');
         }}
-        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-[#FF6A00] transition-colors cursor-pointer"
+        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-(--accent) transition-colors cursor-pointer"
       >
         <Bookmark className="w-4 h-4" />
         <span className="text-[10px] font-mono tracking-wider">{ui.bnav_saved}</span>
@@ -76,7 +76,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       <button
         type="button"
         onClick={onOpenAuth}
-        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-[#FF6A00] transition-colors cursor-pointer"
+        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-(--accent) transition-colors cursor-pointer"
       >
         <User className="w-4 h-4" />
         <span className="text-[10px] font-mono tracking-wider">{ui.bnav_profile}</span>

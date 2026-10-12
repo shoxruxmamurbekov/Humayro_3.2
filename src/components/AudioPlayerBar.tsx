@@ -130,7 +130,7 @@ export const AudioPlayerBar: React.FC<AudioPlayerBarProps> = ({
       {/* Left: Speaker icon & status */}
       <div className="flex items-center gap-2.5">
         <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-colors ${
-          isPlaying ? 'bg-[#FF6A00] text-black shadow-[0_0_12px_#FF6A00]' : 'bg-white/5 text-zinc-400'
+          isPlaying ? 'bg-(--accent) text-black shadow-[0_0_12px_#FF6A00]' : 'bg-white/5 text-zinc-400'
         }`}>
           <Volume2 className="w-4 h-4" />
         </div>
@@ -139,8 +139,8 @@ export const AudioPlayerBar: React.FC<AudioPlayerBarProps> = ({
           <div className="text-xs font-bold text-white flex items-center gap-1.5">
             <span>{dict.audio_listen}</span>
             {isPlaying && (
-              <span className="inline-flex items-center gap-1 text-[10px] font-mono text-[#FF6A00] font-normal">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00] animate-ping" />
+              <span className="inline-flex items-center gap-1 text-[10px] font-mono text-(--accent) font-normal">
+                <span className="w-1.5 h-1.5 rounded-full bg-(--accent) animate-ping" />
                 {dict.audio_playing}
               </span>
             )}
@@ -160,7 +160,7 @@ export const AudioPlayerBar: React.FC<AudioPlayerBarProps> = ({
             key={i}
             className={`w-0.5 rounded-full transition-all duration-200 ${
               isPlaying
-                ? 'bg-[#FF6A00] animate-pulse'
+                ? 'bg-(--accent) animate-pulse'
                 : 'bg-zinc-700'
             }`}
             style={{
@@ -188,7 +188,7 @@ export const AudioPlayerBar: React.FC<AudioPlayerBarProps> = ({
           <button
             type="button"
             onClick={handlePlay}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#FF6A00] text-black hover:bg-[#FF8A24] transition-all cursor-pointer shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-(--accent) text-black hover:bg-[#FF8A24] transition-all cursor-pointer shadow-sm"
           >
             <Play className="w-3.5 h-3.5 fill-black" />
             <span>{dict.audio_listen}</span>

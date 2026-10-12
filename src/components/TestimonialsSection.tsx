@@ -11,13 +11,13 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ dict }
       <div className="max-w-[1240px] mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-[11px] font-medium tracking-widest uppercase text-zinc-400 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-(--accent)" />
             <span>{dict.testi_eyebrow}</span>
           </div>
 
-          <h2 className="font-['Space_Grotesk'] text-3xl sm:text-5xl font-bold tracking-tight">
+          <h2 className="font-[Inter] text-3xl sm:text-5xl font-bold tracking-tight">
             <span>{dict.testi_title1} </span>
-            <span className="bg-gradient-to-r from-[#FF6A00] to-[#FFA84D] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
               {dict.testi_title2}
             </span>
           </h2>
@@ -25,15 +25,15 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ dict }
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1 */}
-          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:border-[#FF6A00]/40 transition-all hover:-translate-y-1.5 flex flex-col justify-between">
+          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:border-white/10 transition-all hover:-translate-y-1.5 flex flex-col justify-between">
             <div>
-              <div className="text-[#FF6A00] text-sm tracking-widest mb-4">★★★★★</div>
+              <div className="text-(--accent) text-sm tracking-widest mb-4">★★★★★</div>
               <p className="text-zinc-200 text-base leading-relaxed mb-6 font-normal italic">
                 {dict.testi1_text}
               </p>
             </div>
             <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF6A00] to-orange-900 border border-white/10 flex items-center justify-center font-bold text-xs text-white">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-(--accent) to-orange-900 border border-white/10 flex items-center justify-center font-bold text-xs text-white">
                 SM
               </div>
               <div>
@@ -44,9 +44,9 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ dict }
           </div>
 
           {/* Card 2 */}
-          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:border-[#FF6A00]/40 transition-all hover:-translate-y-1.5 flex flex-col justify-between">
+          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:border-white/10 transition-all hover:-translate-y-1.5 flex flex-col justify-between">
             <div>
-              <div className="text-[#FF6A00] text-sm tracking-widest mb-4">★★★★★</div>
+              <div className="text-(--accent) text-sm tracking-widest mb-4">★★★★★</div>
               <p className="text-zinc-200 text-base leading-relaxed mb-6 font-normal italic">
                 {dict.testi2_text}
               </p>
@@ -63,9 +63,9 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ dict }
           </div>
 
           {/* Card 3 */}
-          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:border-[#FF6A00]/40 transition-all hover:-translate-y-1.5 flex flex-col justify-between">
+          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:border-white/10 transition-all hover:-translate-y-1.5 flex flex-col justify-between">
             <div>
-              <div className="text-[#FF6A00] text-sm tracking-widest mb-4">★★★★★</div>
+              <div className="text-(--accent) text-sm tracking-widest mb-4">★★★★★</div>
               <p className="text-zinc-200 text-base leading-relaxed mb-6 font-normal italic">
                 {dict.testi3_text}
               </p>

@@ -121,6 +121,13 @@ export default function App() {
     updateThemePref(themeMode);
   }, [themeMode]);
 
+  // RTL: arabic and persian set document direction; all others stay LTR
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute('lang', currentLang);
+    root.setAttribute('dir', currentLang === 'ar' || currentLang === 'fa' ? 'rtl' : 'ltr');
+  }, [currentLang]);
+
   const handleLanguageChange = (newLang: SupportedLanguage) => {
     setCurrentLang(newLang);
     updateLanguagePref(newLang);
@@ -271,7 +278,7 @@ export default function App() {
   };
 
   return (
-    <div id="home" className="min-h-screen bg-[#05070A] text-[#F5F7FA] font-['Inter'] relative selection:bg-[#FF6A00] selection:text-black">
+    <div id="home" className="min-h-screen bg-[#05070A] text-[#F5F7FA] font-[Inter] relative selection:bg-(--accent) selection:text-black">
       {/* Subtle cursor glow */}
       <CursorGlow />
 
