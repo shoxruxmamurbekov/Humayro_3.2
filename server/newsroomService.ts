@@ -130,33 +130,61 @@ async function collectArticles(country: string, topics: string[]): Promise<Artic
   return articles.slice(0, 15);
 }
 
-function buildPrompt(
-  personas: NewsroomPersona[],
-  articles: Article[],
-  lang: SupportedLanguage,
-  topics: string[]
-): string {
-  const articleList = articles
-    .map((a, i) => `[${i + 1}] ${a.title} | ${a.source} | ${a.publishedAt} | ${a.url}\n${(a.description || '').slice(0, 300)}`)
-    .join('\n');
-  const personaList = personas
-    .map(p => `- id="${p.id}" ism="${p.name}" (${p.role}): ${p.temperament} Uslub: ${p.style}`)
-    .join('\n');
+// Gives every agent its own article so posts do not repeat the same story.
+// Tezkor and Kreativ take the freshest unused items, Sekin takes the one with the most
+// context (longest description), Mintaqa takes the next fresh item.
+export function assignArticles(articles: Article[], personas: NewsroomPersona[]): Map<string, Article> {
+  const assignment = new Map<string, Article>();
+  const used = new Set<string>();
+
+  const pick = (persona: NewsroomPersona, score: (article: Article, index: number) => number) => {
+    let best: Article | undefined;
+    let bestScore = -Infinity;
+    for (let index = 0; index < articles.length; index++) {
+      const article = articles[index];
+      if (used.has(article.url)) continue;
+      const s = score(article, index);
+      if (s > bestScore) {
+        bestScore = s;
+        best = article;
+      }
+    }
+    if (best) {
+      assignment.set(persona.id, best);
+      used.add(best.url);
+    }
+  };
+
+  for (const persona of personas) {
+    if (persona.id === 'sekin-tahlilchi') {
+      pick(persona, a => (a.description || '').length);
+    } else {
+      pick(persona, (_a, index) => -index);
+    }
+  }
+  return assignment;
+}
+
+function buildPrompt(assignment: Map<string, Article>, lang: SupportedLanguage, topics: string[]): string {
+  const blocks = NEWSROOM_PERSONAS.filter(p => assignment.has(p.id)).map(p => {
+    const a = assignment.get(p.id)!;
+    return `- agentId="${p.id}" ism="${p.name}" (${p.role}): ${p.temperament} Uslub: ${p.style}
+  Berilgan maqola: ${a.title} | ${a.source} | ${a.publishedAt} | ${a.url}
+  Tavsif: ${(a.description || '').slice(0, 300)}`;
+  });
 
   return `${NEWSROOM_RULES}
 
 Javob tili: ${LANGUAGE_NAMES[lang] || 'English'}.
 Mavzular: ${topics.length ? topics.join(', ') : 'umumiy dunyo yangiliklari'}.
 
-Yangiliklar ro'yxati:
-${articleList}
+Har bir muxbir faqat o'ziga berilgan maqola asosida yozadi. Boshqa muxbirlarning maqolalaridan foydalanmang.
 
-Muxbirlar:
-${personaList}
+Muxbirlar va ularning maqolalari:
+${blocks.join('\n')}
 
 Har bir muxbir uchun bitta post yozing. Faqat quyidagi JSON formatida javob bering:
-{"posts":[{"agentId":"...","headline":"...","facts":["..."],"sourceUrls":["..."],"analysis":"...","confidence":"high|medium|low"}]}
-sourceUrls faqat yuqoridagi ro'yxatdagi URL'lardan bo'lsin.`;
+{"posts":[{"agentId":"...","headline":"...","facts":["..."],"analysis":"...","confidence":"high|medium|low"}]}`;
 }
 
 function parseJsonLoose(raw: string): any {
@@ -173,9 +201,17 @@ function parseJsonLoose(raw: string): any {
   }
 }
 
-function parsePosts(raw: string, articles: Article[]): NewsroomPost[] {
+// A fact may only contain numbers that appear in the assigned article's text.
+// Invented figures are the most common AI error in news summaries, so they are rejected here.
+export function isNumberGrounded(fact: string, article: Article): boolean {
+  const numbers = fact.match(/\d+(?:[.,]\d+)?/g) || [];
+  if (numbers.length === 0) return true;
+  const sourceText = `${article.title} ${article.description || ''}`;
+  return numbers.every(n => sourceText.includes(n));
+}
+
+export function parsePosts(raw: string, assignment: Map<string, Article>): NewsroomPost[] {
   const data = parseJsonLoose(raw);
-  const allowedUrls = new Set(articles.map(a => a.url));
   const personaById = new Map(NEWSROOM_PERSONAS.map(p => [p.id, p]));
   const now = new Date().toISOString();
   const posts: NewsroomPost[] = [];
@@ -183,17 +219,20 @@ function parsePosts(raw: string, articles: Article[]): NewsroomPost[] {
   const items: any[] = Array.isArray(data?.posts) ? data.posts : [];
   for (const item of items) {
     const persona = personaById.get(item?.agentId);
-    if (!persona) continue;
+    const article = persona ? assignment.get(persona.id) : undefined;
+    if (!persona || !article) continue;
 
     const facts: string[] = Array.isArray(item.facts)
-      ? item.facts.map((f: unknown) => String(f).trim()).filter(Boolean).slice(0, 5)
-      : [];
-    const sourceUrls: string[] = Array.isArray(item.sourceUrls)
-      ? item.sourceUrls.map((u: unknown) => String(u)).filter((u: string) => allowedUrls.has(u)).slice(0, 5)
+      ? item.facts
+          .map((f: unknown) => String(f).trim())
+          .filter(Boolean)
+          .filter((f: string) => isNumberGrounded(f, article))
+          .slice(0, 5)
       : [];
 
-    // A post without facts or verifiable source links is dropped.
-    if (facts.length === 0 || sourceUrls.length === 0) continue;
+    // A post without grounded facts is dropped. Its source is always the assigned article,
+    // never a URL the model wrote itself.
+    if (facts.length === 0) continue;
 
     const confidence = ['high', 'medium', 'low'].includes(item.confidence) ? item.confidence : 'low';
     posts.push({
@@ -202,7 +241,7 @@ function parsePosts(raw: string, articles: Article[]): NewsroomPost[] {
       agentName: persona.name,
       headline: String(item.headline || facts[0]).slice(0, 200),
       facts,
-      sourceUrls,
+      sourceUrls: [article.url],
       analysis: String(item.analysis || '').slice(0, 1200),
       confidence,
       createdAt: now
@@ -218,13 +257,15 @@ export async function generateNewsroom(
 ): Promise<NewsroomResult> {
   const key = buildCacheKey(country, lang, topics);
   const articles = await collectArticles(country, topics);
+  const assignment = assignArticles(articles, NEWSROOM_PERSONAS);
 
   let posts: NewsroomPost[] = [];
-  if (articles.length > 0) {
+  if (assignment.size > 0) {
     // GEMINI_API_KEY is read from the environment by the SDK; it is never stored in code.
     const ai = new GoogleGenAI({});
-    const prompt = buildPrompt(NEWSROOM_PERSONAS, articles, lang, topics);
+    const prompt = buildPrompt(assignment, lang, topics);
 
+    // Keep the best attempt across models. Stop early once every agent has a post.
     for (const model of CANDIDATE_MODELS) {
       try {
         const response = await ai.models.generateContent({
@@ -232,8 +273,9 @@ export async function generateNewsroom(
           contents: prompt,
           config: { responseMimeType: 'application/json' }
         });
-        posts = parsePosts(response.text || '', articles);
-        if (posts.length > 0) break;
+        const attempt = parsePosts(response.text || '', assignment);
+        if (attempt.length > posts.length) posts = attempt;
+        if (posts.length === assignment.size) break;
       } catch {
         // Try the next model in the fallback list.
       }
