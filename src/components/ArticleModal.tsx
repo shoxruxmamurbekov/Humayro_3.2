@@ -254,7 +254,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
 
         {/* Footer info */}
         <div className="mt-12 pt-6 border-t border-white/[0.08] text-xs font-mono text-[#7C8797] flex items-center justify-between">
-          <span>HUMAYRO 3.3 INTELLIGENCE</span>
+          <span>HUMAYRO 3.2 INTELLIGENCE</span>
           <span>AUTONOMOUS ENGINE</span>
         </div>
       </aside>

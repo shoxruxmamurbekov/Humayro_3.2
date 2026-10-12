@@ -84,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
           <div>
-            © {currentYear} Humayro_3.1. {dict.footer_copy}
+            © {currentYear} Humayro_3.2. {dict.footer_copy}
           </div>
 
           <div className="flex items-center gap-4 text-xs text-zinc-500">

@@ -189,7 +189,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Ishonchlilik darajasi:",
     reader_keypoints: "ASOSIY XULOSALAR",
     reader_sources: "TASDIQLANGAN MANBALAR",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "Bosh sahifa",
     bnav_signals: "Signallar",
@@ -289,7 +289,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Уверенность модели:",
     reader_keypoints: "КЛЮЧЕВЫЕ ВЫВОДЫ",
     reader_sources: "ПРОВЕРЕННЫЕ ИСТОЧНИКИ",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "Главная",
     bnav_signals: "Сигналы",
@@ -389,7 +389,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Model Confidence:",
     reader_keypoints: "KEY TAKEAWAYS",
     reader_sources: "VERIFIED SOURCES",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "Home",
     bnav_signals: "Signals",
@@ -489,7 +489,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "신뢰도:",
     reader_keypoints: "핵심 시사점",
     reader_sources: "검증된 출처",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "홈",
     bnav_signals: "시그널",
@@ -589,7 +589,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Сенімділік деңгейі:",
     reader_keypoints: "НЕГІЗГІ ТҰЖЫРЫМДАР",
     reader_sources: "ТЕКСЕРІЛГЕН ДЕРЕККӨЗДЕР",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "Басты",
     bnav_signals: "Сигналдар",
@@ -689,7 +689,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Ишеним деңгээли:",
     reader_keypoints: "НЕГИЗГИ ТЫЯНАКТАР",
     reader_sources: "ТЕКШЕРИЛГЕН БУЛАКТАР",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "Башкы",
     bnav_signals: "Сигналдар",
@@ -789,7 +789,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Боварии модел:",
     reader_keypoints: "ХУЛОСАҲОИ МУҲИМ",
     reader_sources: "САРЧАШМАҲОИ ТАСДИҚШУДА",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "Асосӣ",
     bnav_signals: "Сигналҳо",
@@ -889,7 +889,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Ynam derejesi:",
     reader_keypoints: "ESASY NETIJELER",
     reader_sources: "BARLANYLAN ÇEŞMELER",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "Baş sahypa",
     bnav_signals: "Signallar",
@@ -989,7 +989,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "İnam dərəcəsi:",
     reader_keypoints: "ƏSAS NƏTİCƏLƏR",
     reader_sources: "TƏSDİQLƏNMİŞ MƏNBƏLƏR",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "Ana səhifə",
     bnav_signals: "Siqnallar",
@@ -1089,7 +1089,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Model Güveni:",
     reader_keypoints: "ÖNEMLİ ÇIKARIMLAR",
     reader_sources: "DOĞRULANMIŞ KAYNAKLAR",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "Ana Sayfa",
     bnav_signals: "Sinyaller",
@@ -1189,7 +1189,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "نسبة الثقة:",
     reader_keypoints: "النقاط الجوهرية",
     reader_sources: "المصادر المعتمدة",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "الرئيسية",
     bnav_signals: "الإشارات",
@@ -1289,7 +1289,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "میزان اطمینان:",
     reader_keypoints: "نکات کلیدی",
     reader_sources: "منابع معتبر",
-    reader_engine: "HUMAYRO 3.3 INTELLIGENCE ENGINE",
+    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
 
     bnav_home: "خانه",
     bnav_signals: "سیگنال‌ها",

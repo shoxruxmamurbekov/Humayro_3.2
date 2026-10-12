@@ -147,28 +147,23 @@ npm start
 
 ---
 
-## 📦 Deployment Options
+## 📦 Deployment
 
-### Netlify (One-Click Serverless)
-The project includes pre-configured `netlify.toml` and `netlify/functions/api.ts`:
-1. Push code to GitHub.
-2. Link your repository in Netlify.
-3. Add `GEMINI_API_KEY` in Netlify Environment Variables.
-4. Deploy! All API requests (`/api/*`) are automatically routed to the serverless function.
+**Supported target: Netlify** (static site + serverless API in `netlify/functions/api.ts`).
+GitHub Pages is not supported: it serves static files only, so `/api/*` would return 404.
 
-### Docker / Cloud Run / VPS
-```dockerfile
-FROM node:22-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-EXPOSE 3000
-CMD ["npm", "start"]
-```
+1. Connect the repository in Netlify. Build settings come from `netlify.toml` (`npm run build`, publish `dist`, Node 22).
+2. Set these environment variables in Netlify (Site settings → Environment variables):
+   - `ADMIN_SECRET` (required; the server refuses to start without it)
+   - `GEMINI_API_KEY` (AI features)
+   - `YOUTUBE_API_KEY` (optional, region videos)
+3. Deploy. `/api/*` is routed to the function automatically.
 
----
+**Admin access:** send the token in the `x-admin-token` header. Query-string tokens are not accepted.
+
+**Known limitation:** daily quotas and the news/newsroom cache live in memory. On serverless each instance keeps its own copy, so limits are approximate and reset on cold start. Accurate quotas need a shared store (for example Netlify Blobs or Supabase).
+
+For a VPS or Docker, run `npm run build` then `NODE_ENV=production node --import tsx server.ts` (or `npm start`) with the same environment variables.
 
 ## 🛠️ GitHub Push Guide
 

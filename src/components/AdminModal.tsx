@@ -56,7 +56,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
             </div>
             <div>
               <h3 className="font-[Inter] font-bold text-base sm:text-lg text-white">
-                Humayro 3.3 · System Intelligence Desk
+                Humayro 3.2 · System Intelligence Desk
               </h3>
               <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-mono">
                 Protected Observability Console

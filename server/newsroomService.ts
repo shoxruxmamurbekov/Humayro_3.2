@@ -58,7 +58,7 @@ const cache = new Map<string, { at: number; result: NewsroomResult }>();
 
 export function normalizeCountry(value: string | undefined): string {
   const code = (value || 'UZ').toUpperCase();
-  return LOCALES[code] ? code : 'US';
+  return Object.prototype.hasOwnProperty.call(LOCALES, code) ? code : 'US';
 }
 
 export function normalizeLang(value: string | undefined): SupportedLanguage {
@@ -66,7 +66,7 @@ export function normalizeLang(value: string | undefined): SupportedLanguage {
 }
 
 export function normalizeTopics(values: string[]): string[] {
-  return Array.from(new Set(values.filter(v => v in TOPIC_QUERY))).sort();
+  return Array.from(new Set(values.filter(v => Object.prototype.hasOwnProperty.call(TOPIC_QUERY, v)))).sort();
 }
 
 export function buildCacheKey(country: string, lang: SupportedLanguage, topics: string[]): string {

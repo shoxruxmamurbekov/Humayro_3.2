@@ -680,7 +680,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
           <div className="text-xs text-zinc-400 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-(--accent)" />
             <span>
-              Humayro_3.3 real-vaqt global lentalar va YouTube video monitoringi
+              Humayro_3.2 real-vaqt global lentalar va YouTube video monitoringi
             </span>
           </div>
 
