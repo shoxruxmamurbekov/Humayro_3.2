@@ -84,12 +84,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-3 group focus:outline-none"
             aria-label="Humayro Home"
           >
-            <span className="w-2 h-2 rounded-full bg-[#FF6A00] shadow-[0_0_10px_#FF6A00] animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_10px_#FF6A00] animate-pulse" />
             <div className="flex flex-col">
-              <span className="font-['Space_Grotesk'] font-bold text-base tracking-[0.14em] text-[#F5F7FA] group-hover:text-white transition-colors">
+              <span className="font-[Inter] font-bold text-base tracking-[0.14em] text-[#F5F7FA] group-hover:text-white transition-colors">
                 {ui.brand_name || 'HUMAYRO'}
               </span>
-              <span className="text-[9px] font-mono tracking-[0.22em] text-[#FF6A00] uppercase font-semibold">
+              <span className="text-[9px] font-mono tracking-[0.22em] text-(--accent) uppercase font-semibold">
                 {ui.brand_sub || 'GLOBAL INTELLEKT'}
               </span>
             </div>
@@ -170,7 +170,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         }}
                         className={`flex items-center gap-2 px-2.5 py-2 rounded-lg text-left text-xs transition-colors cursor-pointer ${
                           currentLang === l
-                            ? 'bg-[#FF6A00]/15 text-[#FF6A00] font-bold border border-[#FF6A00]/30'
+                            ? 'bg-(--accent)/15 text-(--accent) font-bold border border-white/10'
                             : 'text-[#7C8797] hover:text-[#F5F7FA] hover:bg-white/[0.04]'
                         }`}
                       >
@@ -189,7 +189,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Admin Console trigger */}
             <button
               onClick={onOpenAdmin}
-              className="p-2 rounded-lg bg-[#0B0F14] hover:bg-[#11161D] border border-white/[0.08] text-[#7C8797] hover:text-[#FF6A00] transition-colors cursor-pointer"
+              className="p-2 rounded-lg bg-[#0B0F14] hover:bg-[#11161D] border border-white/[0.08] text-[#7C8797] hover:text-(--accent) transition-colors cursor-pointer"
               title="Admin Telemetriya & Status"
               aria-label="Admin"
             >
@@ -209,7 +209,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {themeMode === 'dark' ? (
                 <Moon className="w-3.5 h-3.5 text-zinc-400" />
               ) : themeMode === 'light' ? (
-                <Sun className="w-3.5 h-3.5 text-[#FF6A00]" />
+                <Sun className="w-3.5 h-3.5 text-(--accent)" />
               ) : (
                 <Monitor className="w-3.5 h-3.5 text-blue-400" />
               )}
@@ -218,7 +218,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* User Profile / Auth Button */}
             <button
               onClick={onOpenAuth}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#FF6A00] hover:bg-[#FF8A24] text-black font-semibold text-xs transition-colors cursor-pointer shadow-md shadow-[#FF6A00]/20"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-(--accent) hover:bg-[#FF8A24] text-black font-semibold text-xs transition-colors cursor-pointer shadow-md shadow-(--accent)/20"
             >
               <User className="w-3.5 h-3.5" />
               <span className="max-w-[110px] truncate">
@@ -243,12 +243,12 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="fixed inset-0 z-40 bg-[#05070A]/95 backdrop-blur-2xl flex flex-col justify-between p-6 pt-24 overflow-y-auto lg:hidden animate-in fade-in duration-200">
           <div className="space-y-4">
             <div className="pb-4 border-b border-white/[0.08]">
-              <span className="text-[10px] font-mono tracking-widest text-[#FF6A00] uppercase font-bold">
+              <span className="text-[10px] font-mono tracking-widest text-(--accent) uppercase font-bold">
                 HUMAYRO GLOBAL INTELLIGENCE
               </span>
             </div>
 
-            <nav className="flex flex-col gap-3 font-['Space_Grotesk'] text-lg font-medium">
+            <nav className="flex flex-col gap-3 font-[Inter] text-lg font-medium">
               <button
                 onClick={() => scrollTo('ai')}
                 className="text-left py-2 border-b border-white/[0.05] text-[#F5F7FA]"
@@ -295,7 +295,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => onThemeModeChange('light')}
                 className={`py-2 rounded-lg border text-xs font-medium ${
-                  themeMode === 'light' ? 'bg-[#FF6A00] text-black font-bold' : 'bg-[#0B0F14] border-white/10 text-[#7C8797]'
+                  themeMode === 'light' ? 'bg-(--accent) text-black font-bold' : 'bg-[#0B0F14] border-white/10 text-[#7C8797]'
                 }`}
               >
                 {currentLang === 'uz' ? "Yorug'" : currentLang === 'ru' ? "Светлая" : "Light"}
@@ -303,7 +303,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => onThemeModeChange('dark')}
                 className={`py-2 rounded-lg border text-xs font-medium ${
-                  themeMode === 'dark' ? 'bg-[#FF6A00] text-black font-bold' : 'bg-[#0B0F14] border-white/10 text-[#7C8797]'
+                  themeMode === 'dark' ? 'bg-(--accent) text-black font-bold' : 'bg-[#0B0F14] border-white/10 text-[#7C8797]'
                 }`}
               >
                 {currentLang === 'uz' ? "Qorong'i" : currentLang === 'ru' ? "Тёмная" : "Dark"}
@@ -311,7 +311,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => onThemeModeChange('system')}
                 className={`py-2 rounded-lg border text-xs font-medium ${
-                  themeMode === 'system' ? 'bg-[#FF6A00] text-black font-bold' : 'bg-[#0B0F14] border-white/10 text-[#7C8797]'
+                  themeMode === 'system' ? 'bg-(--accent) text-black font-bold' : 'bg-[#0B0F14] border-white/10 text-[#7C8797]'
                 }`}
               >
                 {currentLang === 'uz' ? "Tizim" : currentLang === 'ru' ? "Система" : "System"}
@@ -323,7 +323,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 closeMobile();
                 onOpenAuth();
               }}
-              className="w-full py-3 rounded-xl bg-[#FF6A00] text-black font-bold text-center text-sm cursor-pointer"
+              className="w-full py-3 rounded-xl bg-(--accent) text-black font-bold text-center text-sm cursor-pointer"
             >
               {user.email ? user.name : dict.nav_get_started}
             </button>

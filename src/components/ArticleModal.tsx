@@ -82,7 +82,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
           {/* Top Bar Navigation & Actions */}
           <div className="flex items-center justify-between gap-4 pb-6 mb-8 border-b border-white/[0.08]">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono tracking-[0.2em] text-[#FF6A00] font-bold uppercase">
+              <span className="text-[10px] font-mono tracking-[0.2em] text-(--accent) font-bold uppercase">
                 {ui.reader_title}
               </span>
             </div>
@@ -94,13 +94,13 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
                 onClick={onToggleBookmark}
                 className={`p-2 rounded-xl border transition-all cursor-pointer ${
                   isBookmarked
-                    ? 'bg-[#FF6A00]/20 border-[#FF6A00] text-[#FF6A00]'
+                    ? 'bg-(--accent)/20 border-(--accent) text-(--accent)'
                     : 'bg-white/[0.03] border-white/[0.08] hover:border-white/20 text-[#7C8797]'
                 }`}
                 title={isBookmarked ? dict.article_bookmarked : dict.article_bookmark}
                 aria-label="Bookmark"
               >
-                <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-[#FF6A00]' : ''}`} />
+                <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-(--accent)' : ''}`} />
               </button>
 
               {/* Share Button */}
@@ -146,7 +146,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
             <article className="flex flex-col">
               {/* Meta kicker: Source + Timestamp */}
               <div className="flex items-center gap-2 text-xs font-mono text-[#7C8797] mb-4">
-                <span className="text-[#FF6A00] font-bold">{topicLabel}</span>
+                <span className="text-(--accent) font-bold">{topicLabel}</span>
                 <span>·</span>
                 <span>{article.region || 'Global'}</span>
                 {article.publishedAt && (
@@ -193,14 +193,14 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
               {/* Key Takeaways */}
               {article.keyPoints && article.keyPoints.length > 0 && (
                 <div className="mb-8 p-6 rounded-2xl bg-[#11161D] border border-white/[0.08]">
-                  <h4 className="text-xs font-mono font-bold tracking-widest uppercase text-[#FF6A00] mb-4 flex items-center gap-2">
+                  <h4 className="text-xs font-mono font-bold tracking-widest uppercase text-(--accent) mb-4 flex items-center gap-2">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>{dict.keypoints_label}</span>
                   </h4>
                   <ul className="space-y-3 text-sm text-zinc-300">
                     {article.keyPoints.map((point, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00] shrink-0 mt-2" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-(--accent) shrink-0 mt-2" />
                         <span className="leading-relaxed">{point}</span>
                       </li>
                     ))}
@@ -211,7 +211,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
               {/* Narrative paragraphs */}
               <div className="space-y-6 font-editorial text-[#F5F7FA] text-lg sm:text-xl leading-[1.8] font-normal tracking-wide">
                 {article.paragraphs.map((p, idx) => (
-                  <p key={idx} className="first-letter:text-4xl first-letter:font-bold first-letter:float-left first-letter:mr-2.5 first-letter:text-[#FF6A00] first-letter:font-['Space_Grotesk']">
+                  <p key={idx} className="first-letter:text-4xl first-letter:font-bold first-letter:float-left first-letter:mr-2.5 first-letter:text-(--accent) first-letter:font-[Inter]">
                     {p}
                   </p>
                 ))}
@@ -241,7 +241,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
                         key={idx}
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-white/[0.03] border border-white/[0.08] text-zinc-300"
                       >
-                        <ShieldCheck className="w-3 h-3 text-[#FF6A00]" />
+                        <ShieldCheck className="w-3 h-3 text-(--accent)" />
                         <span>{s.name}</span>
                       </span>
                     ))}

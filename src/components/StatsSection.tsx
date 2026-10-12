@@ -50,12 +50,12 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ dict }) => {
       <div className="max-w-[1240px] mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {/* Stat 1 */}
-          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-[#FF6A00]/30 transition-all hover:-translate-y-1">
+          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-white/10 transition-all hover:-translate-y-1">
             <div className="flex items-baseline justify-center">
-              <span className="font-['Space_Grotesk'] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-[#FF6A00] to-[#FFA84D] bg-clip-text text-transparent">
+              <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
                 {counts.articles}
               </span>
-              <span className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-[#FF6A00] ml-1">
+              <span className="font-[Inter] text-2xl sm:text-3xl font-bold text-(--accent) ml-1">
                 M+
               </span>
             </div>
@@ -65,12 +65,12 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ dict }) => {
           </div>
 
           {/* Stat 2 */}
-          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-[#FF6A00]/30 transition-all hover:-translate-y-1">
+          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-white/10 transition-all hover:-translate-y-1">
             <div className="flex items-baseline justify-center">
-              <span className="font-['Space_Grotesk'] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-[#FF6A00] to-[#FFA84D] bg-clip-text text-transparent">
+              <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
                 {counts.sources.toLocaleString()}
               </span>
-              <span className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-[#FF6A00] ml-1">
+              <span className="font-[Inter] text-2xl sm:text-3xl font-bold text-(--accent) ml-1">
                 +
               </span>
             </div>
@@ -80,9 +80,9 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ dict }) => {
           </div>
 
           {/* Stat 3 */}
-          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-[#FF6A00]/30 transition-all hover:-translate-y-1">
+          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-white/10 transition-all hover:-translate-y-1">
             <div className="flex items-baseline justify-center">
-              <span className="font-['Space_Grotesk'] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-[#FF6A00] to-[#FFA84D] bg-clip-text text-transparent">
+              <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
                 {counts.countries}
               </span>
             </div>
@@ -92,9 +92,9 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ dict }) => {
           </div>
 
           {/* Stat 4 */}
-          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-[#FF6A00]/30 transition-all hover:-translate-y-1">
+          <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-white/10 transition-all hover:-translate-y-1">
             <div className="flex items-baseline justify-center">
-              <span className="font-['Space_Grotesk'] text-4xl sm:text-6xl font-bold text-[#FF6A00]">
+              <span className="font-[Inter] text-4xl sm:text-6xl font-bold text-(--accent)">
                 24/7
               </span>
             </div>

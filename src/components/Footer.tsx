@@ -15,10 +15,10 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
           {/* Brand info */}
           <div className="lg:col-span-4 flex flex-col gap-4">
-            <a href="#home" className="flex items-center gap-2.5 font-['Space_Grotesk'] font-bold text-xl text-white">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#FF6A00] shadow-[0_0_12px_#FF6A00] animate-pulse" />
+            <a href="#home" className="flex items-center gap-2.5 font-[Inter] font-bold text-xl text-white">
+              <span className="w-2.5 h-2.5 rounded-full bg-(--accent) shadow-[0_0_12px_#FF6A00] animate-pulse" />
               <span>
-                Humayro<span className="text-[#FF6A00]">_3.2</span>
+                Humayro<span className="text-(--accent)">_3.2</span>
               </span>
             </a>
             <p className="text-zinc-400 text-sm max-w-sm leading-relaxed">
@@ -34,10 +34,10 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
                 {dict.footer_product}
               </h4>
               <ul className="flex flex-col gap-2.5 text-sm text-zinc-400">
-                <li><a href="#ai" className="hover:text-[#FF6A00] transition-colors">{dict.nav_ai}</a></li>
-                <li><a href="#map" className="hover:text-[#FF6A00] transition-colors">{dict.nav_explore}</a></li>
+                <li><a href="#ai" className="hover:text-(--accent) transition-colors">{dict.nav_ai}</a></li>
+                <li><a href="#map" className="hover:text-(--accent) transition-colors">{dict.nav_explore}</a></li>
                 <li>
-                  <button onClick={onOpenAdmin} className="hover:text-[#FF6A00] transition-colors text-left cursor-pointer">
+                  <button onClick={onOpenAdmin} className="hover:text-(--accent) transition-colors text-left cursor-pointer">
                     {dict.nav_admin}
                   </button>
                 </li>
@@ -50,8 +50,8 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
                 {dict.footer_company}
               </h4>
               <ul className="flex flex-col gap-2.5 text-sm text-zinc-400">
-                <li><a href="#home" className="hover:text-[#FF6A00] transition-colors">{dict.footer_careers}</a></li>
-                <li><a href="#contact" className="hover:text-[#FF6A00] transition-colors">{dict.footer_contact}</a></li>
+                <li><a href="#home" className="hover:text-(--accent) transition-colors">{dict.footer_careers}</a></li>
+                <li><a href="#contact" className="hover:text-(--accent) transition-colors">{dict.footer_contact}</a></li>
               </ul>
             </div>
 
@@ -61,9 +61,9 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
                 {dict.footer_legal}
               </h4>
               <ul className="flex flex-col gap-2.5 text-sm text-zinc-400">
-                <li><a href="#" className="hover:text-[#FF6A00] transition-colors">{dict.footer_privacy}</a></li>
-                <li><a href="#" className="hover:text-[#FF6A00] transition-colors">{dict.footer_terms}</a></li>
-                <li><a href="#" className="hover:text-[#FF6A00] transition-colors">{dict.footer_security}</a></li>
+                <li><a href="#" className="hover:text-(--accent) transition-colors">{dict.footer_privacy}</a></li>
+                <li><a href="#" className="hover:text-(--accent) transition-colors">{dict.footer_terms}</a></li>
+                <li><a href="#" className="hover:text-(--accent) transition-colors">{dict.footer_security}</a></li>
               </ul>
             </div>
 
@@ -73,9 +73,9 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
                 {dict.footer_connect}
               </h4>
               <ul className="flex flex-col gap-2.5 text-sm text-zinc-400">
-                <li><a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF6A00] transition-colors">GitHub</a></li>
-                <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF6A00] transition-colors">Twitter (X)</a></li>
-                <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF6A00] transition-colors">LinkedIn</a></li>
+                <li><a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-(--accent) transition-colors">GitHub</a></li>
+                <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-(--accent) transition-colors">Twitter (X)</a></li>
+                <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-(--accent) transition-colors">LinkedIn</a></li>
               </ul>
             </div>
           </div>

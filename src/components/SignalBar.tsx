@@ -66,10 +66,10 @@ export const SignalBar: React.FC<SignalBarProps> = ({
           <button
             type="button"
             onClick={() => onSelectArticle && onSelectArticle(currentSignal)}
-            className="text-left font-medium text-[#F5F7FA] hover:text-[#FF6A00] truncate transition-colors cursor-pointer group flex items-center gap-2"
+            className="text-left font-medium text-[#F5F7FA] hover:text-(--accent) truncate transition-colors cursor-pointer group flex items-center gap-2"
           >
             <span className="truncate">{currentSignal.title}</span>
-            <ChevronRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#FF6A00] shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ChevronRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-(--accent) shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
           </button>
         </div>
 
@@ -81,7 +81,7 @@ export const SignalBar: React.FC<SignalBarProps> = ({
           <span className="hidden md:inline text-zinc-600">·</span>
           <span>{formatTimeAgoLocale(currentSignal.publishedAt, currentLang)}</span>
 
-          <span className="px-2 py-0.5 rounded bg-white/[0.05] border border-white/[0.08] text-[10px] text-[#FF6A00] font-bold">
+          <span className="px-2 py-0.5 rounded bg-white/[0.05] border border-white/[0.08] text-[10px] text-(--accent) font-bold">
             {ui.signal_label} {score}%
           </span>
         </div>

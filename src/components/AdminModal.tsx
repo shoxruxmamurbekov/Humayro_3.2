@@ -51,11 +51,11 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-white/[0.02]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#FF6A00]/20 flex items-center justify-center text-[#FF6A00]">
+            <div className="w-8 h-8 rounded-full bg-(--accent)/20 flex items-center justify-center text-(--accent)">
               <Shield className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-['Space_Grotesk'] font-bold text-base sm:text-lg text-white">
+              <h3 className="font-[Inter] font-bold text-base sm:text-lg text-white">
                 Humayro 3.3 · System Intelligence Desk
               </h3>
               <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-mono">
@@ -72,7 +72,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                 className="w-8 h-8 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
                 title="Refresh Metrics"
               >
-                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-[#FF6A00]' : ''}`} />
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-(--accent)' : ''}`} />
               </button>
             )}
             <button
@@ -102,7 +102,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                   value={tokenInput}
                   onChange={e => setTokenInput(e.target.value)}
                   placeholder="Enter admin secret..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white font-mono text-sm outline-none focus:border-[#FF6A00]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white font-mono text-sm outline-none focus:border-(--accent)"
                 />
               </div>
 
@@ -111,7 +111,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-full bg-[#FF6A00] text-black font-semibold text-sm hover:bg-[#FF8A24] transition-colors cursor-pointer disabled:opacity-50"
+                className="w-full py-3 rounded-full bg-(--accent) text-black font-semibold text-sm hover:bg-[#FF8A24] transition-colors cursor-pointer disabled:opacity-50"
               >
                 {loading ? 'Verifying...' : 'Access System Desk'}
               </button>
@@ -125,7 +125,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                   <span className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">
                     Searches
                   </span>
-                  <span className="font-['Space_Grotesk'] text-2xl font-bold text-white">
+                  <span className="font-[Inter] text-2xl font-bold text-white">
                     {metrics.totalSearches}
                   </span>
                 </div>
@@ -134,7 +134,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                   <span className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">
                     AI Queries
                   </span>
-                  <span className="font-['Space_Grotesk'] text-2xl font-bold text-[#FF6A00]">
+                  <span className="font-[Inter] text-2xl font-bold text-(--accent)">
                     {metrics.aiRequests}
                   </span>
                 </div>
@@ -143,7 +143,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                   <span className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">
                     Cache Keys
                   </span>
-                  <span className="font-['Space_Grotesk'] text-2xl font-bold text-cyan-400">
+                  <span className="font-[Inter] text-2xl font-bold text-cyan-400">
                     {metrics.cachedQueries}
                   </span>
                 </div>
@@ -152,7 +152,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                   <span className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">
                     Uptime
                   </span>
-                  <span className="font-['Space_Grotesk'] text-lg font-bold text-emerald-400 font-mono">
+                  <span className="font-[Inter] text-lg font-bold text-emerald-400 font-mono">
                     {Math.floor(metrics.uptimeSeconds / 60)}m {metrics.uptimeSeconds % 60}s
                   </span>
                 </div>
@@ -168,7 +168,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                 {/* Gemini Status */}
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-[#FF6A00]" />
+                    <Zap className="w-4 h-4 text-(--accent)" />
                     <span className="font-medium text-white">Google Gemini 2.5 Flash</span>
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-zinc-400 font-mono">Primary</span>
                   </div>
