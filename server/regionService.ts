@@ -1,3 +1,4 @@
+import { SharedCache } from './sharedCache.ts';
 import { searchGoogleNews } from './newsService.ts';
 import type { Article, SupportedLanguage } from '../src/types/index.ts';
 
@@ -98,12 +99,12 @@ export const REGION_KEYS = Object.keys(REGION_CONFIG);
 const REGION_CACHE_TTL_MS = 30 * 1000;
 const WEATHER_CACHE_TTL_MS = 5 * 60 * 1000;
 
-const regionCache = new Map<string, { at: number; data: RegionLiveData }>();
-const weatherCache = new Map<string, { at: number; data: RegionLiveWeather }>();
+const regionCache = new SharedCache<RegionLiveData>('region');
+const weatherCache = new SharedCache<RegionLiveWeather>('weather');
 
 async function fetchWeather(city: { name: string; lat: number; lon: number }): Promise<RegionLiveWeather | null> {
   const key = `${city.lat},${city.lon}`;
-  const hit = weatherCache.get(key);
+  const hit = await weatherCache.getEntry(key);
   if (hit && Date.now() - hit.at < WEATHER_CACHE_TTL_MS) return hit.data;
 
   try {
@@ -129,7 +130,7 @@ async function fetchWeather(city: { name: string; lat: number; lon: number }): P
       isDay: c.is_day === 1,
       observedAt: c.time ?? null
     };
-    weatherCache.set(key, { at: Date.now(), data });
+    await weatherCache.setEntry(key, { at: Date.now(), data });
     return data;
   } catch {
     return hit?.data ?? null;
@@ -199,7 +200,7 @@ export async function getRegionLive(regionKey: string, lang: SupportedLanguage):
   if (!cfg) return null;
 
   const cacheKey = `${regionKey}:${lang}`;
-  const hit = regionCache.get(cacheKey);
+  const hit = await regionCache.getEntry(cacheKey);
   if (hit && Date.now() - hit.at < REGION_CACHE_TTL_MS) return hit.data;
 
   const [newsLists, weatherList] = await Promise.all([
@@ -219,7 +220,7 @@ export async function getRegionLive(regionKey: string, lang: SupportedLanguage):
     return { ...hit.data, weather: data.weather.length ? data.weather : hit.data.weather };
   }
 
-  regionCache.set(cacheKey, { at: Date.now(), data });
+  await regionCache.setEntry(cacheKey, { at: Date.now(), data });
   return data;
 }
 
@@ -244,7 +245,7 @@ export interface RegionVideosData {
 
 const VIDEO_CACHE_TTL_MS = 10 * 60 * 1000;
 const VIDEO_WINDOW_MS = 3 * 24 * 60 * 60 * 1000;
-const videoCache = new Map<string, { at: number; data: RegionVideosData }>();
+const videoCache = new SharedCache<RegionVideosData>('videos');
 
 async function youtubeSearch(q: string, lang: SupportedLanguage, apiKey: string): Promise<RegionVideo[]> {
   const params = new URLSearchParams({
@@ -289,7 +290,7 @@ export async function getRegionVideos(regionKey: string, lang: SupportedLanguage
   if (!cfg) return null;
 
   const cacheKey = `${regionKey}:${lang}`;
-  const hit = videoCache.get(cacheKey);
+  const hit = await videoCache.getEntry(cacheKey);
   if (hit && Date.now() - hit.at < VIDEO_CACHE_TTL_MS) return hit.data;
 
   // Search by the hottest live headlines first, then fall back to the region's keywords
@@ -323,6 +324,6 @@ export async function getRegionVideos(regionKey: string, lang: SupportedLanguage
 
   // Don't cache a failed lookup for long: retry sooner if the API call came back empty
   if (apiKey && videos.length === 0 && hit) return hit.data;
-  videoCache.set(cacheKey, { at: Date.now(), data });
+  await videoCache.setEntry(cacheKey, { at: Date.now(), data });
   return data;
 }

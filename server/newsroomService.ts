@@ -1,3 +1,4 @@
+import { SharedCache } from './sharedCache.ts';
 import { GoogleGenAI } from '@google/genai';
 import { fetchRssFeed } from './newsService.ts';
 import { CANDIDATE_MODELS } from './aiService.ts';
@@ -53,8 +54,7 @@ const TOPIC_QUERY: Record<string, string> = {
 
 const SUPPORTED_LANGS = Object.keys(LANGUAGE_NAMES) as SupportedLanguage[];
 const CACHE_TTL_MS = 20 * 60 * 1000;
-const CACHE_MAX_ENTRIES = 50;
-const cache = new Map<string, { at: number; result: NewsroomResult }>();
+const newsroomCache = new SharedCache<NewsroomResult>('newsroom');
 
 export function normalizeCountry(value: string | undefined): string {
   const code = (value || 'UZ').toUpperCase();
@@ -73,22 +73,15 @@ export function buildCacheKey(country: string, lang: SupportedLanguage, topics: 
   return `${country}|${lang}|${topics.join(',')}`;
 }
 
-export function getCachedNewsroom(key: string): NewsroomResult | null {
-  const hit = cache.get(key);
+export async function getCachedNewsroom(key: string): Promise<NewsroomResult | null> {
+  const hit = await newsroomCache.getEntry(key);
   if (!hit) return null;
-  if (Date.now() - hit.at > CACHE_TTL_MS) {
-    cache.delete(key);
-    return null;
-  }
-  return { ...hit.result, cached: true };
+  if (Date.now() - hit.at > CACHE_TTL_MS) return null;
+  return { ...hit.data, cached: true };
 }
 
-function storeCache(key: string, result: NewsroomResult): void {
-  if (cache.size >= CACHE_MAX_ENTRIES) {
-    const oldest = cache.keys().next().value;
-    if (oldest) cache.delete(oldest);
-  }
-  cache.set(key, { at: Date.now(), result });
+async function storeCache(key: string, result: NewsroomResult): Promise<void> {
+  await newsroomCache.setEntry(key, { at: Date.now(), data: result });
 }
 
 function buildFeedUrls(country: string, topics: string[]) {
@@ -313,6 +306,6 @@ export async function generateNewsroom(
     generatedAt: new Date().toISOString(),
     cached: false
   };
-  storeCache(key, result);
+  await storeCache(key, result);
   return result;
 }
