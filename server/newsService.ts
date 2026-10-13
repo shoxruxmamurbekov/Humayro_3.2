@@ -1,15 +1,11 @@
+import { SharedCache } from './sharedCache.ts';
 import { XMLParser } from 'fast-xml-parser';
 import { GoogleGenAI } from '@google/genai';
 import sanitizeHtml from 'sanitize-html';
 import type { Article, SupportedLanguage } from '../src/types/index.ts';
 
-interface CachedEntry<T> {
-  data: T;
-  timestamp: number;
-}
-
 const CACHE_TTL_MS = 45 * 1000; // 45 seconds cache for real-time live updates
-const cache: Map<string, CachedEntry<any>> = new Map();
+const feedCache = new SharedCache<Article[]>('feed');
 
 const parser = new XMLParser({
   ignoreAttributes: false,
@@ -617,8 +613,8 @@ export async function getLiveNewsFeed(
   category?: string
 ): Promise<Article[]> {
   const cacheKey = `feed_${lang}_${category || 'all'}`;
-  const cached = cache.get(cacheKey);
-  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+  const cached = await feedCache.getEntry(cacheKey);
+  if (cached && Date.now() - cached.at < CACHE_TTL_MS) {
     return cached.data;
   }
 
@@ -678,7 +674,7 @@ export async function getLiveNewsFeed(
       }
     }
 
-    cache.set(cacheKey, { data: resultArticles, timestamp: Date.now() });
+    await feedCache.setEntry(cacheKey, { at: Date.now(), data: resultArticles });
     return resultArticles;
   } catch (err) {
     console.warn('[NewsService] Failed to assemble live feed:', err);
@@ -975,7 +971,7 @@ export function getTrendingHotspots(lang: SupportedLanguage = 'uz'): {
 
 export function getCacheStats() {
   return {
-    cachedKeys: cache.size,
+    cachedKeys: feedCache.localSize(),
     timestamp: Date.now()
   };
 }

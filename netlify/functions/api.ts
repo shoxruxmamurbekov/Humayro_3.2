@@ -6,6 +6,8 @@ import { synthesizeNews, generateArticle, getAiProviderInfo } from '../../server
 import { getRequiredAdminSecret, timingSafeAdminCheck } from '../../server/security.ts';
 import { consumeQuota, getQuotaStatus, setQuotaBackend } from '../../server/quotaService.ts';
 import { createBlobsQuotaBackend } from '../../server/quotaBlobsBackend.ts';
+import { setCacheBackend } from '../../server/sharedCache.ts';
+import { createBlobsKvBackend } from '../../server/blobsKvBackend.ts';
 import { getRegionLive, getRegionVideos } from '../../server/regionService.ts';
 import type { SupportedLanguage, SystemMetrics } from '../../src/types/index.ts';
 import { newsroomHandler, newsroomAgentsHandler } from '../../server/newsroomRoutes.ts';
@@ -19,6 +21,7 @@ dotenv.config();
 if (process.env.NETLIFY) {
   try {
     setQuotaBackend(createBlobsQuotaBackend());
+    setCacheBackend(createBlobsKvBackend());
   } catch (err) {
     console.warn('[quota] Netlify Blobs unavailable, using memory:', err);
   }

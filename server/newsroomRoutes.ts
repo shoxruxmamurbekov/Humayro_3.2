@@ -34,7 +34,7 @@ export async function newsroomHandler(req: Request, res: Response) {
   const topics = normalizeTopics(topicsRaw.map(t => t.trim()).filter(Boolean));
 
   const key = buildCacheKey(country, lang, topics);
-  const cached = getCachedNewsroom(key);
+  const cached = await getCachedNewsroom(key);
   if (cached) {
     return res.json({ success: true, data: cached });
   }
