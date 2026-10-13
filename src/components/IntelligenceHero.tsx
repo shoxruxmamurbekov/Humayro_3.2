@@ -152,7 +152,7 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
             onSubmit={handleSubmit}
             className="relative flex items-center p-2 rounded-2xl bg-[#0B0F14] border border-white/[0.12] focus-within:border-(--accent) focus-within:ring-1 focus-within:ring-(--accent)/40 transition-all shadow-2xl shadow-black/60"
           >
-            <div className="pl-3.5 pr-2 text-[#7C8797]">
+            <div className="ps-3.5 pe-2 text-[#7C8797]">
               <Search className="w-5 h-5 text-zinc-400" />
             </div>
 
@@ -163,10 +163,10 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
               onChange={e => setInputVal(e.target.value)}
               placeholder={ui.hero_placeholder}
               disabled={isLoading}
-              className="flex-1 bg-transparent border-0 outline-none text-[#F5F7FA] placeholder:text-zinc-500 text-sm sm:text-base py-3 px-2 font-normal"
+              className="flex-1 min-w-0 w-full bg-transparent border-0 outline-none text-[#F5F7FA] placeholder:text-zinc-500 text-sm sm:text-base py-3 px-2 font-normal"
             />
 
-            <div className="flex items-center gap-2 pr-1">
+            <div className="flex items-center gap-2 pe-1">
               {/* Keyboard shortcut badge */}
               <div className="hidden sm:flex items-center gap-0.5 px-2 py-1 rounded bg-white/[0.05] border border-white/[0.08] text-[10px] font-mono text-zinc-400">
                 <Command className="w-2.5 h-2.5" />
@@ -195,7 +195,7 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
               <button
                 type="submit"
                 disabled={isLoading || !inputVal.trim()}
-                className="flex items-center gap-1.5 px-5 py-3 rounded-xl bg-(--accent) hover:bg-[#FF8A24] text-black font-bold text-xs sm:text-sm transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shadow-md shadow-(--accent)/25"
+                className="flex items-center gap-1.5 px-3 sm:px-5 py-3 rounded-xl bg-(--accent) hover:bg-[#FF8A24] text-black font-bold text-xs sm:text-sm shrink-0 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shadow-md shadow-(--accent)/25"
               >
                 {isLoading ? (
                   <>
@@ -217,7 +217,7 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
             <span className="text-zinc-500 font-mono text-[11px]">{ui.hero_trending}</span>
 
             {/* Quick switcher tab */}
-            <div className="inline-flex items-center rounded-lg bg-white/[0.03] border border-white/[0.07] p-0.5 mr-1 font-mono text-[10px]">
+            <div className="inline-flex items-center rounded-lg bg-white/[0.03] border border-white/[0.07] p-0.5 me-1 font-mono text-[10px]">
               <button
                 type="button"
                 onClick={() => setTrendTab('uz')}

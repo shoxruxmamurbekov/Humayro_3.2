@@ -27,7 +27,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     <section id="home" className="relative min-h-[85vh] flex items-center justify-center pt-24 pb-16 overflow-hidden">
       {/* Radiant ambient center glow */}
       <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] md:w-[900px] h-[600px] md:h-[900px] rounded-full pointer-events-none z-0 filter blur-[90px] opacity-35"
+        className="absolute top-1/4 start-1/2 -translate-x-1/2 w-[600px] md:w-[900px] h-[600px] md:h-[900px] rounded-full pointer-events-none z-0 filter blur-[90px] opacity-35"
         style={{
           background: 'radial-gradient(circle, rgba(255,106,0,0.35) 0%, transparent 65%)'
         }}
@@ -112,7 +112,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-medium text-sm bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.08] text-zinc-200 backdrop-blur-xl hover:-translate-y-0.5 transition-all cursor-pointer"
           >
             <div className="w-6 h-6 rounded-full bg-(--accent) flex items-center justify-center text-black">
-              <Play className="w-3 h-3 fill-current ml-0.5" />
+              <Play className="w-3 h-3 fill-current ms-0.5" />
             </div>
             <span>{dict.hero_cta_ghost}</span>
           </button>
@@ -120,7 +120,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       </div>
 
       {/* Scroll down indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-500 text-[10px] uppercase tracking-widest pointer-events-none">
+      <div className="absolute bottom-6 start-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-500 text-[10px] uppercase tracking-widest pointer-events-none">
         <span>{dict.scroll_label}</span>
         <div className="w-px h-9 bg-gradient-to-b from-(--accent) to-transparent animate-pulse" />
       </div>

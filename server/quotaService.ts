@@ -13,17 +13,65 @@ export interface QuotaStatus {
 export const GUEST_DAILY_LIMIT = 50;
 export const REGISTERED_DAILY_LIMIT = 200;
 
-interface DailyRecord {
+export interface DailyRecord {
   date: string;
   count: number;
 }
 
-// In-memory store: identifier -> DailyRecord
-const quotaStore: Map<string, DailyRecord> = new Map();
+// Storage behind the quota. The default is per-process memory, which is only correct for a
+// single long-running server. On Netlify, a shared backend (Netlify Blobs) is installed at startup
+// so that every serverless instance counts against the same daily limit.
+export interface QuotaBackend {
+  get(key: string): Promise<DailyRecord | undefined>;
+  set(key: string, record: DailyRecord): Promise<void>;
+}
+
+export function createMemoryBackend(): QuotaBackend {
+  const store = new Map<string, DailyRecord>();
+  return {
+    async get(key) {
+      return store.get(key);
+    },
+    async set(key, record) {
+      store.set(key, record);
+    }
+  };
+}
+
+let backend: QuotaBackend = createMemoryBackend();
+const memoryFallback = createMemoryBackend();
 let totalQuotaRejections = 0;
+
+export function setQuotaBackend(next: QuotaBackend): void {
+  backend = next;
+}
+
+// A storage outage must not take the AI endpoints down. On error the count is kept in memory
+// for that request path, and the failure is logged so it shows up in the function logs.
+async function readRecord(key: string): Promise<DailyRecord | undefined> {
+  try {
+    return await backend.get(key);
+  } catch (err) {
+    console.warn('[quota] shared store read failed, using memory fallback:', err);
+    return memoryFallback.get(key);
+  }
+}
+
+async function writeRecord(key: string, record: DailyRecord): Promise<void> {
+  try {
+    await backend.set(key, record);
+  } catch (err) {
+    console.warn('[quota] shared store write failed, using memory fallback:', err);
+    await memoryFallback.set(key, record);
+  }
+}
 
 function getTodayUtcString(): string {
   return new Date().toISOString().slice(0, 10);
+}
+
+function storageKey(identifier: string): string {
+  return `quota/${encodeURIComponent(identifier)}`;
 }
 
 /**
@@ -66,10 +114,10 @@ export function extractClientIdentity(req: Request): { identifier: string; userT
 /**
  * Reads current quota status without incrementing.
  */
-export function getQuotaStatus(req: Request): QuotaStatus {
+export async function getQuotaStatus(req: Request): Promise<QuotaStatus> {
   const { identifier, userType, limit } = extractClientIdentity(req);
   const today = getTodayUtcString();
-  const record = quotaStore.get(identifier);
+  const record = await readRecord(storageKey(identifier));
 
   const used = record && record.date === today ? record.count : 0;
   const remaining = Math.max(0, limit - used);
@@ -88,16 +136,17 @@ export function getQuotaStatus(req: Request): QuotaStatus {
 /**
  * Checks and consumes 1 quota unit.
  * Returns quota status with graceful error message if limit is exceeded.
+ *
+ * Note: the shared backend is read-modify-write, so two requests that arrive at the same instant
+ * can both pass the check. This makes the limit slightly lenient under heavy parallel use,
+ * but it cannot be bypassed by simply retrying.
  */
-export function consumeQuota(req: Request): QuotaStatus {
+export async function consumeQuota(req: Request): Promise<QuotaStatus> {
   const { identifier, userType, limit } = extractClientIdentity(req);
   const today = getTodayUtcString();
-  let record = quotaStore.get(identifier);
-
-  if (!record || record.date !== today) {
-    record = { date: today, count: 0 };
-    quotaStore.set(identifier, record);
-  }
+  const key = storageKey(identifier);
+  const existing = await readRecord(key);
+  const record: DailyRecord = existing && existing.date === today ? existing : { date: today, count: 0 };
 
   if (record.count >= limit) {
     totalQuotaRejections++;
@@ -113,6 +162,7 @@ export function consumeQuota(req: Request): QuotaStatus {
   }
 
   record.count += 1;
+  await writeRecord(key, record);
   const remaining = Math.max(0, limit - record.count);
 
   return {

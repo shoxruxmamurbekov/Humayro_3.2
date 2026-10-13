@@ -4,7 +4,8 @@ import serverless from 'serverless-http';
 import { getLiveNewsFeed, searchNews, getCacheStats, getTrendingHotspots } from '../../server/newsService.ts';
 import { synthesizeNews, generateArticle, getAiProviderInfo } from '../../server/aiService.ts';
 import { getRequiredAdminSecret, timingSafeAdminCheck } from '../../server/security.ts';
-import { consumeQuota, getQuotaStatus } from '../../server/quotaService.ts';
+import { consumeQuota, getQuotaStatus, setQuotaBackend } from '../../server/quotaService.ts';
+import { createBlobsQuotaBackend } from '../../server/quotaBlobsBackend.ts';
 import { getRegionLive, getRegionVideos } from '../../server/regionService.ts';
 import type { SupportedLanguage, SystemMetrics } from '../../src/types/index.ts';
 import { newsroomHandler, newsroomAgentsHandler } from '../../server/newsroomRoutes.ts';
@@ -12,6 +13,16 @@ import { generalApiLimiter, aiApiLimiter } from '../../server/rateLimit.ts';
 import { securityHeaders } from '../../server/securityHeaders.ts';
 
 dotenv.config();
+
+// On Netlify, quota counts are shared across all function instances via Netlify Blobs.
+// Outside Netlify (or if Blobs cannot start), quota falls back to per-process memory.
+if (process.env.NETLIFY) {
+  try {
+    setQuotaBackend(createBlobsQuotaBackend());
+  } catch (err) {
+    console.warn('[quota] Netlify Blobs unavailable, using memory:', err);
+  }
+}
 
 const app = express();
 app.set('trust proxy', 1);
@@ -34,8 +45,8 @@ const getLang = (raw: unknown): SupportedLanguage => {
 
 app.get('/health', (_req, res) => res.json({ status: 'ok', product: 'Humayro_3.2', uptime: 0 }));
 
-app.get('/user/quota', (req, res) => {
-  const quota = getQuotaStatus(req);
+app.get('/user/quota', async (req, res) => {
+  const quota = await getQuotaStatus(req);
   res.json({ success: true, quota });
 });
 
@@ -103,7 +114,7 @@ app.get('/news/search', async (req, res) => {
 });
 
 app.post('/ai/synthesize', async (req, res) => {
-  const quota = consumeQuota(req);
+  const quota = await consumeQuota(req);
   if (!quota.allowed) {
     return res.status(429).json({ success: false, error: quota.error || 'Daily query quota reached.', quota });
   }
@@ -120,7 +131,7 @@ app.post('/ai/synthesize', async (req, res) => {
 });
 
 app.post('/ai/article', async (req, res) => {
-  const quota = consumeQuota(req);
+  const quota = await consumeQuota(req);
   if (!quota.allowed) {
     return res.status(429).json({ success: false, error: quota.error || 'Daily query quota reached.', quota });
   }

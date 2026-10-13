@@ -281,7 +281,7 @@ export const NewsroomSection: React.FC<{ currentLang: SupportedLanguage }> = ({ 
 
                 <div className="mt-3">
                   <p className="text-[10px] font-semibold tracking-[0.14em] text-slate-500">FAKTLAR</p>
-                  <ul className="mt-1.5 list-disc space-y-1 pl-5 text-xs leading-relaxed text-slate-300">
+                  <ul className="mt-1.5 list-disc space-y-1 ps-5 text-xs leading-relaxed text-slate-300">
                     {post.facts.map((f, i) => (
                       <li key={i}>{f}</li>
                     ))}

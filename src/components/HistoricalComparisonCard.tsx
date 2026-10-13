@@ -21,7 +21,7 @@ export const HistoricalComparisonCard: React.FC<HistoricalComparisonCardProps> =
   return (
     <div className="my-8 rounded-3xl bg-gradient-to-b from-amber-500/[0.08] via-black/40 to-black/60 border border-amber-500/25 p-5 sm:p-7 shadow-2xl relative overflow-hidden">
       {/* Background Watermark */}
-      <div className="absolute top-2 right-4 opacity-5 pointer-events-none text-amber-300">
+      <div className="absolute top-2 end-4 opacity-5 pointer-events-none text-amber-300">
         <Landmark className="w-36 h-36" />
       </div>
 
@@ -83,12 +83,12 @@ export const HistoricalComparisonCard: React.FC<HistoricalComparisonCardProps> =
               {historicalParallel.eventName}
             </h5>
             <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-3">
-              <strong className="text-amber-300 font-medium mr-1">{dict.historical_similarity_label}:</strong>
+              <strong className="text-amber-300 font-medium me-1">{dict.historical_similarity_label}:</strong>
               {historicalParallel.similarity}
             </p>
             {historicalParallel.historicalLesson && (
               <div className="p-2.5 rounded-xl bg-black/40 border border-amber-500/20 text-xs text-amber-200/90 leading-relaxed">
-                <strong className="text-amber-400 font-medium mr-1">⚖️ {dict.historical_lesson_label}:</strong>
+                <strong className="text-amber-400 font-medium me-1">⚖️ {dict.historical_lesson_label}:</strong>
                 {historicalParallel.historicalLesson}
               </div>
             )}
@@ -101,7 +101,7 @@ export const HistoricalComparisonCard: React.FC<HistoricalComparisonCardProps> =
 
       {/* Wisdom Quote Box */}
       {historicalParallel.quote?.text && (
-        <div className="mt-5 p-4 sm:p-5 rounded-2xl bg-black/70 border-l-4 border-amber-500 shadow-xl relative z-10">
+        <div className="mt-5 p-4 sm:p-5 rounded-2xl bg-black/70 border-s-4 border-amber-500 shadow-xl relative z-10">
           <div className="flex items-start gap-3">
             <Quote className="w-6 h-6 text-amber-400/50 shrink-0 mt-0.5" />
             <div className="flex-1">

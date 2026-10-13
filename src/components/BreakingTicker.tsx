@@ -138,7 +138,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
     <aside aria-label="Breaking news ticker" className="w-full mt-20 sm:mt-24 bg-[#0a0a0c]/95 border-y border-white/10 backdrop-blur-md relative z-30 select-none shadow-lg">
       <div className="max-w-[1440px] mx-auto flex items-center h-11 px-3 sm:px-6">
         {/* Live Badge Pill */}
-        <div className="flex items-center gap-2 pr-3.5 border-r border-white/10 shrink-0 bg-black/40 z-10 py-1">
+        <div className="flex items-center gap-2 pe-3.5 border-e border-white/10 shrink-0 bg-black/40 z-10 py-1">
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75" />
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-600 shadow-[0_0_8px_#f43f5e]" />
@@ -203,7 +203,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
         </div>
 
         {/* Right side controls: Pause/Play & Expandable Live Stream Drawer */}
-        <div className="flex items-center gap-2 pl-3 border-l border-white/10 shrink-0 text-xs font-mono">
+        <div className="flex items-center gap-2 ps-3 border-s border-white/10 shrink-0 text-xs font-mono">
           <button
             type="button"
             onClick={() => setIsPaused(prev => !prev)}
@@ -281,7 +281,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
             </div>
 
             {/* Dispatches Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 max-h-[460px] overflow-y-auto pr-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 max-h-[460px] overflow-y-auto pe-1">
               {filteredArticles.map(item => {
                 const badgeStyle = getAgencyBadgeStyle(item.source);
                 const timeStr = formatRelativeTime(item.publishedAt, currentLang);

@@ -55,7 +55,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ dict }) => {
               <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
                 {counts.articles}
               </span>
-              <span className="font-[Inter] text-2xl sm:text-3xl font-bold text-(--accent) ml-1">
+              <span className="font-[Inter] text-2xl sm:text-3xl font-bold text-(--accent) ms-1">
                 M+
               </span>
             </div>
@@ -70,7 +70,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ dict }) => {
               <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
                 {counts.sources.toLocaleString()}
               </span>
-              <span className="font-[Inter] text-2xl sm:text-3xl font-bold text-(--accent) ml-1">
+              <span className="font-[Inter] text-2xl sm:text-3xl font-bold text-(--accent) ms-1">
                 +
               </span>
             </div>

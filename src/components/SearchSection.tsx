@@ -147,7 +147,7 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
           onSubmit={handleSubmit}
           className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-black/50 border border-white/10 focus-within:border-(--accent) transition-colors"
         >
-          <Search className="w-5 h-5 text-zinc-500 shrink-0 ml-1" />
+          <Search className="w-5 h-5 text-zinc-500 shrink-0 ms-1" />
           <input
             ref={inputRef}
             type="text"
