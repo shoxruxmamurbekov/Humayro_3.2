@@ -39,7 +39,7 @@ export async function newsroomHandler(req: Request, res: Response) {
     return res.json({ success: true, data: cached });
   }
 
-  const quota = consumeQuota(req);
+  const quota = await consumeQuota(req);
   if (!quota.allowed) {
     return res.status(429).json({
       success: false,

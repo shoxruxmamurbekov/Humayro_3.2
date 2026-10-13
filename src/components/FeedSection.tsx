@@ -381,8 +381,8 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
       {/* 2. MAGAZINE VIEW (Dynamic 3D-feeling cards stream) */}
       {viewMode === 'magazine' && (
         <div className="relative w-full overflow-hidden py-4">
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#080808] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#080808] to-transparent z-10 pointer-events-none" />
+          <div className="absolute start-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#080808] to-transparent z-10 pointer-events-none" />
+          <div className="absolute end-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#080808] to-transparent z-10 pointer-events-none" />
 
           <div className="flex gap-5 w-max animate-[feedScroll_55s_linear_infinite] hover:[animation-play-state:paused] px-6">
             {[...TOPICS, ...TOPICS].map((topic, index) => {

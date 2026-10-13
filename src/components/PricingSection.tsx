@@ -43,7 +43,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               </span>
               <div className="flex items-baseline mt-4 mb-2">
                 <span className="font-[Inter] text-5xl font-bold text-white">$0</span>
-                <span className="text-zinc-500 text-sm ml-1">{dict.per_mo}</span>
+                <span className="text-zinc-500 text-sm ms-1">{dict.per_mo}</span>
               </div>
               <p className="text-zinc-400 text-sm mb-8">{dict.price_free_desc}</p>
 
@@ -86,7 +86,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
           {/* 2. Pro Tier (HONESTLY MARKED COMING SOON) */}
           <div className="relative p-8 sm:p-10 rounded-3xl bg-gradient-to-b from-(--accent)/[0.08] to-transparent border border-white/10 shadow-[0_0_60px_-15px_rgba(255,106,0,0.25)] flex flex-col justify-between scale-100 lg:scale-105 z-10 transition-all hover:-translate-y-1">
             {/* Featured Badge */}
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-(--accent) text-black font-semibold text-[11px] uppercase tracking-wider shadow-md flex items-center gap-1.5">
+            <div className="absolute -top-3.5 start-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-(--accent) text-black font-semibold text-[11px] uppercase tracking-wider shadow-md flex items-center gap-1.5">
               <Sparkles className="w-3 h-3 fill-current" />
               <span>{dict.price_pro_badge}</span>
             </div>
@@ -97,7 +97,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               </span>
               <div className="flex items-baseline mt-4 mb-2">
                 <span className="font-[Inter] text-5xl font-bold text-white">$19</span>
-                <span className="text-zinc-500 text-sm ml-1">{dict.per_mo}</span>
+                <span className="text-zinc-500 text-sm ms-1">{dict.per_mo}</span>
               </div>
               <p className="text-zinc-400 text-sm mb-8">{dict.price_pro_desc}</p>
 

@@ -142,8 +142,8 @@ app.get('/api/news/search', async (req, res) => {
 });
 
 // API: User Quota Status
-app.get('/api/user/quota', (req, res) => {
-  const quota = getQuotaStatus(req);
+app.get('/api/user/quota', async (req, res) => {
+  const quota = await getQuotaStatus(req);
   res.json({
     success: true,
     quota
@@ -152,7 +152,7 @@ app.get('/api/user/quota', (req, res) => {
 
 // API: AI Synthesis (Quick answer with sources & timeline)
 app.post('/api/ai/synthesize', async (req, res) => {
-  const quota = consumeQuota(req);
+  const quota = await consumeQuota(req);
   if (!quota.allowed) {
     return res.status(429).json({
       success: false,
@@ -188,7 +188,7 @@ app.post('/api/ai/synthesize', async (req, res) => {
 
 // API: AI Deep Article
 app.post('/api/ai/article', async (req, res) => {
-  const quota = consumeQuota(req);
+  const quota = await consumeQuota(req);
   if (!quota.allowed) {
     return res.status(429).json({
       success: false,

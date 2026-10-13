@@ -330,7 +330,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
 
         {/* Hotspots Quick Switch Bar */}
         <div className="flex items-center justify-center gap-2 flex-wrap mb-6">
-          <span className="text-xs text-zinc-500 font-mono flex items-center gap-1 mr-1">
+          <span className="text-xs text-zinc-500 font-mono flex items-center gap-1 me-1">
             <Radio className="w-3.5 h-3.5 text-(--accent) animate-pulse" />
             <span>{ui.map_select_region}</span>
           </span>
@@ -378,7 +378,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
           /* View Mode 2: High-Fidelity 2D Tactical Radar SVG Map */
           <div className="relative p-3 sm:p-6 rounded-3xl bg-[#0B0F14]/90 border border-white/10 backdrop-blur-2xl shadow-2xl overflow-hidden">
             {/* Top ambient orange indicator line */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-(--accent) to-transparent pointer-events-none" />
+            <div className="absolute top-0 start-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-(--accent) to-transparent pointer-events-none" />
 
             {/* Tactical HUD Header Bar */}
             <div className="flex items-center justify-between pb-3 mb-2 border-b border-white/[0.08] text-[10px] font-mono text-[#7C8797]">
