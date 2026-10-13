@@ -125,7 +125,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
         onClick={e => e.stopPropagation()}
       >
         {/* Top ambient glow line */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-(--accent) to-transparent" />
+        <div className="absolute top-0 start-0 end-0 h-1 bg-gradient-to-r from-transparent via-(--accent) to-transparent" />
 
         {/* Modal Header */}
         <div className="p-5 sm:p-6 border-b border-white/10 flex items-start justify-between gap-4 bg-white/[0.02]">
@@ -182,7 +182,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
           >
             <Radio className="w-4 h-4 animate-pulse text-current" />
             <span>Jonli Agentlik Xabarlari</span>
-            <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-black/30 font-mono">
+            <span className="ms-1 px-1.5 py-0.2 rounded-full text-[10px] bg-black/30 font-mono">
               {liveArticles.length}
             </span>
           </button>
@@ -198,7 +198,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
           >
             <Flame className="w-4 h-4" />
             <span>Qaynoq hodisalar va Muammolar</span>
-            <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-black/30 font-mono">
+            <span className="ms-1 px-1.5 py-0.2 rounded-full text-[10px] bg-black/30 font-mono">
               {liveEvents.length + region.publicDebates.length}
             </span>
           </button>
@@ -214,7 +214,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
           >
             <Youtube className="w-4 h-4 text-red-500 fill-current" />
             <span>YouTube Video Hisobotlar</span>
-            <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-black/30 font-mono">
+            <span className="ms-1 px-1.5 py-0.2 rounded-full text-[10px] bg-black/30 font-mono">
               {liveVideos.length}
             </span>
           </button>
@@ -433,7 +433,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
 
                       {/* Public Sentiment & Reaction */}
                       <div className="p-3 rounded-xl bg-black/40 border border-white/5 text-xs text-zinc-300">
-                        <span className="font-semibold text-amber-300 mr-1.5">
+                        <span className="font-semibold text-amber-300 me-1.5">
                           💬 Jamoatchilik munosabati:
                         </span>
                         {issue.publicReaction}

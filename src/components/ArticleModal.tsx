@@ -75,7 +75,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
     >
       {/* Right-Side Intelligence Reader Drawer */}
       <aside
-        className="relative w-full max-w-[700px] h-full bg-[#0B0F14] border-l border-white/[0.1] shadow-[-25px_0_60px_rgba(0,0,0,0.6)] flex flex-col justify-between overflow-y-auto p-6 sm:p-10 text-[#F5F7FA] animate-drawer"
+        className="relative w-full max-w-[700px] h-full bg-[#0B0F14] border-s border-white/[0.1] shadow-[-25px_0_60px_rgba(0,0,0,0.6)] flex flex-col justify-between overflow-y-auto p-6 sm:p-10 text-[#F5F7FA] animate-drawer"
         onClick={e => e.stopPropagation()}
       >
         <div>
@@ -211,7 +211,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
               {/* Narrative paragraphs */}
               <div className="space-y-6 font-editorial text-[#F5F7FA] text-lg sm:text-xl leading-[1.8] font-normal tracking-wide">
                 {article.paragraphs.map((p, idx) => (
-                  <p key={idx} className="first-letter:text-4xl first-letter:font-bold first-letter:float-left first-letter:mr-2.5 first-letter:text-(--accent) first-letter:font-[Inter]">
+                  <p key={idx} className="first-letter:text-4xl first-letter:font-bold first-letter:float-start first-letter:me-2.5 first-letter:text-(--accent) first-letter:font-[Inter]">
                     {p}
                   </p>
                 ))}

@@ -752,20 +752,20 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
       />
 
       {/* Floating HUD: Top Left Status Monitor */}
-      <div className="absolute top-4 left-4 z-20 flex flex-col gap-1 pointer-events-none">
+      <div className="absolute top-4 start-4 z-20 flex flex-col gap-1 pointer-events-none">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-(--accent) animate-pulse" />
           <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-300">
             Hologram 3D Sphere · 360° Realtime
           </span>
         </div>
-        <span className="text-[10px] font-mono text-zinc-500 pl-3">
+        <span className="text-[10px] font-mono text-zinc-500 ps-3">
           Drag to rotate · Scroll to zoom · Click beacon for Intel & YouTube
         </span>
       </div>
 
       {/* Floating HUD: Bottom Center Controls Bar */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 p-1.5 rounded-2xl bg-black/75 border border-white/10 backdrop-blur-xl shadow-2xl">
+      <div className="absolute bottom-4 start-1/2 -translate-x-1/2 z-20 flex items-center gap-2 p-1.5 rounded-2xl bg-black/75 border border-white/10 backdrop-blur-xl shadow-2xl">
         <button
           type="button"
           onClick={() => setAutoRotate(!autoRotate)}

@@ -24,7 +24,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
 
   return (
     <nav
-      className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#0B0F14]/95 backdrop-blur-2xl border-t border-white/[0.08] z-30 flex items-center justify-around px-2"
+      className="md:hidden fixed bottom-0 start-0 end-0 h-16 bg-[#0B0F14]/95 backdrop-blur-2xl border-t border-white/[0.08] z-30 flex items-center justify-around px-2"
       aria-label="Mobile Navigation"
     >
       {/* 1. Home */}

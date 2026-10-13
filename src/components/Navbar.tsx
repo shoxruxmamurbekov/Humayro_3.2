@@ -71,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       <header
-        className={`sticky top-0 left-0 right-0 z-40 transition-all duration-300 border-b ${
+        className={`sticky top-0 start-0 end-0 z-40 transition-all duration-300 border-b ${
           scrolled
             ? 'bg-[#05070A]/90 backdrop-blur-xl border-white/[0.08] shadow-lg shadow-black/40'
             : 'bg-[#05070A]/70 backdrop-blur-md border-white/[0.05]'
@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Controls: Language, Admin, Auth, Theme */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             {/* Language Selector Dropdown */}
             <div className="relative">
               <button
@@ -153,14 +153,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 aria-expanded={langMenuOpen}
               >
                 <span>{langMeta[currentLang]?.flag || '🌐'}</span>
-                <span>{langMeta[currentLang]?.label || currentLang.toUpperCase()}</span>
+                <span className="hidden sm:inline">{langMeta[currentLang]?.label || currentLang.toUpperCase()}</span>
                 <ChevronDown className="w-3 h-3 text-[#7C8797]" />
               </button>
 
               {langMenuOpen && (
                 <>
                   <div className="fixed inset-0 z-30" onClick={() => setLangMenuOpen(false)} />
-                  <div className="absolute right-0 mt-2 w-64 p-2 rounded-xl bg-[#0B0F14] border border-white/[0.1] shadow-2xl z-40 animate-in fade-in zoom-in-95 duration-150 grid grid-cols-2 gap-1 max-h-72 overflow-y-auto">
+                  <div className="absolute end-0 mt-2 w-64 p-2 rounded-xl bg-[#0B0F14] border border-white/[0.1] shadow-2xl z-40 animate-in fade-in zoom-in-95 duration-150 grid grid-cols-2 gap-1 max-h-72 overflow-y-auto">
                     {(Object.keys(langMeta) as SupportedLanguage[]).map(l => (
                       <button
                         key={l}
