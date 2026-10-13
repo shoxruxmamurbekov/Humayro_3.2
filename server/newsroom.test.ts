@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import type { Article } from '../src/types/index.ts';
-import { assignArticles, isNumberGrounded, parsePosts } from './newsroomService.ts';
+import { assignArticles, ensureOpinionMarker, isNumberGrounded, parsePosts } from './newsroomService.ts';
 import { NEWSROOM_PERSONAS } from './newsroomPersonas.ts';
 
 const mk = (i: number, title: string, description: string): Article => ({
@@ -69,4 +69,25 @@ test('parsePosts: malformed model output yields no posts instead of throwing', (
   const assignment = assignArticles(articles, NEWSROOM_PERSONAS);
   assert.deepEqual(parsePosts('not json at all', assignment), []);
   assert.deepEqual(parsePosts('{"posts":"wrong"}', assignment), []);
+});
+
+test('ensureOpinionMarker: keeps an existing marker, adds one when missing', () => {
+  assert.equal(ensureOpinionMarker("Menimcha, bu muhim.", 'uz'), 'Menimcha, bu muhim.');
+  assert.equal(ensureOpinionMarker("Menimcha bu muhim", 'uz'), 'Menimcha bu muhim');
+  // Apostrophe variants in Uzbek must match the same marker.
+  assert.equal(ensureOpinionMarker("Tahlilimga koʻra, narx oshdi", 'uz'), "Tahlilimga koʻra, narx oshdi");
+  assert.equal(ensureOpinionMarker('Narx oshdi', 'uz'), 'Menimcha, Narx oshdi');
+  assert.equal(ensureOpinionMarker('Цена выросла', 'ru'), 'По моему мнению, Цена выросла');
+  assert.equal(ensureOpinionMarker('The price rose', 'en'), 'In my view, The price rose');
+  assert.equal(ensureOpinionMarker('Unknown lang', 'xx'), 'In my view, Unknown lang');
+  assert.equal(ensureOpinionMarker('   ', 'uz'), '');
+});
+
+test('parsePosts: analysis always states that it is an opinion', () => {
+  const assignment = assignArticles(articles, NEWSROOM_PERSONAS);
+  const raw = JSON.stringify({
+    posts: [{ agentId: 'tezkor-xabarchi', headline: 'Narx', facts: ["Narx 150 mln so'm"], analysis: "Narx tez oshdi", confidence: 'high' }]
+  });
+  const [post] = parsePosts(raw, assignment, 'uz');
+  assert.equal(post.analysis, "Menimcha, Narx tez oshdi");
 });
