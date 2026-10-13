@@ -283,7 +283,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
       <div className="max-w-[1240px] mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-(--accent) font-bold uppercase mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] tracking-[0.2em] text-(--accent) font-bold uppercase mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-(--accent) animate-pulse" />
             <span>{ui.map_eyebrow}</span>
           </div>
@@ -707,7 +707,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                       [{currentRegionData.code}]
                     </span>
                     <span
-                      className={`text-[10px] font-mono px-3 py-1 rounded-full uppercase tracking-wider font-bold border flex items-center gap-1.5 ${
+                      className={`text-[10px] px-3 py-1 rounded-full uppercase tracking-wider font-bold border flex items-center gap-1.5 ${
                         currentRegionData.status === 'critical'
                           ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
                           : 'bg-(--accent)/15 text-[#FFA84D] border-white/10'
@@ -859,7 +859,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
             {workspaceTab === 'overview' && (
               <div className="space-y-6">
                 <div className="p-6 rounded-2xl bg-[#11161D] border border-white/[0.08]">
-                  <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-(--accent) mb-2">
+                  <span className="block text-[10px] font-bold tracking-widest uppercase text-(--accent) mb-2">
                     GEOSIYOSIY VA IQTISODIY HUJJAT // STRATEGIK XULOSA
                   </span>
                   <p className="font-editorial text-lg sm:text-xl text-[#F5F7FA] leading-relaxed">
@@ -954,7 +954,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                       <h4 className="font-editorial text-xl font-medium text-[#F5F7FA]">
                         {deb.title}
                       </h4>
-                      <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-(--accent)/15 text-(--accent) border border-white/10 font-bold shrink-0">
+                      <span className="text-[10px] uppercase px-2.5 py-0.5 rounded-full bg-(--accent)/15 text-(--accent) border border-white/10 font-bold shrink-0">
                         Taʼsir: {deb.impactLevel}
                       </span>
                     </div>
@@ -965,7 +965,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-white/[0.06] text-xs">
                       <div>
-                        <span className="block font-mono text-(--accent) font-bold mb-2 uppercase text-[10px]">
+                        <span className="block text-(--accent) font-bold mb-2 uppercase text-[10px]">
                           Asosiy sabablar va omillar:
                         </span>
                         <ul className="space-y-1.5 text-zinc-400">
@@ -979,7 +979,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                       </div>
 
                       <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                        <span className="block font-mono text-zinc-400 font-bold mb-1.5 uppercase text-[10px]">
+                        <span className="block text-zinc-400 font-bold mb-1.5 uppercase text-[10px]">
                           Jamoatchilik munosabati:
                         </span>
                         <p className="text-zinc-300 leading-relaxed">
@@ -998,7 +998,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
                 {currentRegionData.keyIndicators.map((ind, i) => (
                   <div key={i} className="p-5 rounded-2xl bg-[#11161D] border border-white/[0.08] flex flex-col justify-between">
                     <div>
-                      <span className="text-xs font-mono text-[#7C8797] uppercase tracking-wider block mb-2">
+                      <span className="text-xs text-[#7C8797] uppercase tracking-wider block mb-2">
                         {ind.label}
                       </span>
                       <span className="font-[Inter] text-3xl font-bold text-[#F5F7FA] block">
