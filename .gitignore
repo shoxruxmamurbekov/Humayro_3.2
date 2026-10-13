@@ -9,3 +9,4 @@ coverage/
 app/
 .aistudio/
 *.tar.gz
+layout-check-output/
