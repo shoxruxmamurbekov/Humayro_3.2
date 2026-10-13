@@ -210,7 +210,29 @@ export function isNumberGrounded(fact: string, article: Article): boolean {
   return numbers.every(n => sourceText.includes(n));
 }
 
-export function parsePosts(raw: string, assignment: Map<string, Article>): NewsroomPost[] {
+// Rule 3 of NEWSROOM_RULES: the analysis is commentary and must say so.
+// The model does not always follow this, so a missing opinion marker is added here.
+const OPINION_MARKER = /^(menimcha|tahlilimga ko'ra|tahlilimizga ko'ra|по моему мнению|по моему|на мой взгляд|in my view|in my opinion|bence|görüşüme göre|من وجهة نظري|به نظر من|제 생각에는)/i;
+const OPINION_PREFIX: Record<string, string> = {
+  uz: 'Menimcha, ',
+  ru: 'По моему мнению, ',
+  en: 'In my view, ',
+  tr: 'Bence, ',
+  ar: 'من وجهة نظري، ',
+  fa: 'به نظر من، ',
+  ko: '제 생각에는 '
+};
+
+export function ensureOpinionMarker(analysis: string, lang: string): string {
+  const text = analysis.trim();
+  if (!text) return '';
+  // Normalize Uzbek apostrophe variants (ʻ ʼ ’ ‘ `) before matching.
+  const normalized = text.replace(/[ʻʼ’‘`]/g, "'");
+  if (OPINION_MARKER.test(normalized)) return text;
+  return (OPINION_PREFIX[lang] ?? OPINION_PREFIX.en) + text;
+}
+
+export function parsePosts(raw: string, assignment: Map<string, Article>, lang: string = 'uz'): NewsroomPost[] {
   const data = parseJsonLoose(raw);
   const personaById = new Map(NEWSROOM_PERSONAS.map(p => [p.id, p]));
   const now = new Date().toISOString();
@@ -242,7 +264,7 @@ export function parsePosts(raw: string, assignment: Map<string, Article>): Newsr
       headline: String(item.headline || facts[0]).slice(0, 200),
       facts,
       sourceUrls: [article.url],
-      analysis: String(item.analysis || '').slice(0, 1200),
+      analysis: ensureOpinionMarker(String(item.analysis || ''), lang).slice(0, 1200),
       confidence,
       createdAt: now
     });
@@ -273,7 +295,7 @@ export async function generateNewsroom(
           contents: prompt,
           config: { responseMimeType: 'application/json' }
         });
-        const attempt = parsePosts(response.text || '', assignment);
+        const attempt = parsePosts(response.text || '', assignment, lang);
         if (attempt.length > posts.length) posts = attempt;
         if (posts.length === assignment.size) break;
       } catch {
