@@ -51,7 +51,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
       <div className="max-w-[1180px] mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-(--accent) font-bold uppercase mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] tracking-[0.2em] text-(--accent) font-bold uppercase mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-(--accent) animate-pulse" />
             <span>{ui.brief_eyebrow}</span>
           </div>
@@ -162,7 +162,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
 
                       {/* 2. Executive Summary */}
                       <div>
-                        <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-(--accent) mb-2">
+                        <span className="block text-[10px] font-bold tracking-widest uppercase text-(--accent) mb-2">
                           {ui.brief_summary}
                         </span>
                         <p className="font-editorial text-[#F5F7FA] text-lg sm:text-xl leading-relaxed">
@@ -173,7 +173,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                       {/* 3. Public Sentiment & Discourse */}
                       {msg.synthesis.publicSentiment && (
                         <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-xs">
-                          <div className="flex items-center gap-2 mb-1.5 text-blue-400 font-mono font-bold uppercase tracking-wider">
+                          <div className="flex items-center gap-2 mb-1.5 text-blue-400 font-bold uppercase tracking-wider">
                             <MessageSquare className="w-3.5 h-3.5" />
                             <span>{ui.brief_sentiment}</span>
                           </div>
@@ -193,7 +193,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                       {/* 5. Key Drivers / Points */}
                       {msg.synthesis.keyPoints && msg.synthesis.keyPoints.length > 0 && (
                         <div className="p-5 rounded-xl bg-[#11161D] border border-white/[0.08]">
-                          <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-(--accent) mb-3">
+                          <span className="block text-[10px] font-bold tracking-widest uppercase text-(--accent) mb-3">
                             {ui.brief_keypoints}
                           </span>
                           <ul className="space-y-2.5 text-xs sm:text-sm text-zinc-300">
@@ -210,7 +210,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                       {/* 6. Chronological Timeline */}
                       {msg.synthesis.timeline && msg.synthesis.timeline.length > 0 && (
                         <div>
-                          <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-(--accent) mb-2">
+                          <span className="block text-[10px] font-bold tracking-widest uppercase text-(--accent) mb-2">
                             {ui.brief_timeline}
                           </span>
                           <div className="space-y-2">
@@ -238,7 +238,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
                       {/* 8. Verified Sources list */}
                       {msg.synthesis.sources && msg.synthesis.sources.length > 0 && (
                         <div className="pt-4 border-t border-white/[0.08]">
-                          <span className="block text-[10px] font-mono font-bold tracking-widest uppercase text-[#7C8797] mb-2">
+                          <span className="block text-[10px] font-bold tracking-widest uppercase text-[#7C8797] mb-2">
                             {ui.brief_sources}
                           </span>
                           <div className="flex flex-wrap gap-2">

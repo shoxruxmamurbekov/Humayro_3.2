@@ -130,7 +130,7 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
     <section id="search" className="relative pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 text-center z-10">
       <div className="max-w-[980px] mx-auto">
         {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-(--accent) font-bold uppercase mb-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] tracking-[0.2em] text-(--accent) font-bold uppercase mb-6">
           <span className="w-1.5 h-1.5 rounded-full bg-(--accent) animate-pulse" />
           <span>{ui.hero_eyebrow}</span>
         </div>

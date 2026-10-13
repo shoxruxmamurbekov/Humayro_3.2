@@ -143,7 +143,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                   {region.code}
                 </span>
                 <span
-                  className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold border flex items-center gap-1.5 ${
+                  className={`text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold border flex items-center gap-1.5 ${
                     region.status === 'critical'
                       ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
                       : 'bg-(--accent)/15 text-[#FFA84D] border-white/10'
@@ -407,7 +407,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                           <span>{issue.title}</span>
                         </h4>
 
-                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold shrink-0">
+                        <span className="text-[10px] uppercase px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold shrink-0">
                           Taʼsir: {issue.impactLevel}
                         </span>
                       </div>
@@ -418,7 +418,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
 
                       {/* Causes / Factors */}
                       <div className="pt-2 border-t border-white/5 space-y-1.5">
-                        <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block">
+                        <span className="text-[11px] text-zinc-400 uppercase tracking-wider block">
                           Asosiy sabablar va omillar:
                         </span>
                         <ul className="space-y-1 text-xs text-zinc-400">
@@ -637,7 +637,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                     key={idx}
                     className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-center"
                   >
-                    <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block mb-1">
+                    <span className="text-[11px] text-zinc-400 uppercase tracking-wider block mb-1">
                       {ind.label}
                     </span>
                     <strong className="font-[Inter] text-xl sm:text-2xl font-bold text-white block">
