@@ -84,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-3 group focus:outline-none"
             aria-label="Humayro Home"
           >
-            <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_10px_#FF6A00] animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_10px_#FF00AE] animate-pulse" />
             <div className="flex flex-col">
               <span className="font-[Inter] font-bold text-base tracking-[0.14em] text-[#F5F7FA] group-hover:text-white transition-colors">
                 {ui.brand_name || 'HUMAYRO'}
@@ -211,14 +211,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               ) : themeMode === 'light' ? (
                 <Sun className="w-3.5 h-3.5 text-(--accent)" />
               ) : (
-                <Monitor className="w-3.5 h-3.5 text-blue-400" />
+                <Monitor className="w-3.5 h-3.5 text-[#A3AAB6]" />
               )}
             </button>
 
             {/* User Profile / Auth Button */}
             <button
               onClick={onOpenAuth}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-(--accent) hover:bg-[#FF8A24] text-black font-semibold text-xs transition-colors cursor-pointer shadow-md shadow-(--accent)/20"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-(--accent) hover:bg-[#FF3DBE] text-black font-semibold text-xs transition-colors cursor-pointer shadow-md shadow-(--accent)/20"
             >
               <User className="w-3.5 h-3.5" />
               <span className="max-w-[110px] truncate">

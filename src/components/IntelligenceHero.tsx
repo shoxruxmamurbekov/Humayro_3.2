@@ -136,9 +136,9 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
         </div>
 
         {/* Editorial Headline */}
-        <h1 className="font-editorial text-4xl sm:text-6xl lg:text-[76px] font-medium leading-[1.02] tracking-tight text-[#F5F7FA] max-w-[860px] mx-auto">
+        <h1 className="bright-display text-5xl sm:text-7xl lg:text-[88px] text-[#F5F7FA] max-w-[860px] mx-auto">
           {ui.hero_title_1}<br />
-          <span className="italic text-(--accent)">{ui.hero_title_2}</span>
+          <span className="font-editorial italic normal-case text-(--accent)">{ui.hero_title_2}</span>
         </h1>
 
         {/* Subtitle */}
@@ -195,7 +195,7 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
               <button
                 type="submit"
                 disabled={isLoading || !inputVal.trim()}
-                className="flex items-center gap-1.5 px-3 sm:px-5 py-3 rounded-xl bg-(--accent) hover:bg-[#FF8A24] text-black font-bold text-xs sm:text-sm shrink-0 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shadow-md shadow-(--accent)/25"
+                className="flex items-center gap-1.5 px-3 sm:px-5 py-3 rounded-xl bg-(--accent) hover:bg-[#FF3DBE] text-black font-bold text-xs sm:text-sm shrink-0 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shadow-md shadow-(--accent)/25"
               >
                 {isLoading ? (
                   <>

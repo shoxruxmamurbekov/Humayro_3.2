@@ -19,20 +19,20 @@ export const HistoricalComparisonCard: React.FC<HistoricalComparisonCardProps> =
   if (!historicalParallel) return null;
 
   return (
-    <div className="my-8 rounded-3xl bg-gradient-to-b from-amber-500/[0.08] via-black/40 to-black/60 border border-amber-500/25 p-5 sm:p-7 shadow-2xl relative overflow-hidden">
+    <div className="my-8 rounded-3xl bg-gradient-to-b from-[#FF00AE]/[0.08] via-black/40 to-black/60 border border-[#FF00AE]/25 p-5 sm:p-7 shadow-2xl relative overflow-hidden">
       {/* Background Watermark */}
-      <div className="absolute top-2 end-4 opacity-5 pointer-events-none text-amber-300">
+      <div className="absolute top-2 end-4 opacity-5 pointer-events-none text-[#FF00AE]">
         <Landmark className="w-36 h-36" />
       </div>
 
       {/* Header Eyebrow */}
-      <div className="flex items-center justify-between gap-3 mb-5 border-b border-amber-500/20 pb-4 relative z-10">
+      <div className="flex items-center justify-between gap-3 mb-5 border-b border-[#FF00AE]/20 pb-4 relative z-10">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400">
+          <div className="w-7 h-7 rounded-lg bg-[#FF00AE]/20 flex items-center justify-center text-[#FF00AE]">
             <Scale className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#FF00AE]">
               {dict.history_vs_today_title}
             </h4>
             <p className="text-[11px] text-zinc-400">
@@ -42,7 +42,7 @@ export const HistoricalComparisonCard: React.FC<HistoricalComparisonCardProps> =
         </div>
 
         {historicalParallel.yearOrEra && (
-          <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-amber-500/15 border border-amber-500/30 text-amber-300 shrink-0">
+          <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-[#FF00AE]/15 border border-[#FF00AE]/30 text-[#FF00AE] shrink-0">
             {historicalParallel.yearOrEra}
           </span>
         )}
@@ -53,7 +53,7 @@ export const HistoricalComparisonCard: React.FC<HistoricalComparisonCardProps> =
         {/* Left Column: Today (2026) */}
         <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-sky-400 mb-2">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#A3AAB6] mb-2">
               <Zap className="w-3.5 h-3.5" />
               <span>{dict.today_column}</span>
             </div>
@@ -67,33 +67,33 @@ export const HistoricalComparisonCard: React.FC<HistoricalComparisonCardProps> =
             )}
           </div>
           <div className="mt-4 pt-3 border-t border-white/5 flex items-center gap-1.5 text-[11px] text-zinc-500">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#A3AAB6]" />
             <span>Real-time global intelligence stream</span>
           </div>
         </div>
 
         {/* Right Column: Historical Analog */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/[0.05] border border-amber-500/25 flex flex-col justify-between">
+        <div className="p-4 sm:p-5 rounded-2xl bg-[#FF00AE]/[0.05] border border-[#FF00AE]/25 flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 mb-2">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#FF00AE] mb-2">
               <History className="w-3.5 h-3.5 text-(--accent)" />
               <span>{dict.history_column}</span>
             </div>
-            <h5 className="text-sm sm:text-base font-bold text-amber-100 mb-2 leading-snug">
+            <h5 className="text-sm sm:text-base font-bold text-[#FF00AE] mb-2 leading-snug">
               {historicalParallel.eventName}
             </h5>
             <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-3">
-              <strong className="text-amber-300 font-medium me-1">{dict.historical_similarity_label}:</strong>
+              <strong className="text-[#FF00AE] font-medium me-1">{dict.historical_similarity_label}:</strong>
               {historicalParallel.similarity}
             </p>
             {historicalParallel.historicalLesson && (
-              <div className="p-2.5 rounded-xl bg-black/40 border border-amber-500/20 text-xs text-amber-200/90 leading-relaxed">
-                <strong className="text-amber-400 font-medium me-1">⚖️ {dict.historical_lesson_label}:</strong>
+              <div className="p-2.5 rounded-xl bg-black/40 border border-[#FF00AE]/20 text-xs text-[#FF00AE]/90 leading-relaxed">
+                <strong className="text-[#FF00AE] font-medium me-1">⚖️ {dict.historical_lesson_label}:</strong>
                 {historicalParallel.historicalLesson}
               </div>
             )}
           </div>
-          <div className="mt-4 pt-3 border-t border-amber-500/15 flex items-center gap-1.5 text-[11px] text-amber-400/80 font-mono">
+          <div className="mt-4 pt-3 border-t border-[#FF00AE]/15 flex items-center gap-1.5 text-[11px] text-[#FF00AE]/80 font-mono">
             <span>Analog davr: {historicalParallel.yearOrEra}</span>
           </div>
         </div>
@@ -101,14 +101,14 @@ export const HistoricalComparisonCard: React.FC<HistoricalComparisonCardProps> =
 
       {/* Wisdom Quote Box */}
       {historicalParallel.quote?.text && (
-        <div className="mt-5 p-4 sm:p-5 rounded-2xl bg-black/70 border-s-4 border-amber-500 shadow-xl relative z-10">
+        <div className="mt-5 p-4 sm:p-5 rounded-2xl bg-black/70 border-s-4 border-[#FF00AE] shadow-xl relative z-10">
           <div className="flex items-start gap-3">
-            <Quote className="w-6 h-6 text-amber-400/50 shrink-0 mt-0.5" />
+            <Quote className="w-6 h-6 text-[#FF00AE]/50 shrink-0 mt-0.5" />
             <div className="flex-1">
-              <blockquote className="font-editorial italic text-amber-100 text-sm sm:text-base leading-relaxed">
+              <blockquote className="font-editorial italic text-[#FF00AE] text-sm sm:text-base leading-relaxed">
                 “{historicalParallel.quote.text}”
               </blockquote>
-              <div className="mt-2 flex flex-wrap items-center justify-end gap-1.5 text-xs text-amber-400 font-medium">
+              <div className="mt-2 flex flex-wrap items-center justify-end gap-1.5 text-xs text-[#FF00AE] font-medium">
                 <span>— {historicalParallel.quote.author}</span>
                 {historicalParallel.quote.sourceOrEra && (
                   <span className="text-zinc-500 font-normal">({historicalParallel.quote.sourceOrEra})</span>

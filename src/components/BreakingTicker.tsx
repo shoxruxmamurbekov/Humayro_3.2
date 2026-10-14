@@ -14,30 +14,30 @@ interface BreakingTickerProps {
 function getAgencyBadgeStyle(sourceName: string) {
   const s = sourceName.toLowerCase();
   if (s.includes('reuters')) {
-    return 'bg-amber-500/15 text-amber-400 border-amber-500/30';
+    return 'bg-[#FF00AE]/15 text-[#FF00AE] border-[#FF00AE]/30';
   }
   if (s.includes('bbc')) {
     return 'bg-red-500/15 text-red-400 border-red-500/30';
   }
   if (s.includes('associated') || s.includes('ap')) {
-    return 'bg-orange-500/15 text-orange-400 border-orange-500/30';
+    return 'bg-[#FF00AE]/15 text-[#FF00AE] border-[#FF00AE]/30';
   }
   if (s.includes('bloomberg')) {
-    return 'bg-purple-500/15 text-purple-400 border-purple-500/30';
+    return 'bg-[#A3AAB6]/15 text-[#A3AAB6] border-[#A3AAB6]/30';
   }
   if (s.includes('al jazeera')) {
-    return 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
+    return 'bg-[#C1FF1A]/15 text-[#C1FF1A] border-[#C1FF1A]/30';
   }
   if (s.includes('dw') || s.includes('deutsche')) {
-    return 'bg-blue-500/15 text-blue-400 border-blue-500/30';
+    return 'bg-[#A3AAB6]/15 text-[#A3AAB6] border-[#A3AAB6]/30';
   }
   if (s.includes('guardian')) {
-    return 'bg-sky-500/15 text-sky-400 border-sky-500/30';
+    return 'bg-[#A3AAB6]/15 text-[#A3AAB6] border-[#A3AAB6]/30';
   }
   if (s.includes('oʻza') || s.includes('uza') || s.includes('gazeta')) {
-    return 'bg-teal-500/15 text-teal-400 border-teal-500/30';
+    return 'bg-[#A3AAB6]/15 text-[#A3AAB6] border-[#A3AAB6]/30';
   }
-  return 'bg-(--accent)/15 text-[#FF8A24] border-white/10';
+  return 'bg-(--accent)/15 text-[#FF3DBE] border-white/10';
 }
 
 function formatRelativeTime(dateStr?: string, lang: SupportedLanguage = 'uz') {
@@ -183,7 +183,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
                     </span>
                   )}
 
-                  <span className="font-medium group-hover/item:text-[#FF8A24] transition-colors max-w-[340px] sm:max-w-[480px] truncate text-[13px]">
+                  <span className="font-medium group-hover/item:text-[#FF3DBE] transition-colors max-w-[340px] sm:max-w-[480px] truncate text-[13px]">
                     {item.title}
                   </span>
 
@@ -218,11 +218,11 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
             onClick={() => setDrawerOpen(prev => !prev)}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer border ${
               drawerOpen
-                ? 'bg-(--accent) text-black border-(--accent) shadow-[0_0_12px_rgba(255,106,0,0.4)]'
+                ? 'bg-(--accent) text-black border-(--accent) shadow-[0_0_12px_rgba(255, 0, 174,0.4)]'
                 : 'bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border-white/10'
             }`}
           >
-            <Radio className="w-3 h-3 animate-pulse text-emerald-400" />
+            <Radio className="w-3 h-3 animate-pulse text-[#C1FF1A]" />
             <span className="hidden sm:inline">{drawerOpen ? currentLenta.close : currentLenta.expand}</span>
             <span className="px-1 py-0.2 bg-black/40 rounded text-[9px] font-mono">
               {articles.length}
@@ -240,7 +240,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10 mb-4">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_8px_#FF6A00] animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_8px_#FF00AE] animate-pulse" />
                   <h3 className="font-[Inter] text-base sm:text-lg font-bold text-white tracking-tight">
                     {currentLenta.title}
                   </h3>
@@ -313,7 +313,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
                         )}
                       </div>
 
-                      <h4 className="text-sm font-semibold text-zinc-200 group-hover:text-[#FF8A24] transition-colors leading-snug line-clamp-2">
+                      <h4 className="text-sm font-semibold text-zinc-200 group-hover:text-[#FF3DBE] transition-colors leading-snug line-clamp-2">
                         {item.title}
                       </h4>
 

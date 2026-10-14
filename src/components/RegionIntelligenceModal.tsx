@@ -146,7 +146,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                   className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold border flex items-center gap-1.5 ${
                     region.status === 'critical'
                       ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
-                      : 'bg-(--accent)/15 text-[#FFA84D] border-white/10'
+                      : 'bg-(--accent)/15 text-[#FF66CC] border-white/10'
                   }`}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-current animate-ping" />
@@ -176,7 +176,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
             onClick={() => setActiveTab('live-news')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'live-news'
-                ? 'bg-emerald-500 text-black font-bold shadow-md'
+                ? 'bg-[#C1FF1A] text-black font-bold shadow-md'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -238,9 +238,9 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
           {/* TAB 0: LIVE AGENTS FEED */}
           {activeTab === 'live-news' && (
             <div className="space-y-4 animate-in fade-in duration-200">
-              <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-between gap-4 text-xs font-mono">
-                <div className="flex items-center gap-2 text-emerald-400">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+              <div className="p-4 rounded-2xl bg-[#C1FF1A]/10 border border-[#C1FF1A]/25 flex items-center justify-between gap-4 text-xs font-mono">
+                <div className="flex items-center gap-2 text-[#C1FF1A]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#C1FF1A] animate-ping" />
                   <span className="font-bold uppercase">
                     {region.name} boʻyicha eng soʻnggi tasdiqlangan jonli axborotlar
                   </span>
@@ -273,7 +273,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                     <div key={w.city} className="p-3 rounded-2xl bg-white/[0.03] border border-white/10 text-xs">
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-bold text-white">{w.city}</span>
-                        <span className="font-mono text-[#FFA84D] text-base">
+                        <span className="font-mono text-[#FF66CC] text-base">
                           {w.temperatureC !== null ? `${Math.round(w.temperatureC)}°C` : '—'}
                         </span>
                       </div>
@@ -298,18 +298,18 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
               )}
 
               {liveError && liveArticles.length > 0 && (
-                <div className="text-[11px] text-amber-400">Yangilashda xatolik — oxirgi maʼlumot koʻrsatilmoqda.</div>
+                <div className="text-[11px] text-[#FF00AE]">Yangilashda xatolik — oxirgi maʼlumot koʻrsatilmoqda.</div>
               )}
 
               <div className="space-y-3.5">
                 {liveArticles.map((art, i) => (
                   <div
                     key={`${art.id}-${i}`}
-                    className="p-4 sm:p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-emerald-500/40 transition-all flex flex-col justify-between gap-3 group"
+                    className="p-4 sm:p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#C1FF1A]/40 transition-all flex flex-col justify-between gap-3 group"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-white/5 border border-white/10 text-[#FF8A24]">
+                        <span className="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-white/5 border border-white/10 text-[#FF3DBE]">
                           {art.source}
                         </span>
                         <span className="text-[11px] font-mono text-zinc-400">
@@ -317,7 +317,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                         </span>
                       </div>
 
-                      <h4 className="font-[Inter] text-base sm:text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-2 leading-snug">
+                      <h4 className="font-[Inter] text-base sm:text-lg font-bold text-white group-hover:text-[#C1FF1A] transition-colors mb-2 leading-snug">
                         {art.title}
                       </h4>
 
@@ -335,7 +335,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                             #{art.category}
                           </span>
                         )}
-                        <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
+                        <span className="text-[10px] font-mono text-[#C1FF1A] flex items-center gap-1">
                           <CheckCircle2 className="w-3 h-3" />
                           <span>Tasdiqlangan</span>
                         </span>
@@ -349,7 +349,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                               onClose();
                               onSelectArticle(art);
                             }}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-(--accent) text-black hover:bg-[#FF8A24] transition-all cursor-pointer font-sans"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-(--accent) text-black hover:bg-[#FF3DBE] transition-all cursor-pointer font-sans"
                           >
                             <Sparkles className="w-3.5 h-3.5 fill-current" />
                             <span>AI Chuqur Tahlil</span>
@@ -407,7 +407,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                           <span>{issue.title}</span>
                         </h4>
 
-                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold shrink-0">
+                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#FF00AE]/10 text-[#FF00AE] border border-[#FF00AE]/20 font-bold shrink-0">
                           Taʼsir: {issue.impactLevel}
                         </span>
                       </div>
@@ -433,7 +433,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
 
                       {/* Public Sentiment & Reaction */}
                       <div className="p-3 rounded-xl bg-black/40 border border-white/5 text-xs text-zinc-300">
-                        <span className="font-semibold text-amber-300 me-1.5">
+                        <span className="font-semibold text-[#FF00AE] me-1.5">
                           💬 Jamoatchilik munosabati:
                         </span>
                         {issue.publicReaction}
@@ -567,7 +567,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
                         onClick={() => setSelectedVideo(vid)}
                         className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 ${
                           isPlaying
-                            ? 'bg-(--accent)/10 border-(--accent) shadow-[0_0_15px_rgba(255,106,0,0.2)]'
+                            ? 'bg-(--accent)/10 border-(--accent) shadow-[0_0_15px_rgba(255, 0, 174,0.2)]'
                             : 'bg-white/[0.02] border-white/10 hover:border-white/20 hover:bg-white/[0.04]'
                         }`}
                       >
@@ -688,7 +688,7 @@ export const RegionIntelligenceModal: React.FC<RegionIntelligenceModalProps> = (
             <button
               type="button"
               onClick={() => onAskAi(`${region.name} bo'yicha eng so'nggi yangiliklar, muammolar va tahlil`)}
-              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-(--accent) text-black hover:bg-[#FF8A24] transition-all cursor-pointer shadow-lg"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-(--accent) text-black hover:bg-[#FF3DBE] transition-all cursor-pointer shadow-lg"
             >
               <Sparkles className="w-4 h-4" />
               <span>AI bilan chuqur tahlil qilish</span>

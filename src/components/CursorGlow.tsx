@@ -39,7 +39,7 @@ export const CursorGlow: React.FC = () => {
       ref={glowRef}
       className="hidden md:block pointer-events-none fixed z-1 w-[400px] h-[400px] rounded-full mix-blend-screen opacity-40 transition-opacity duration-300"
       style={{
-        background: 'radial-gradient(circle, rgba(255,106,0,0.35) 0%, transparent 65%)',
+        background: 'radial-gradient(circle, rgba(255, 0, 174,0.35) 0%, transparent 65%)',
         willChange: 'transform'
       }}
     />

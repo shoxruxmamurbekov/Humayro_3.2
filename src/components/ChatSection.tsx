@@ -172,8 +172,8 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
 
                       {/* 3. Public Sentiment & Discourse */}
                       {msg.synthesis.publicSentiment && (
-                        <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-xs">
-                          <div className="flex items-center gap-2 mb-1.5 text-blue-400 font-mono font-bold uppercase tracking-wider">
+                        <div className="p-4 rounded-xl bg-[#A3AAB6]/10 border border-[#A3AAB6]/20 text-xs">
+                          <div className="flex items-center gap-2 mb-1.5 text-[#A3AAB6] font-mono font-bold uppercase tracking-wider">
                             <MessageSquare className="w-3.5 h-3.5" />
                             <span>{ui.brief_sentiment}</span>
                           </div>
@@ -285,7 +285,7 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
             <button
               type="submit"
               disabled={isLoading || !inputVal.trim()}
-              className="px-5 py-3 rounded-xl bg-(--accent) hover:bg-[#FF8A24] text-black font-bold text-xs sm:text-sm transition-all cursor-pointer disabled:opacity-40 flex items-center gap-2 shrink-0 shadow-md shadow-(--accent)/20"
+              className="px-5 py-3 rounded-xl bg-(--accent) hover:bg-[#FF3DBE] text-black font-bold text-xs sm:text-sm transition-all cursor-pointer disabled:opacity-40 flex items-center gap-2 shrink-0 shadow-md shadow-(--accent)/20"
             >
               <span>{ui.brief_send}</span>
               <Send className="w-3.5 h-3.5" />
