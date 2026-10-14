@@ -16,7 +16,7 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
           {/* Brand info */}
           <div className="lg:col-span-4 flex flex-col gap-4">
             <a href="#home" className="flex items-center gap-2.5 font-[Inter] font-bold text-xl text-white">
-              <span className="w-2.5 h-2.5 rounded-full bg-(--accent) shadow-[0_0_12px_#FF6A00] animate-pulse" />
+              <span className="w-2.5 h-2.5 rounded-full bg-(--accent) shadow-[0_0_12px_#FF00AE] animate-pulse" />
               <span>
                 Humayro<span className="text-(--accent)">_3.2</span>
               </span>

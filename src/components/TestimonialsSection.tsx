@@ -15,9 +15,9 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ dict }
             <span>{dict.testi_eyebrow}</span>
           </div>
 
-          <h2 className="font-[Inter] text-3xl sm:text-5xl font-bold tracking-tight">
+          <h2 className="bright-display text-4xl sm:text-6xl">
             <span>{dict.testi_title1} </span>
-            <span className="bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-(--accent) to-[#FF66CC] bg-clip-text text-transparent">
               {dict.testi_title2}
             </span>
           </h2>
@@ -33,7 +33,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ dict }
               </p>
             </div>
             <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-(--accent) to-orange-900 border border-white/10 flex items-center justify-center font-bold text-xs text-white">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-(--accent) to-[#FF00AE] border border-white/10 flex items-center justify-center font-bold text-xs text-white">
                 SM
               </div>
               <div>
@@ -52,7 +52,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ dict }
               </p>
             </div>
             <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-900 border border-white/10 flex items-center justify-center font-bold text-xs text-white">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#A3AAB6] to-[#A3AAB6] border border-white/10 flex items-center justify-center font-bold text-xs text-white">
                 JK
               </div>
               <div>
@@ -71,7 +71,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ dict }
               </p>
             </div>
             <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-900 border border-white/10 flex items-center justify-center font-bold text-xs text-white">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#A3AAB6] to-[#A3AAB6] border border-white/10 flex items-center justify-center font-bold text-xs text-white">
                 AL
               </div>
               <div>

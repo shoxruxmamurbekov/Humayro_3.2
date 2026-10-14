@@ -111,7 +111,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
                 title={dict.article_share}
                 aria-label="Share"
               >
-                {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
+                {copied ? <Check className="w-4 h-4 text-[#C1FF1A]" /> : <Share2 className="w-4 h-4" />}
               </button>
 
               {/* Close Drawer Button */}

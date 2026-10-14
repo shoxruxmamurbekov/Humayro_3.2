@@ -52,7 +52,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ dict }) => {
           {/* Stat 1 */}
           <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-white/10 transition-all hover:-translate-y-1">
             <div className="flex items-baseline justify-center">
-              <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
+              <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FF66CC] bg-clip-text text-transparent">
                 {counts.articles}
               </span>
               <span className="font-[Inter] text-2xl sm:text-3xl font-bold text-(--accent) ms-1">
@@ -67,7 +67,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ dict }) => {
           {/* Stat 2 */}
           <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-white/10 transition-all hover:-translate-y-1">
             <div className="flex items-baseline justify-center">
-              <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
+              <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FF66CC] bg-clip-text text-transparent">
                 {counts.sources.toLocaleString()}
               </span>
               <span className="font-[Inter] text-2xl sm:text-3xl font-bold text-(--accent) ms-1">
@@ -82,7 +82,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ dict }) => {
           {/* Stat 3 */}
           <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-center hover:border-white/10 transition-all hover:-translate-y-1">
             <div className="flex items-baseline justify-center">
-              <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
+              <span className="font-[Inter] text-4xl sm:text-6xl font-bold bg-gradient-to-r from-(--accent) to-[#FF66CC] bg-clip-text text-transparent">
                 {counts.countries}
               </span>
             </div>

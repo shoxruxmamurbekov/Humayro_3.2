@@ -138,7 +138,7 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
       <div className="max-w-[780px] mx-auto p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
         {/* Header label */}
         <div className="flex items-center gap-2.5 text-xs font-semibold tracking-widest uppercase text-zinc-400 mb-5">
-          <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_10px_#FF6A00] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_10px_#FF00AE] animate-pulse" />
           <span>{dict.search_label}</span>
         </div>
 
@@ -172,7 +172,7 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
               onClick={handleToggleVoice}
               className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all cursor-pointer ${
                 isListening
-                  ? 'bg-(--accent) text-black shadow-[0_0_15px_#FF6A00] animate-pulse'
+                  ? 'bg-(--accent) text-black shadow-[0_0_15px_#FF00AE] animate-pulse'
                   : 'bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10 border border-white/5'
               }`}
               title={isListening ? dict.voice_listening : 'Voice Search'}
@@ -186,7 +186,7 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
           <button
             type="submit"
             disabled={isLoading}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-(--accent) text-black hover:bg-[#FF8A24] transition-all shrink-0 cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-(--accent) text-black hover:bg-[#FF3DBE] transition-all shrink-0 cursor-pointer disabled:opacity-50"
           >
             <span>{dict.search_btn}</span>
             <ArrowRight className="w-4 h-4 hidden sm:inline" />
@@ -255,7 +255,7 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
 
         {/* Search verification note */}
         <p className="mt-4 text-xs text-zinc-500 flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#C1FF1A]" />
           <span>{dict.search_note}</span>
         </p>
       </div>

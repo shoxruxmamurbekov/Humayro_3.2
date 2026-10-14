@@ -10,11 +10,11 @@ interface CapitalNode {
 }
 
 const CAPITAL_NODES: CapitalNode[] = [
-  { name: 'Toshkent', code: 'UZ', lat: 41.3, lon: 69.2, statusColor: '#FF6A00' },
-  { name: 'Seul', code: 'KR', lat: 37.5, lon: 127.0, statusColor: '#00E5FF' },
-  { name: 'Bryussel', code: 'EU', lat: 50.8, lon: 4.3, statusColor: '#FFA84D' },
+  { name: 'Toshkent', code: 'UZ', lat: 41.3, lon: 69.2, statusColor: '#FF00AE' },
+  { name: 'Seul', code: 'KR', lat: 37.5, lon: 127.0, statusColor: '#C1FF1A' },
+  { name: 'Bryussel', code: 'EU', lat: 50.8, lon: 4.3, statusColor: '#FF66CC' },
   { name: 'Vashington', code: 'US', lat: 38.9, lon: -77.0, statusColor: '#FF2A55' },
-  { name: 'Dubay', code: 'UAE', lat: 25.2, lon: 55.3, statusColor: '#00E5FF' }
+  { name: 'Dubay', code: 'UAE', lat: 25.2, lon: 55.3, statusColor: '#C1FF1A' }
 ];
 
 export const EarthCanvas: React.FC = () => {
@@ -168,9 +168,9 @@ export const EarthCanvas: React.FC = () => {
         cy,
         Math.max(2, radius * 1.55)
       );
-      atmGrad.addColorStop(0, 'rgba(255, 106, 0, 0.12)');
-      atmGrad.addColorStop(0.5, 'rgba(255, 106, 0, 0.05)');
-      atmGrad.addColorStop(0.85, 'rgba(255, 106, 0, 0.015)');
+      atmGrad.addColorStop(0, 'rgba(255, 0, 174, 0.12)');
+      atmGrad.addColorStop(0.5, 'rgba(255, 0, 174, 0.05)');
+      atmGrad.addColorStop(0.85, 'rgba(255, 0, 174, 0.015)');
       atmGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = atmGrad;
       ctx.beginPath();
@@ -190,10 +190,10 @@ export const EarthCanvas: React.FC = () => {
       );
       innerGrad.addColorStop(0, 'rgba(18, 18, 26, 0.7)');
       innerGrad.addColorStop(0.8, 'rgba(10, 10, 14, 0.85)');
-      innerGrad.addColorStop(1, 'rgba(255, 106, 0, 0.28)');
+      innerGrad.addColorStop(1, 'rgba(255, 0, 174, 0.28)');
       ctx.fillStyle = innerGrad;
       ctx.fill();
-      ctx.strokeStyle = 'rgba(255, 106, 0, 0.35)';
+      ctx.strokeStyle = 'rgba(255, 0, 174, 0.35)';
       ctx.lineWidth = 1.2;
       ctx.stroke();
 
@@ -215,7 +215,7 @@ export const EarthCanvas: React.FC = () => {
             ctx.lineTo(p.x, p.y);
           }
         }
-        ctx.strokeStyle = 'rgba(255, 106, 0, 0.07)';
+        ctx.strokeStyle = 'rgba(255, 0, 174, 0.07)';
         ctx.stroke();
       }
 
@@ -270,7 +270,7 @@ export const EarthCanvas: React.FC = () => {
         }
 
         if (arcVisible) {
-          ctx.strokeStyle = i === 1 ? '#00E5FF' : '#FF6A00';
+          ctx.strokeStyle = i === 1 ? '#C1FF1A' : '#FF00AE';
           ctx.lineWidth = 1;
           ctx.globalAlpha = 0.45;
           ctx.stroke();
@@ -299,7 +299,7 @@ export const EarthCanvas: React.FC = () => {
             ctx.beginPath();
             ctx.arc(pkt.x, pkt.y, 2.5, 0, Math.PI * 2);
             ctx.fillStyle = '#FFFFFF';
-            ctx.shadowColor = '#FF6A00';
+            ctx.shadowColor = '#FF00AE';
             ctx.shadowBlur = 8;
             ctx.fill();
             ctx.shadowBlur = 0;
@@ -338,7 +338,7 @@ export const EarthCanvas: React.FC = () => {
 
         // Tiny Badge
         ctx.font = 'bold 9px monospace';
-        ctx.fillStyle = isTashkent ? '#FF6A00' : '#FFFFFF';
+        ctx.fillStyle = isTashkent ? '#FF00AE' : '#FFFFFF';
         ctx.fillText(node.code, p.x + 6, p.y - 4);
       }
 
@@ -349,8 +349,8 @@ export const EarthCanvas: React.FC = () => {
 
       ctx.beginPath();
       ctx.arc(orbX, orbY, 3, 0, Math.PI * 2);
-      ctx.fillStyle = '#FF6A00';
-      ctx.shadowColor = '#FF6A00';
+      ctx.fillStyle = '#FF00AE';
+      ctx.shadowColor = '#FF00AE';
       ctx.shadowBlur = 12;
       ctx.fill();
       ctx.shadowBlur = 0;

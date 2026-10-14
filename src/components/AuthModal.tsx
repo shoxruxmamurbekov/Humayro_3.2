@@ -177,7 +177,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
               <button
                 type="submit"
-                className="mt-2 w-full py-3 rounded-full bg-(--accent) text-black font-semibold text-sm hover:bg-[#FF8A24] transition-colors cursor-pointer"
+                className="mt-2 w-full py-3 rounded-full bg-(--accent) text-black font-semibold text-sm hover:bg-[#FF3DBE] transition-colors cursor-pointer"
               >
                 {isRegister ? dict.auth_submit_signup : dict.auth_submit_signin}
               </button>
@@ -195,7 +195,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <div className="flex flex-col gap-6">
               {/* User badge */}
               <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-(--accent) to-orange-950 flex items-center justify-center font-bold text-white text-base">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-(--accent) to-[#3a0020] flex items-center justify-center font-bold text-white text-base">
                   {user.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div>
@@ -214,7 +214,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 </div>
                 <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-(--accent) to-amber-400 transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-(--accent) to-[#FF66CC] transition-all duration-500"
                     style={{ width: `${quotaPercent}%` }}
                   />
                 </div>
@@ -226,10 +226,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               {/* Supabase Cloud Sync Status */}
               <div className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.02] border border-white/5 text-xs">
                 <div className="flex items-center gap-2 text-zinc-400">
-                  <Cloud className="w-4 h-4 text-cyan-400" />
+                  <Cloud className="w-4 h-4 text-[#A3AAB6]" />
                   <span>{dict.auth_supabase_sync}</span>
                 </div>
-                <span className="inline-flex items-center gap-1 font-mono text-[11px] text-emerald-400">
+                <span className="inline-flex items-center gap-1 font-mono text-[11px] text-[#C1FF1A]">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>{supabaseConnected ? 'Active Cloud' : 'Local-First'}</span>
                 </span>

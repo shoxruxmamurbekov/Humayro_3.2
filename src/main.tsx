@@ -54,8 +54,8 @@ class RootErrorBoundary extends Component<Props, State> {
             width: '16px',
             height: '16px',
             borderRadius: '50%',
-            backgroundColor: '#FF6A00',
-            boxShadow: '0 0 16px #FF6A00',
+            backgroundColor: '#FF00AE',
+            boxShadow: '0 0 16px #FF00AE',
             marginBottom: '20px'
           }} />
           <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '12px' }}>
@@ -69,7 +69,7 @@ class RootErrorBoundary extends Component<Props, State> {
             style={{
               padding: '12px 28px',
               borderRadius: '100px',
-              backgroundColor: '#FF6A00',
+              backgroundColor: '#FF00AE',
               color: '#000',
               border: 'none',
               fontWeight: 600,

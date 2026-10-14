@@ -22,9 +22,9 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
             <span>{dict.pricing_eyebrow}</span>
           </div>
 
-          <h2 className="font-[Inter] text-3xl sm:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="bright-display text-4xl sm:text-6xl mb-4">
             <span>{dict.pricing_title1} </span>
-            <span className="bg-gradient-to-r from-(--accent) to-[#FFA84D] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-(--accent) to-[#FF66CC] bg-clip-text text-transparent">
               {dict.pricing_title2}
             </span>
           </h2>
@@ -84,7 +84,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
           </div>
 
           {/* 2. Pro Tier (HONESTLY MARKED COMING SOON) */}
-          <div className="relative p-8 sm:p-10 rounded-3xl bg-gradient-to-b from-(--accent)/[0.08] to-transparent border border-white/10 shadow-[0_0_60px_-15px_rgba(255,106,0,0.25)] flex flex-col justify-between scale-100 lg:scale-105 z-10 transition-all hover:-translate-y-1">
+          <div className="relative p-8 sm:p-10 rounded-3xl bg-gradient-to-b from-(--accent)/[0.08] to-transparent border border-white/10 shadow-[0_0_60px_-15px_rgba(255, 0, 174,0.25)] flex flex-col justify-between scale-100 lg:scale-105 z-10 transition-all hover:-translate-y-1">
             {/* Featured Badge */}
             <div className="absolute -top-3.5 start-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-(--accent) text-black font-semibold text-[11px] uppercase tracking-wider shadow-md flex items-center gap-1.5">
               <Sparkles className="w-3 h-3 fill-current" />
@@ -143,7 +143,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
 
             <button
               onClick={onComingSoon}
-              className="w-full py-3.5 rounded-full font-semibold text-sm bg-(--accent) text-black hover:bg-[#FF8A24] transition-colors shadow-lg cursor-pointer"
+              className="w-full py-3.5 rounded-full font-semibold text-sm bg-(--accent) text-black hover:bg-[#FF3DBE] transition-colors shadow-lg cursor-pointer"
             >
               {dict.price_pro_cta}
             </button>

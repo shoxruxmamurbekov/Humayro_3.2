@@ -29,7 +29,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div
         className="absolute top-1/4 start-1/2 -translate-x-1/2 w-[600px] md:w-[900px] h-[600px] md:h-[900px] rounded-full pointer-events-none z-0 filter blur-[90px] opacity-35"
         style={{
-          background: 'radial-gradient(circle, rgba(255,106,0,0.35) 0%, transparent 65%)'
+          background: 'radial-gradient(circle, rgba(255, 0, 174,0.35) 0%, transparent 65%)'
         }}
       />
 
@@ -40,8 +40,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
         {/* Eyebrow badge with Live Stream Status */}
         <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-xl text-[11px] font-medium tracking-widest uppercase text-zinc-400 mb-4 shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981] animate-ping" />
-          <span className="text-emerald-400 font-bold">JONLI EFIR OQIMI FAOL</span>
+          <span className="w-2 h-2 rounded-full bg-[#C1FF1A] shadow-[0_0_10px_#10b981] animate-ping" />
+          <span className="text-[#C1FF1A] font-bold">JONLI EFIR OQIMI FAOL</span>
           <span className="text-zinc-600">|</span>
           <span className="text-zinc-400 font-mono">{refreshCountdown}s da yangilanadi</span>
         </div>
@@ -55,7 +55,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-(--accent) text-black shrink-0">
               ⚡ SOʻNGGI: {latestArticle.source}
             </span>
-            <span className="text-zinc-200 truncate group-hover:text-[#FF8A24] transition-colors font-medium">
+            <span className="text-zinc-200 truncate group-hover:text-[#FF3DBE] transition-colors font-medium">
               {latestArticle.title}
             </span>
             <span className="text-[10px] text-(--accent) shrink-0 font-mono hidden sm:inline">
@@ -65,10 +65,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         )}
 
         {/* Display Headline */}
-        <h1 className="font-[Inter] text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08] mb-6">
+        <h1 className="bright-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl mb-6">
           <span>{dict.hero_title1}</span>
           <br />
-          <span className="bg-gradient-to-r from-(--accent) via-[#FF8A24] to-[#FFA84D] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-(--accent) via-[#FF3DBE] to-[#FF66CC] bg-clip-text text-transparent">
             {dict.hero_title2}
           </span>
         </h1>
@@ -86,12 +86,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
           <div className="w-px h-3 bg-white/10 hidden sm:block" />
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C1FF1A]" />
             <span>{totalArticlesCount} ta Real-Vaqt Hisoboti</span>
           </div>
           <div className="w-px h-3 bg-white/10 hidden sm:block" />
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFA84D]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF66CC]" />
             <span>3D Kiber-Sfera Monitoringi</span>
           </div>
         </div>
@@ -100,7 +100,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={onExploreClick}
-            className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-semibold text-sm bg-(--accent) text-black shadow-[0_10px_30px_-10px_rgba(255,106,0,0.5)] hover:shadow-[0_20px_45px_-10px_rgba(255,106,0,0.6)] hover:-translate-y-0.5 transition-all overflow-hidden cursor-pointer"
+            className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-semibold text-sm bg-(--accent) text-black shadow-[0_10px_30px_-10px_rgba(255, 0, 174,0.5)] hover:shadow-[0_20px_45px_-10px_rgba(255, 0, 174,0.6)] hover:-translate-y-0.5 transition-all overflow-hidden cursor-pointer"
           >
             <span>{dict.hero_cta_primary}</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

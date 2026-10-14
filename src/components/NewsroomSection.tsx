@@ -43,24 +43,24 @@ const CONFIDENCE_LABEL: Record<NewsroomPost['confidence'], string> = {
 
 const ACCENT_CLASSES: Record<NewsroomAgent['accent'], { chip: string; badge: string; active: string }> = {
   sky: {
-    chip: 'bg-sky-400/15 text-sky-300 border-sky-400/30',
-    badge: 'text-sky-300 bg-sky-400/10',
-    active: 'border-sky-400/50 bg-sky-400/[0.08]'
+    chip: 'bg-[#A3AAB6]/15 text-[#A3AAB6] border-[#A3AAB6]/30',
+    badge: 'text-[#A3AAB6] bg-[#A3AAB6]/10',
+    active: 'border-[#A3AAB6]/50 bg-[#A3AAB6]/[0.08]'
   },
   orange: {
-    chip: 'bg-orange-400/15 text-orange-300 border-orange-400/30',
-    badge: 'text-orange-300 bg-orange-400/10',
-    active: 'border-orange-400/50 bg-orange-400/[0.08]'
+    chip: 'bg-[#FF00AE]/15 text-[#FF00AE] border-[#FF00AE]/30',
+    badge: 'text-[#FF00AE] bg-[#FF00AE]/10',
+    active: 'border-[#FF00AE]/50 bg-[#FF00AE]/[0.08]'
   },
   violet: {
-    chip: 'bg-violet-400/15 text-violet-300 border-violet-400/30',
-    badge: 'text-violet-300 bg-violet-400/10',
-    active: 'border-violet-400/50 bg-violet-400/[0.08]'
+    chip: 'bg-[#A3AAB6]/15 text-[#A3AAB6] border-[#A3AAB6]/30',
+    badge: 'text-[#A3AAB6] bg-[#A3AAB6]/10',
+    active: 'border-[#A3AAB6]/50 bg-[#A3AAB6]/[0.08]'
   },
   emerald: {
-    chip: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/30',
-    badge: 'text-emerald-300 bg-emerald-400/10',
-    active: 'border-emerald-400/50 bg-emerald-400/[0.08]'
+    chip: 'bg-[#C1FF1A]/15 text-[#C1FF1A] border-[#C1FF1A]/30',
+    badge: 'text-[#C1FF1A] bg-[#C1FF1A]/10',
+    active: 'border-[#C1FF1A]/50 bg-[#C1FF1A]/[0.08]'
   }
 };
 
@@ -154,7 +154,7 @@ export const NewsroomSection: React.FC<{ currentLang: SupportedLanguage }> = ({ 
       <div className="rounded-2xl border border-white/[0.08] bg-[#0C1118] p-4 sm:p-6">
         <header className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-orange-400/20 bg-orange-400/[0.08] text-[#FF6A00]">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#FF00AE]/20 bg-[#FF00AE]/[0.08] text-[#FF00AE]">
               <Newspaper size={22} />
             </div>
             <div>
@@ -205,7 +205,7 @@ export const NewsroomSection: React.FC<{ currentLang: SupportedLanguage }> = ({ 
                     onClick={() => toggleTopic(t.id)}
                     className={
                       'rounded-full border px-3 py-1.5 text-[11px] transition-colors ' +
-                      (on ? 'border-orange-400/40 bg-orange-400/[0.1] text-orange-200' : 'border-white/[0.08] text-slate-400 hover:text-slate-200')
+                      (on ? 'border-[#FF00AE]/40 bg-[#FF00AE]/[0.1] text-[#FF00AE]' : 'border-white/[0.08] text-slate-400 hover:text-slate-200')
                     }
                   >
                     {t.label}
@@ -293,7 +293,7 @@ export const NewsroomSection: React.FC<{ currentLang: SupportedLanguage }> = ({ 
                         href={u}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 rounded border border-white/[0.08] px-2 py-1 text-[10px] text-sky-300 hover:border-sky-400/30"
+                        className="flex items-center gap-1 rounded border border-white/[0.08] px-2 py-1 text-[10px] text-[#A3AAB6] hover:border-[#A3AAB6]/30"
                       >
                         <ExternalLink size={10} /> {hostOf(u)}
                       </a>
