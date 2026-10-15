@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Monitor, User, Shield, ChevronDown, Menu, X, Radio } from 'lucide-react';
+import { Sun, Moon, Monitor, User, Shield, ChevronDown, Menu, X } from 'lucide-react';
 import { SupportedLanguage, ThemeMode, UserProfile } from '../types';
 import { TranslationDict } from '../i18n/translations';
 import { getUiText } from '../i18n/uiTranslations';
+import { Icon } from './icons';
 
 interface NavbarProps {
   dict: TranslationDict;
@@ -135,9 +136,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
             <button
               onClick={() => scrollTo('signals')}
-              className="flex items-center gap-1.5 text-[#22C55E] hover:text-[#4ade80] transition-colors py-1 cursor-pointer font-bold tracking-wider"
+              className="flex items-center gap-1.5 text-[#C1FF1A] hover:text-[#D9FF6B] transition-colors py-1 cursor-pointer font-bold tracking-wider"
             >
-              <Radio className="w-3 h-3 animate-pulse" />
+              <Icon name="live" size="sm" tone="secondary" className="w-3 h-3 animate-pulse" />
               <span>{ui.nav_live}</span>
             </button>
           </nav>
@@ -281,9 +282,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <button
                 onClick={() => scrollTo('signals')}
-                className="text-left py-2 border-b border-white/[0.05] text-[#22C55E] font-bold flex items-center gap-2"
+                className="text-left py-2 border-b border-white/[0.05] text-[#C1FF1A] font-bold flex items-center gap-2"
               >
-                <Radio className="w-4 h-4 animate-pulse" />
+                <Icon name="live" size="sm" tone="secondary" className="animate-pulse" />
                 <span>{ui.signal_live}</span>
               </button>
             </nav>

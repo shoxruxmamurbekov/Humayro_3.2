@@ -11,6 +11,16 @@
   --accent: #FF6A00;
   --accent-blue: #3B82F6;
   --success: #22C55E;
+
+  /* BRIGHT icon system tokens */
+  --bright-bg: #05070A;
+  --bright-primary: #FF00AE;
+  --bright-primary-glow: rgba(255, 0, 174, 0.45);
+  --bright-secondary: #C1FF1A;
+  --bright-icon: #F5F7FA;
+  --bright-icon-muted: #7C8797;
+  --bright-icon-disabled: rgba(245, 247, 250, 0.32);
+  --bright-danger: #FB7185;
 }
 
 html {
@@ -68,6 +78,10 @@ body {
 html[data-theme="light"] {
   background-color: #f7f9fc;
   color: #0f172a;
+  --bright-icon: #0f172a;
+  --bright-icon-muted: #64748b;
+  --bright-icon-disabled: rgba(15, 23, 42, 0.32);
+  --bright-primary-glow: rgba(255, 0, 174, 0.25);
 }
 
 html[data-theme="light"] body {
