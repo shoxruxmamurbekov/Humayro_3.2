@@ -1,7 +1,7 @@
 import React from 'react';
-import { Home, Radio, Sparkles, Bookmark, User } from 'lucide-react';
 import { SupportedLanguage } from '../types';
 import { getUiText } from '../i18n/uiTranslations';
+import { Icon, brightFocusRing } from './icons';
 
 interface BottomNavProps {
   onOpenAuth: () => void;
@@ -31,9 +31,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       <button
         type="button"
         onClick={() => scrollTo('home')}
-        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-(--accent) transition-colors cursor-pointer"
+        className={`flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-(--accent) transition-colors cursor-pointer rounded-md ${brightFocusRing}`}
       >
-        <Home className="w-4 h-4" />
+        <Icon name="home" size="sm" />
         <span className="text-[10px] font-mono tracking-wider">{ui.bnav_home}</span>
       </button>
 
@@ -41,20 +41,20 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       <button
         type="button"
         onClick={() => scrollTo('signals')}
-        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#22C55E] active:text-[#22C55E] transition-colors cursor-pointer"
+        className={`flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#C1FF1A] active:text-[#C1FF1A] transition-colors cursor-pointer rounded-md ${brightFocusRing}`}
       >
-        <Radio className="w-4 h-4 text-[#22C55E]" />
-        <span className="text-[10px] font-mono tracking-wider text-[#22C55E]">{ui.bnav_signals}</span>
+        <Icon name="live" size="sm" tone="secondary" />
+        <span className="text-[10px] font-mono tracking-wider text-[#C1FF1A]">{ui.bnav_signals}</span>
       </button>
 
       {/* 3. AI */}
       <button
         type="button"
         onClick={() => scrollTo('search')}
-        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-(--accent) transition-colors cursor-pointer"
+        className={`flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-(--accent) transition-colors cursor-pointer rounded-md ${brightFocusRing}`}
       >
         <div className="w-8 h-8 rounded-full bg-(--accent) text-black flex items-center justify-center shadow-md shadow-(--accent)/30 -mt-2">
-          <Sparkles className="w-4 h-4" />
+          <Icon name="aiAssistant" size="sm" tone="inherit" className="text-black" />
         </div>
         <span className="text-[9px] font-mono tracking-wider font-bold">{ui.bnav_ai}</span>
       </button>
@@ -66,9 +66,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           if (onOpenBookmarks) onOpenBookmarks();
           else scrollTo('feed');
         }}
-        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-(--accent) transition-colors cursor-pointer"
+        className={`flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-(--accent) transition-colors cursor-pointer rounded-md ${brightFocusRing}`}
       >
-        <Bookmark className="w-4 h-4" />
+        <Icon name="saved" size="sm" />
         <span className="text-[10px] font-mono tracking-wider">{ui.bnav_saved}</span>
       </button>
 
@@ -76,9 +76,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       <button
         type="button"
         onClick={onOpenAuth}
-        className="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-(--accent) transition-colors cursor-pointer"
+        className={`flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-[#7C8797] hover:text-[#F5F7FA] active:text-(--accent) transition-colors cursor-pointer rounded-md ${brightFocusRing}`}
       >
-        <User className="w-4 h-4" />
+        <Icon name="profile" size="sm" />
         <span className="text-[10px] font-mono tracking-wider">{ui.bnav_profile}</span>
       </button>
     </nav>
