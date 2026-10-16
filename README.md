@@ -161,34 +161,26 @@ GitHub Pages is not supported: it serves static files only, so `/api/*` would re
 
 **Admin access:** send the token in the `x-admin-token` header. Query-string tokens are not accepted.
 
-**Known limitation:** daily quotas and the news/newsroom cache live in memory. On serverless each instance keeps its own copy, so limits are approximate and reset on cold start. Accurate quotas need a shared store (for example Netlify Blobs or Supabase).
+**Shared state:** daily quotas and the news/newsroom cache are stored in Netlify Blobs (`server/quotaBlobsBackend.ts`, `server/blobsKvBackend.ts`) and mirrored in memory per instance. If the Blobs backend is unavailable, the app falls back to per-instance memory, so quotas become approximate for that period.
 
 For a VPS or Docker, run `npm run build` then `NODE_ENV=production node --import tsx server.ts` (or `npm start`) with the same environment variables.
 
-## 🛠️ GitHub Push Guide
-
-To upload this project to your GitHub repository:
+## 🛠️ Contributing / Pushing Changes
 
 ```bash
-# 1. Initialize git (if not already done)
-git init
+# Create a feature branch from the latest main
+git checkout main && git pull origin main
+git checkout -b feature/your-change
 
-# 2. Add all files
-git add .
+# Verify before pushing (same checks as CI)
+npm run lint && npm test && npm run build
 
-# 3. Create your release commit
-git commit -m "feat: release Humayro 3.2 with 2D geo-radar, regional workspace, and full i18n"
-
-# 4. Set the main branch
-git branch -M main
-
-# 5. Connect your remote repository
-git remote add origin https://github.com/shoxruxmamurbekov/Humayro_3.2.git
-# (Or if updating Humayro_3.2: git remote add origin https://github.com/shoxruxmamurbekov/Humayro_3.2.git)
-
-# 6. Push to GitHub
-git push -u origin main --force
+git add -A
+git commit -m "feat: describe your change"
+git push -u origin feature/your-change
 ```
+
+Open a pull request into `main`. Do not force-push to `main`.
 
 ---
 
