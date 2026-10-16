@@ -1,6 +1,14 @@
 import { GoogleGenAI } from '@google/genai';
 import type { AiArticleResponse, AiSynthesisResponse, SupportedLanguage, HistoricalParallel } from '../src/types/index.ts';
 import { searchNews } from './newsService.ts';
+import {
+  asScore,
+  asText,
+  asTextList,
+  normalizeHistorical,
+  normalizeSources,
+  normalizeTimeline,
+} from './aiValidation.ts';
 
 const langNames: Record<SupportedLanguage, string> = {
   uz: "Uzbek (Oʻzbek tilida yuqori saviyali jurnalistik tahlil, aniq faktlar va ravon til)",
@@ -318,27 +326,26 @@ Quyidagi JSON formatida qat'iy va faqat JSON javob bering:
         const responseText = response.text || '';
         const parsed = safeJsonParse<Partial<AiSynthesisResponse>>(responseText, {});
 
-        if (parsed.summary && Array.isArray(parsed.keyPoints) && parsed.keyPoints.length > 0) {
-          const historical = (parsed.historicalParallel && parsed.historicalParallel.eventName && parsed.historicalParallel.quote?.text)
-            ? parsed.historicalParallel
-            : getFallbackHistoricalParallel(query, lang);
+        const summary = asText(parsed.summary);
+        const keyPoints = asTextList(parsed.keyPoints);
+        if (summary && keyPoints.length > 0) {
+          const historical = normalizeHistorical(parsed.historicalParallel) ?? getFallbackHistoricalParallel(query, lang);
+          const timeline = normalizeTimeline(parsed.timeline);
+          const sources = normalizeSources(parsed.sources);
+          const region = parsed.region === 'uzbekistan' || parsed.region === 'global' || parsed.region === 'both' ? parsed.region : 'both';
 
           return {
-            viralHeadline: parsed.viralHeadline || parsed.keyPoints[0],
-            summary: parsed.summary,
-            publicSentiment: parsed.publicSentiment || (lang === 'uz' ? "Mavzu ijtimoiy tarmoqlar va jamoatchilik orasida eng ko'p o'qilayotgan hamda fikr-mulohazalar bildirilayotgan markaziy voqealardan biri bo'lib qolmoqda." : undefined),
-            trendScore: typeof parsed.trendScore === 'number' ? parsed.trendScore : 94,
+            viralHeadline: asText(parsed.viralHeadline, 200) || keyPoints[0],
+            summary,
+            publicSentiment: asText(parsed.publicSentiment) || (lang === 'uz' ? "Mavzu ijtimoiy tarmoqlar va jamoatchilik orasida eng ko'p o'qilayotgan hamda fikr-mulohazalar bildirilayotgan markaziy voqealardan biri bo'lib qolmoqda." : undefined),
+            trendScore: asScore(parsed.trendScore, 94),
             isTrending: parsed.isTrending !== false,
-            region: parsed.region || 'both',
-            keyPoints: parsed.keyPoints,
-            timeline: (parsed.timeline && parsed.timeline.length > 0)
-              ? parsed.timeline.slice(0, 5)
-              : [{ time: '2026-yil', event: parsed.keyPoints[0] || 'Soʻnggi voqealar rivoji' }],
-            sources: (parsed.sources && parsed.sources.length > 0)
-              ? parsed.sources
-              : [{ name: 'Reuters' }, { name: 'BBC News' }, { name: 'Associated Press' }],
+            region,
+            keyPoints,
+            timeline: timeline.length > 0 ? timeline : [{ time: '2026-yil', event: keyPoints[0] }],
+            sources: sources.length > 0 ? sources : [{ name: 'Reuters' }, { name: 'BBC News' }, { name: 'Associated Press' }],
             historicalParallel: historical,
-            confidenceNote: parsed.confidenceNote || 'Humayro_3.2 real-time verified intelligence stream',
+            confidenceNote: asText(parsed.confidenceNote, 300) || 'Humayro_3.2 real-time verified intelligence stream',
             isFallback: false
           };
         }
@@ -495,17 +502,18 @@ Quyidagi JSON formatida qat'iy javob bering:
         const responseText = response.text || '';
         const parsed = safeJsonParse<Partial<AiArticleResponse>>(responseText, {});
 
-        if (parsed.title && Array.isArray(parsed.paragraphs) && parsed.paragraphs.length > 0) {
-          const historical = (parsed.historicalParallel && parsed.historicalParallel.eventName && parsed.historicalParallel.quote?.text)
-            ? parsed.historicalParallel
-            : getFallbackHistoricalParallel(topic, lang);
+        const title = asText(parsed.title, 300);
+        const paragraphs = asTextList(parsed.paragraphs, 20, 4000);
+        if (title && paragraphs.length > 0) {
+          const historical = normalizeHistorical(parsed.historicalParallel) ?? getFallbackHistoricalParallel(topic, lang);
+          const sources = normalizeSources(parsed.sources);
 
           return {
-            title: parsed.title,
-            dek: parsed.dek || '',
-            paragraphs: parsed.paragraphs,
-            keyPoints: parsed.keyPoints || [],
-            sources: (parsed.sources && parsed.sources.length > 0) ? parsed.sources : [{ name: 'Reuters' }, { name: 'BBC News' }],
+            title,
+            dek: asText(parsed.dek, 400) || '',
+            paragraphs,
+            keyPoints: asTextList(parsed.keyPoints),
+            sources: sources.length > 0 ? sources : [{ name: 'Reuters' }, { name: 'BBC News' }],
             historicalParallel: historical,
             region,
             publishedAt: new Date().toISOString(),

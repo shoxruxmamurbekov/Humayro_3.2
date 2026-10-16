@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { translations, TranslationDict } from './i18n/translations';
 import { Article, SupportedLanguage, ThemeMode, UserProfile, AiArticleResponse, AiSynthesisResponse } from './types';
 import {
@@ -19,15 +19,16 @@ import { Navbar } from './components/Navbar';
 import { SignalBar } from './components/SignalBar';
 import { SignalMetrics } from './components/SignalMetrics';
 import { IntelligenceCommandCenter } from './components/IntelligenceCommandCenter';
-import { NewsroomSection } from './components/NewsroomSection';
 import { IntelligenceHero } from './components/IntelligenceHero';
-import { WorldMapSection } from './components/WorldMapSection';
 import { ChatSection, ChatMessage } from './components/ChatSection';
 import { FeedSection } from './components/FeedSection';
 import { Footer } from './components/Footer';
 import { ArticleModal } from './components/ArticleModal';
-import { AuthModal } from './components/AuthModal';
-import { AdminModal } from './components/AdminModal';
+// Heavy or rarely-opened UI is code-split so the first paint loads less JavaScript.
+const NewsroomSection = lazy(() => import('./components/NewsroomSection').then(m => ({ default: m.NewsroomSection })));
+const WorldMapSection = lazy(() => import('./components/WorldMapSection').then(m => ({ default: m.WorldMapSection })));
+const AuthModal = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
+const AdminModal = lazy(() => import('./components/AdminModal').then(m => ({ default: m.AdminModal })));
 import { BottomNav } from './components/BottomNav';
 
 export default function App() {
@@ -325,9 +326,12 @@ export default function App() {
         <IntelligenceCommandCenter />
 
         {/* AI newsroom: persona agents analyze news for the user's country and topics */}
-        <NewsroomSection currentLang={currentLang} />
+        <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>
+          <NewsroomSection currentLang={currentLang} />
+        </Suspense>
 
         {/* Globe Intelligence (3D Sphere & 2D Radar) */}
+        <Suspense fallback={<div className="min-h-[60vh]" aria-hidden="true" />}>
         <WorldMapSection
           dict={dict}
           onSelectRegion={(regId, regLabel) => openArticle(regLabel, regId, `region-${regId.toLowerCase().slice(0, 6)}`)}
@@ -341,6 +345,7 @@ export default function App() {
           lastUpdated={lastLiveUpdated}
           lang={currentLang}
         />
+        </Suspense>
 
         {/* Live Intelligence Feed & Cards */}
         <FeedSection
@@ -389,6 +394,8 @@ export default function App() {
       />
 
       {/* User Auth & Profile Modal */}
+      {authModalOpen && (
+      <Suspense fallback={null}>
       <AuthModal
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
@@ -400,12 +407,18 @@ export default function App() {
           handleSearchSubmit(query);
         }}
       />
+      </Suspense>
+      )}
 
       {/* Protected Admin / System Observability Modal */}
+      {adminModalOpen && (
+      <Suspense fallback={null}>
       <AdminModal
         isOpen={adminModalOpen}
         onClose={() => setAdminModalOpen(false)}
       />
+      </Suspense>
+      )}
     </div>
   );
 }
