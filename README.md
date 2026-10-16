@@ -184,5 +184,9 @@ Open a pull request into `main`. Do not force-push to `main`.
 
 ---
 
+## 🔐 Security
+
+Do not commit secrets. Keep `.env` out of git (it is ignored) and set `ADMIN_SECRET`, `GEMINI_API_KEY` and other keys only in your hosting provider. To report a vulnerability, see [SECURITY.md](SECURITY.md).
+
 ## 📄 License
-MIT License © 2026 Humayro Global Intelligence. All rights reserved.
+MIT License © 2026 Mamirbekov Shohruxbek. See the [LICENSE](LICENSE) file for the full text.
