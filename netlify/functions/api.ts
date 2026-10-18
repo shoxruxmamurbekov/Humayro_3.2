@@ -208,7 +208,7 @@ app.post('/admin/ai-settings/test', async (req, res) => {
   if (!timingSafeAdminCheck(token, ADMIN_SECRET)) return res.status(401).json({ success: false, error: 'Unauthorized admin access' });
   try {
     const result = await testAiProviderConnection(req.body?.provider, req.body?.apiKey, req.body?.model);
-    res.json({ success: true, ...result });
+    res.json({ success: true, result });
   } catch {
     res.status(400).json({ success: false, error: 'Choose a supported provider and valid model ID.' });
   }
