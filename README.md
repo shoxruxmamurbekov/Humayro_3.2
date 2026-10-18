@@ -66,7 +66,7 @@
   - 🇰🇷 **한국어**
 - Complete UI, labels, prompts, metrics, indicators, and voice recognition dynamically synchronize to the selected language.
 
-Full setup, request flow, and Admin API examples: [docs/AI_PROVIDER_MANAGER.md](docs/AI_PROVIDER_MANAGER.md).\n\n### 6. 📡 Continuous Live Signal Stream
+Full setup, request flow, and Admin API examples: [docs/AI_PROVIDER_MANAGER.md](docs/AI_PROVIDER_MANAGER.md).\n\nFolder-by-folder architecture and the frontend → backend → provider request flow: [docs/PROJECT_SKELETON_API_FLOW.md](docs/PROJECT_SKELETON_API_FLOW.md).\n\n### 6. 📡 Continuous Live Signal Stream
 - Auto-refreshes verified global RSS & Google News feeds every 30 seconds.
 - Live Signal Marquee with real-time signal score indicator.
 - Category filters: All, Uzbekistan, World, Technology, Economy, Science.
