@@ -16,9 +16,9 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
           {/* Brand info */}
           <div className="lg:col-span-4 flex flex-col gap-4">
             <a href="#home" className="flex items-center gap-2.5 font-[Inter] font-bold text-xl text-white">
-              <span className="w-2.5 h-2.5 rounded-full bg-(--accent) shadow-[0_0_12px_#FF6A00] animate-pulse" />
+              <img src="/violet-sun-logo.svg" alt="" className="w-9 h-9 rounded-xl object-contain shrink-0" />
               <span>
-                Humayro<span className="text-(--accent)">_3.2</span>
+                Violet <span className="text-violet-300">Sun</span>
               </span>
             </a>
             <p className="text-zinc-400 text-sm max-w-sm leading-relaxed">
@@ -84,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({ dict, onOpenAdmin }) => {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
           <div>
-            © {currentYear} Humayro_3.2. {dict.footer_copy}
+            © {currentYear} Violet Sun. {dict.footer_copy}
           </div>
 
           <div className="flex items-center gap-4 text-xs text-zinc-500">
