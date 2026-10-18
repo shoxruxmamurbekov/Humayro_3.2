@@ -1,23 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-labelledby="title">
-  <title id="title">Violet Sun</title>
-  <defs>
-    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#A78BFA"/>
-      <stop offset="55%" stop-color="#8B5CF6"/>
-      <stop offset="100%" stop-color="#6D28D9"/>
-    </linearGradient>
-    <radialGradient id="core" cx="35%" cy="30%" r="75%">
-      <stop offset="0%" stop-color="#F5F3FF"/>
-      <stop offset="35%" stop-color="#C4B5FD"/>
-      <stop offset="100%" stop-color="#7C3AED"/>
-    </radialGradient>
-  </defs>
-  <rect width="100" height="100" rx="25" fill="#080910"/>
-  <g stroke="url(#violet)" stroke-width="4" stroke-linecap="round">
-    <path d="M50 10v8M50 82v8M10 50h8M82 50h8M21.7 21.7l5.7 5.7M72.6 72.6l5.7 5.7M78.3 21.7l-5.7 5.7M27.4 72.6l-5.7 5.7"/>
-  </g>
-  <circle cx="50" cy="50" r="31" fill="none" stroke="url(#violet)" stroke-width="3.5" opacity=".9"/>
-  <circle cx="50" cy="50" r="22" fill="url(#violet)" opacity=".18"/>
-  <circle cx="50" cy="50" r="17" fill="url(#core)"/>
-  <circle cx="44" cy="43" r="4" fill="#fff" opacity=".85"/>
+<title id="title">Violet Sun</title>
+<defs>
+ <radialGradient id="bg"><stop stop-color="#100626"/><stop offset="1" stop-color="#05040f"/></radialGradient>
+ <radialGradient id="sun" cx="48%" cy="44%" r="62%"><stop stop-color="#f8edff"/><stop offset=".18" stop-color="#d7a5ff"/><stop offset=".48" stop-color="#8b2cff"/><stop offset=".78" stop-color="#4b00d8"/><stop offset="1" stop-color="#1a064a"/></radialGradient>
+ <linearGradient id="ray" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0ff"/><stop offset=".48" stop-color="#c47bff"/><stop offset="1" stop-color="#5c16ff"/></linearGradient>
+ <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="2.4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="100" height="100" rx="23" fill="url(#bg)"/>
+<g fill="none" stroke="#741cff" stroke-width="2.2" opacity=".85" filter="url(#glow)">
+ <path d="M18 42C25 14 56 13 68 26S79 44 67 51 55 66 79 70 78 91 51 84 25 77 29 59 11 54 18 42Z"/>
+ <path d="M13 52C23 30 42 21 57 30S79 46 66 60 49 72 35 64 16 74 28 86"/>
+ <path d="M29 22C42 11 63 18 71 34S74 56 88 55M16 66C22 48 34 42 42 49S54 68 73 76"/>
+</g>
+<g fill="url(#ray)" filter="url(#glow)">
+ <path d="M50 8 53 29 50 34 47 29Z"/><path d="M92 50 71 53 66 50 71 47Z"/>
+ <path d="M50 92 47 71 50 66 53 71Z"/><path d="M8 50 29 47 34 50 29 53Z"/>
+ <path d="M20 20 37 33 38 38 33 37Z"/><path d="M80 20 67 37 62 38 63 33Z"/>
+ <path d="M80 80 63 67 62 62 67 63Z"/><path d="M20 80 33 63 38 62 37 67Z"/>
+</g>
+<circle cx="50" cy="50" r="27.5" fill="#12052f" stroke="#d8a1ff" stroke-width="1.6" filter="url(#glow)"/>
+<circle cx="50" cy="50" r="23" fill="url(#sun)"/>
+<circle cx="50" cy="50" r="2.2" fill="#fff" filter="url(#glow)"/>
 </svg>
