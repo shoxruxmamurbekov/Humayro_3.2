@@ -10,6 +10,13 @@ import {
   normalizeTimeline,
 } from './aiValidation.ts';
 
+// Shared Gemini model candidates used by the newsroom agent until it is migrated to the provider manager.
+export const CANDIDATE_MODELS = [
+  'gemini-3.1-flash-lite',
+  'gemini-flash-latest',
+  'gemini-3.8-flash'
+];
+
 const langNames: Record<SupportedLanguage, string> = {
   uz: "Uzbek (Oʻzbek tilida yuqori saviyali jurnalistik tahlil, aniq faktlar va ravon til)",
   kk: "Kazakh (Қазақ тілінде сапалы журналистік талдау, нақты деректер мен сауатты тіл)",
