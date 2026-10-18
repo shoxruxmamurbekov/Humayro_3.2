@@ -83,12 +83,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           <a
             href="#home"
             className="flex items-center gap-3 group focus:outline-none"
-            aria-label="Humayro Home"
+            aria-label="Violet Sun Home"
           >
-            <span className="w-2 h-2 rounded-full bg-(--accent) shadow-[0_0_10px_#FF6A00] animate-pulse" />
+            <img src="/violet-sun-logo.svg" alt="" className="w-9 h-9 rounded-xl object-contain shrink-0" />
             <div className="flex flex-col">
               <span className="font-[Inter] font-bold text-base tracking-[0.14em] text-[#F5F7FA] group-hover:text-white transition-colors">
-                {ui.brand_name || 'HUMAYRO'}
+                VIOLET SUN
               </span>
               <span className="text-[9px] tracking-[0.22em] text-(--accent) uppercase font-semibold">
                 {ui.brand_sub || 'GLOBAL INTELLEKT'}
@@ -245,7 +245,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="space-y-4">
             <div className="pb-4 border-b border-white/[0.08]">
               <span className="text-[10px] tracking-widest text-(--accent) uppercase font-bold">
-                HUMAYRO GLOBAL INTELLIGENCE
+                VIOLET SUN GLOBAL INTELLIGENCE
               </span>
             </div>
 
