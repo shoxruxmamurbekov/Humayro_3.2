@@ -138,17 +138,17 @@ async function getEffectiveConfig(): Promise<EffectiveConfig> {
   const keys: Partial<Record<AiProviderId, string>> = {};
   for (const provider of AI_PROVIDERS) {
     const encrypted = stored?.encryptedKeys?.[provider];
-    if (encrypted) {
-      if (!isEncryptionReady()) continue;
+    if (encrypted && isEncryptionReady()) {
       try {
         keys[provider] = decryptApiKey(encrypted);
+        continue;
       } catch {
-        throw new Error(`Stored ${provider} API key could not be decrypted. Check AI_SETTINGS_ENCRYPTION_KEY.`);
+        // If a managed key cannot be decrypted after a secret rotation, keep the
+        // deployment environment key as a safe fallback instead of breaking all AI requests.
       }
-    } else {
-      const key = envApiKey(provider);
-      if (key) keys[provider] = key;
     }
+    const key = envApiKey(provider);
+    if (key) keys[provider] = key;
   }
 
   const primaryProvider = stored?.primaryProvider
