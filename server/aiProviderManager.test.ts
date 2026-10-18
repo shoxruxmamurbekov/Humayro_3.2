@@ -65,3 +65,61 @@ test('rejects model IDs with whitespace or unexpected characters', async () => {
     /Invalid model name/
   );
 });
+
+
+test('Groq adapter sends an authenticated chat-completions API request', async () => {
+  const originalFetch = globalThis.fetch;
+  let capturedUrl = '';
+  let capturedInit: RequestInit | undefined;
+  globalThis.fetch = (async (input: string | URL | Request, init?: RequestInit) => {
+    capturedUrl = String(input);
+    capturedInit = init;
+    return new Response(JSON.stringify({
+      choices: [{ message: { content: '{"ok":true,"service":"HUMAYRO connection test"}' } }]
+    }), { status: 200, headers: { 'content-type': 'application/json' } });
+  }) as typeof fetch;
+
+  try {
+    const result = await (await import('./aiProviderManager.ts')).testAiProviderConnection(
+      'groq',
+      'groq-mock-api-key',
+      'llama-3.3-70b-versatile'
+    );
+    assert.equal(result.success, true);
+    assert.equal(capturedUrl, 'https://api.groq.com/openai/v1/chat/completions');
+    assert.equal((capturedInit?.headers as Record<string, string>).Authorization, 'Bearer groq-mock-api-key');
+    const body = JSON.parse(String(capturedInit?.body));
+    assert.equal(body.model, 'llama-3.3-70b-versatile');
+    assert.equal(body.response_format.type, 'json_object');
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test('OpenRouter adapter sends an authenticated chat-completions API request', async () => {
+  const originalFetch = globalThis.fetch;
+  let capturedUrl = '';
+  let capturedInit: RequestInit | undefined;
+  globalThis.fetch = (async (input: string | URL | Request, init?: RequestInit) => {
+    capturedUrl = String(input);
+    capturedInit = init;
+    return new Response(JSON.stringify({
+      choices: [{ message: { content: '{"ok":true,"service":"HUMAYRO connection test"}' } }]
+    }), { status: 200, headers: { 'content-type': 'application/json' } });
+  }) as typeof fetch;
+
+  try {
+    const result = await (await import('./aiProviderManager.ts')).testAiProviderConnection(
+      'openrouter',
+      'openrouter-mock-api-key',
+      'openai/gpt-4o-mini'
+    );
+    assert.equal(result.success, true);
+    assert.equal(capturedUrl, 'https://openrouter.ai/api/v1/chat/completions');
+    assert.equal((capturedInit?.headers as Record<string, string>).Authorization, 'Bearer openrouter-mock-api-key');
+    const body = JSON.parse(String(capturedInit?.body));
+    assert.equal(body.model, 'openai/gpt-4o-mini');
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
