@@ -25,7 +25,7 @@ import { FeedSection } from './components/FeedSection';
 import { Footer } from './components/Footer';
 import { ArticleModal } from './components/ArticleModal';
 // Heavy or rarely-opened UI is code-split so the first paint loads less JavaScript.
-const NewsroomSection = lazy(() => import('./components/NewsroomSection').then(m => ({ default: m.NewsroomSection })));
+const McpConnectSection = lazy(() => import('./components/McpConnectSection').then(m => ({ default: m.McpConnectSection })));
 const WorldMapSection = lazy(() => import('./components/WorldMapSection').then(m => ({ default: m.WorldMapSection })));
 const AuthModal = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
 const AdminModal = lazy(() => import('./components/AdminModal').then(m => ({ default: m.AdminModal })));
@@ -325,9 +325,9 @@ export default function App() {
         {/* Interactive HUMAYRO Intelligence Command Center */}
         <IntelligenceCommandCenter />
 
-        {/* AI newsroom: persona agents analyze news for the user's country and topics */}
+        {/* MCP: each person connects their own AI for personal daily/weekly news digests */}
         <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>
-          <NewsroomSection currentLang={currentLang} />
+          <McpConnectSection />
         </Suspense>
 
         {/* Globe Intelligence (3D Sphere & 2D Radar) */}

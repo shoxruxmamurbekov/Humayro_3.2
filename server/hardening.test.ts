@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { timingSafeAdminCheck } from './security.ts';
-import { normalizeCountry, normalizeTopics } from './newsroomService.ts';
+import { normalizeCountry, normalizeTopics } from './newsDigestService.ts';
 
 test('admin token: exact match only', () => {
   assert.equal(timingSafeAdminCheck('s3cret-token', 's3cret-token'), true);

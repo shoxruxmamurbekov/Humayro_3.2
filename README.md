@@ -72,6 +72,12 @@
 - Category filters: All, Uzbekistan, World, Technology, Economy, Science.
 - Magazine, Live Stream, and Terminal display modes.
 
+### 6. 🔌 Personal News via MCP (Bring Your Own AI)
+- A public, stateless MCP server (Streamable HTTP) lives at `/api/mcp`. Each person connects their own AI client; it picks the person's country, topics and keywords and writes the daily or weekly digest itself. The server runs no model and uses no AI quota.
+- Tools: `get_digest` (daily/weekly), `get_latest_news`, `search_articles`, `list_options`. Results are headlines with source URLs, grouped per topic or keyword.
+- No login and no stored user data: interests live in the person's AI, not on this server. Scheduling is done by the AI client (the server is pull-only).
+- Claude Code: `claude mcp add --transport http humayro https://<your-domain>/api/mcp`.
+
 ---
 
 ## 🏗️ Architecture
@@ -161,7 +167,7 @@ GitHub Pages is not supported: it serves static files only, so `/api/*` would re
 
 **Admin access:** send the token in the `x-admin-token` header. Query-string tokens are not accepted.
 
-**Shared state:** daily quotas and the news/newsroom cache are stored in Netlify Blobs (`server/quotaBlobsBackend.ts`, `server/blobsKvBackend.ts`) and mirrored in memory per instance. If the Blobs backend is unavailable, the app falls back to per-instance memory, so quotas become approximate for that period.
+**Shared state:** daily quotas and the news and digest cache are stored in Netlify Blobs (`server/quotaBlobsBackend.ts`, `server/blobsKvBackend.ts`) and mirrored in memory per instance. If the Blobs backend is unavailable, the app falls back to per-instance memory, so quotas become approximate for that period.
 
 For a VPS or Docker, run `npm run build` then `NODE_ENV=production node --import tsx server.ts` (or `npm start`) with the same environment variables.
 
