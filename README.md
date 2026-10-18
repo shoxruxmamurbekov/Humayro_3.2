@@ -50,7 +50,7 @@
   - Verified Sources Citation List
   - Built-in Neural Audio Reader (TTS speech synthesis)
 
-### 4. 🌍 Universal 12-Language Localization
+### 4. 🔌 AI Provider Manager\n\nThe protected Admin Console can configure Gemini, Groq, and OpenRouter, test provider connections, choose primary/fallback providers, and set model IDs. Provider keys entered in the UI are encrypted server-side with AES-256-GCM; they are never sent back to the browser. On Netlify, settings are persisted in Netlify Blobs.\n\n### 5. 🌍 Universal 12-Language Localization
 - Fully localized in **12 languages**:
   - 🇺🇿 **O'zbekcha** (Default)
   - 🇰🇿 **Қазақша**
@@ -66,7 +66,7 @@
   - 🇰🇷 **한국어**
 - Complete UI, labels, prompts, metrics, indicators, and voice recognition dynamically synchronize to the selected language.
 
-### 5. 📡 Continuous Live Signal Stream
+### 6. 📡 Continuous Live Signal Stream
 - Auto-refreshes verified global RSS & Google News feeds every 30 seconds.
 - Live Signal Marquee with real-time signal score indicator.
 - Category filters: All, Uzbekistan, World, Technology, Economy, Science.
@@ -121,13 +121,21 @@ cp .env.example .env
 
 Edit `.env`:
 ```env
-# Google Gemini API Key (Required for AI synthesis)
+# Configure at least one provider key for AI synthesis
 GEMINI_API_KEY="your-gemini-api-key"
 
-# AI Provider ('gemini' | 'groq' | 'openrouter')
+# Primary AI provider and optional fallback
 AI_PROVIDER="gemini"
+# GROQ_API_KEY="your-groq-api-key"
+# OPENROUTER_API_KEY="your-openrouter-api-key"
+# FALLBACK_AI_PROVIDER="groq"
 
-# Admin Dashboard Secret Token (for /api/admin/metrics) - REQUIRED
+# Required to save API keys entered through the Admin AI Provider Manager.
+# Generate once with: openssl rand -hex 32
+# Keep it stable; rotating it will make saved provider keys unreadable.
+AI_SETTINGS_ENCRYPTION_KEY="your-random-secret-at-least-32-characters"
+
+# Admin Dashboard Secret Token (for /api/admin/*) - REQUIRED
 ADMIN_SECRET="your-strong-random-admin-secret-token"
 
 PORT="3000"
@@ -186,7 +194,7 @@ Open a pull request into `main`. Do not force-push to `main`.
 
 ## 🔐 Security
 
-Do not commit secrets. Keep `.env` out of git (it is ignored) and set `ADMIN_SECRET`, `GEMINI_API_KEY` and other keys only in your hosting provider. To report a vulnerability, see [SECURITY.md](SECURITY.md).
+Do not commit secrets. Keep `.env` out of git (it is ignored) and set `ADMIN_SECRET`, `AI_SETTINGS_ENCRYPTION_KEY`, and any provider keys only in your hosting provider. The Admin AI Provider Manager requires `AI_SETTINGS_ENCRYPTION_KEY` to persist UI-entered API keys securely. Keep this encryption key stable; if it is changed, previously stored provider keys cannot be decrypted. To report a vulnerability, see [SECURITY.md](SECURITY.md).
 
 ## 📄 License
 MIT License © 2026 Mamirbekov Shohruxbek. See the [LICENSE](LICENSE) file for the full text.
