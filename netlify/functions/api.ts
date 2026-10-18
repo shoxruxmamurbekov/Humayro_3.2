@@ -10,8 +10,8 @@ import { setCacheBackend } from '../../server/sharedCache.ts';
 import { createBlobsKvBackend } from '../../server/blobsKvBackend.ts';
 import { getRegionLive, getRegionVideos } from '../../server/regionService.ts';
 import type { SupportedLanguage, SystemMetrics } from '../../src/types/index.ts';
-import { newsroomHandler, newsroomAgentsHandler } from '../../server/newsroomRoutes.ts';
-import { generalApiLimiter, aiApiLimiter } from '../../server/rateLimit.ts';
+import { mcpHandler } from '../../server/mcpServer.ts';
+import { generalApiLimiter, aiApiLimiter, mcpApiLimiter } from '../../server/rateLimit.ts';
 import { securityHeaders } from '../../server/securityHeaders.ts';
 
 dotenv.config();
@@ -53,8 +53,8 @@ app.get('/user/quota', async (req, res) => {
   res.json({ success: true, quota });
 });
 
-app.get('/newsroom/agents', newsroomAgentsHandler);
-app.get('/newsroom', aiApiLimiter, newsroomHandler);
+// MCP server (public URL: /api/mcp). Each person connects their own AI for personal digests.
+app.all('/mcp', mcpApiLimiter, mcpHandler);
 
 app.get('/news/feed', async (req, res) => {
   try {

@@ -6,11 +6,11 @@ import { getLiveNewsFeed, searchNews, getCacheStats, getTrendingHotspots } from 
 import { synthesizeNews, generateArticle, getAiProviderInfo } from './server/aiService.ts';
 import { getRegionLive, getRegionVideos } from './server/regionService.ts';
 import { getRequiredAdminSecret, timingSafeAdminCheck } from './server/security.ts';
-import { generalApiLimiter, aiApiLimiter } from './server/rateLimit.ts';
+import { generalApiLimiter, aiApiLimiter, mcpApiLimiter } from './server/rateLimit.ts';
 import { securityHeaders } from './server/securityHeaders.ts';
 import { consumeQuota, getQuotaStatus } from './server/quotaService.ts';
 import type { SupportedLanguage, SystemMetrics } from './src/types/index.ts';
-import { newsroomHandler, newsroomAgentsHandler } from './server/newsroomRoutes.ts';
+import { mcpHandler } from './server/mcpServer.ts';
 
 dotenv.config();
 
@@ -62,9 +62,8 @@ app.get('/api/news/feed', async (req, res) => {
   }
 });
 
-// API: AI newsroom (persona agents analyze country/topic-specific news)
-app.get('/api/newsroom/agents', newsroomAgentsHandler);
-app.get('/api/newsroom', aiApiLimiter, newsroomHandler);
+// API: MCP server. Each person connects their own AI to get personal daily/weekly digests.
+app.all('/api/mcp', mcpApiLimiter, mcpHandler);
 
 // API: Live per-region intelligence (latest news + live weather for the selected map region)
 app.get('/api/region/:key/live', async (req, res) => {
