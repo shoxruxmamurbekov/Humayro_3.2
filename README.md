@@ -1,4 +1,4 @@
-# Humayro 3.2 — AI-Powered Global Intelligence Platform
+# Violet Sun 3.2 — AI-Powered Global Intelligence Platform
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-3.2.0-orange.svg" alt="Version 3.2.0" />
@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="License MIT" />
 </p>
 
-**Humayro 3.2** is a next-generation, high-performance **AI-Powered Global Intelligence & News Monitoring Platform**. It bridges the gap between breaking world headlines, deep AI causal synthesis, 2D military-grade tactical geo-radar telemetry, 3D holographic CyberGlobe exploration, and real-time per-region environmental and geopolitical metrics.
+**Violet Sun 3.2** is a next-generation, high-performance **AI-Powered Global Intelligence & News Monitoring Platform**. It bridges the gap between breaking world headlines, deep AI causal synthesis, 2D military-grade tactical geo-radar telemetry, 3D holographic CyberGlobe exploration, and real-time per-region environmental and geopolitical metrics.
 
 ---
 
@@ -84,7 +84,7 @@ Full setup, request flow, and Admin API examples: [docs/AI_PROVIDER_MANAGER.md](
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│                   Humayro 3.2 Frontend                   │
+│                   Violet Sun 3.2 Frontend                   │
 │   (React 19 + TypeScript + Vite 8 + Tailwind CSS v4)    │
 │   - IntelligenceHero & AI Search                        │
 │   - Tactical 2D Geo-Radar & 3D Hologram CyberGlobe       │
@@ -110,8 +110,8 @@ Full setup, request flow, and Admin API examples: [docs/AI_PROVIDER_MANAGER.md](
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/shoxruxmamurbekov/Humayro_3.2.git
-cd Humayro_3.2
+git clone https://github.com/shoxruxmamurbekov/Violet-Sun.git
+cd Violet-Sun
 ```
 
 ### 2. Install dependencies
