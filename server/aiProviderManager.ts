@@ -403,10 +403,11 @@ export async function* generateAiJsonResponses(prompt: string): AsyncGenerator<{
     return;
   }
 
+  // Honor the selected fallback explicitly. If RSS fallback is selected, do not silently
+  // spend credits on any other configured provider after the primary one fails.
   const ordered = [...new Set<AiProviderId>([
     config.primaryProvider,
-    ...(isProvider(config.fallbackProvider) ? [config.fallbackProvider] : []),
-    ...AI_PROVIDERS
+    ...(isProvider(config.fallbackProvider) ? [config.fallbackProvider] : [])
   ])];
 
   for (const provider of ordered) {
