@@ -264,8 +264,10 @@ export async function testSystemAiProvider(
   token: string,
   input: { provider: AiProviderId; apiKey?: string; model?: string }
 ): Promise<{ success: boolean; provider: AiProviderId; model?: string; latencyMs: number; message?: string; error?: string }> {
-  return adminAiRequest(token, '/api/admin/ai-settings/test', {
-    method: 'POST',
-    body: JSON.stringify(input)
-  });
+  const json = await adminAiRequest<{ result: { success: boolean; provider: AiProviderId; model?: string; latencyMs: number; message?: string; error?: string } }>(
+    token,
+    '/api/admin/ai-settings/test',
+    { method: 'POST', body: JSON.stringify(input) }
+  );
+  return json.result;
 }
