@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsx server.ts",
     "build": "vite build",
+    "vercel-build": "npm ci && npm run build",
     "start": "node server.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist",
