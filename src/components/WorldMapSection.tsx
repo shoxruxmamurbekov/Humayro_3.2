@@ -1141,7 +1141,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
             </div>
           </div>
           <div className="font-mono text-[11px] text-zinc-500">
-            HUMAYRO_3.2 // DEFENSE-GRADE GEO-SPATIAL INTELLIGENCE
+            VIOLET SUN // DEFENSE-GRADE GEO-SPATIAL INTELLIGENCE
           </div>
         </div>
       </div>

@@ -76,7 +76,7 @@ Full setup, request flow, and Admin API examples: [docs/AI_PROVIDER_MANAGER.md](
 - A public, stateless MCP server (Streamable HTTP) lives at `/api/mcp`. Each person connects their own AI client; it picks the person's country, topics and keywords and writes the daily or weekly digest itself. The server runs no model and uses no AI quota.
 - Tools: `get_digest` (daily/weekly), `get_latest_news`, `search_articles`, `list_options`. Results are headlines with source URLs, grouped per topic or keyword.
 - No login and no stored user data: interests live in the person's AI, not on this server. Scheduling is done by the AI client (the server is pull-only).
-- Claude Code: `claude mcp add --transport http humayro https://<your-domain>/api/mcp`.
+- Claude Code: `claude mcp add --transport http violet-sun https://<your-domain>/api/mcp`.
 
 ---
 
