@@ -305,7 +305,7 @@ app.post('/api/admin/ai-settings/test', async (req, res) => {
 app.get('/api/health', (_req, res) => {
   res.json({
     status: 'ok',
-    product: 'Humayro_3.3',
+    product: 'Violet Sun_3.3',
     uptime: Math.floor((Date.now() - startTime) / 1000)
   });
 });
@@ -328,10 +328,10 @@ async function setupServer() {
   }
 
   app.listen(Number(PORT), '0.0.0.0', () => {
-    console.log(`[Humayro_3.2] Intelligence server running on http://0.0.0.0:${PORT}`);
+    console.log(`[Violet Sun] Intelligence server running on http://0.0.0.0:${PORT}`);
   });
 }
 
 setupServer().catch(err => {
-  console.error('[Humayro_3.2] Failed to start server:', err);
+  console.error('[Violet Sun] Failed to start server:', err);
 });
