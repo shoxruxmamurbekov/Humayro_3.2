@@ -253,7 +253,14 @@ export async function saveAiProviderSettings(input: unknown) {
     for (const provider of AI_PROVIDERS) {
       if (!(provider in models)) continue;
       const model = models[provider];
-      if (typeof model !== 'string' || !/^[A-Za-z0-9._:/-]{1,160}$/.test(model.trim())) {
+      if (typeof model !== 'string') {
+        throw new Error(`Invalid model name for ${provider}.`);
+      }
+      if (!model.trim()) {
+        delete next.models![provider];
+        continue;
+      }
+      if (!/^[A-Za-z0-9._:/-]{1,160}$/.test(model.trim())) {
         throw new Error(`Invalid model name for ${provider}.`);
       }
       next.models![provider] = model.trim();
