@@ -17,7 +17,7 @@ import { useLiveIntelligence } from './services/useLiveIntelligence';
 import { CursorGlow } from './components/CursorGlow';
 import { Navbar } from './components/Navbar';
 import { SignalBar } from './components/SignalBar';
-import { SignalMetrics } from './components/SignalMetrics';
+import { DashboardSidebar, DashboardBottomPanels } from './components/DashboardPanels';
 import { IntelligenceCommandCenter } from './components/IntelligenceCommandCenter';
 import { IntelligenceHero } from './components/IntelligenceHero';
 import { ChatSection, ChatMessage } from './components/ChatSection';
@@ -303,10 +303,11 @@ export default function App() {
         onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
       />
 
-      {/* Main Page Content */}
+      {/* Main Page Content: command-center dashboard first, secondary sections below */}
       <main className="pb-20 md:pb-0">
-        {/* Intelligence Hero & AI Search */}
+        {/* Slim AI search strip */}
         <IntelligenceHero
+          compact
           dict={dict}
           currentLang={currentLang}
           onSearch={handleSearchSubmit}
@@ -314,40 +315,51 @@ export default function App() {
           trendingHotspots={trendingHotspots}
         />
 
-        {/* Global Intelligence Metrics */}
-        <SignalMetrics
-          totalArticlesCount={liveArticles.length}
-          trendingCount={trendingHotspots?.uzbekistan?.length || 18}
-          aiAnalyzedCount={liveArticles.length * 3}
-          currentLang={currentLang}
-        />
+        {/* Dashboard: left monitoring sidebar + central world map + bottom analytics row */}
+        <div className="mx-auto w-full max-w-[1680px] px-3 sm:px-4 lg:px-6 pb-6 grid grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[272px_minmax(0,1fr)] gap-4 items-start">
+          <div className="order-2 lg:order-1 min-w-0 lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
+            <DashboardSidebar
+              lang={currentLang}
+              regionalArticles={regionalArticles}
+              latestBreaking={latestBreaking}
+              isRefreshing={isLiveRefreshing}
+              lastUpdated={lastLiveUpdated}
+              countdown={liveCountdown}
+              onRefresh={refreshLiveNow}
+              onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
+            />
+          </div>
 
-        {/* Interactive HUMAYRO Intelligence Command Center */}
-        <IntelligenceCommandCenter />
+          <div className="order-1 lg:order-2 min-w-0">
+            <Suspense fallback={<div className="min-h-[60vh]" aria-hidden="true" />}>
+              <WorldMapSection
+                variant="dashboard"
+                dict={dict}
+                onSelectRegion={(regId, regLabel) => openArticle(regLabel, regId, `region-${regId.toLowerCase().slice(0, 6)}`)}
+                onAskAi={(query) => {
+                  scrollToSection('ai');
+                  handleSearchSubmit(query);
+                }}
+                regionalArticles={regionalArticles}
+                onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
+                isRefreshing={isLiveRefreshing}
+                lastUpdated={lastLiveUpdated}
+                lang={currentLang}
+                belowMap={
+                  <DashboardBottomPanels
+                    lang={currentLang}
+                    liveArticles={liveArticles}
+                    trendingHotspots={trendingHotspots}
+                    onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
+                    onSearch={handleSearchSubmit}
+                  />
+                }
+              />
+            </Suspense>
+          </div>
+        </div>
 
-        {/* MCP: each person connects their own AI for personal daily/weekly news digests */}
-        <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>
-          <McpConnectSection />
-        </Suspense>
-
-        {/* Globe Intelligence (3D Sphere & 2D Radar) */}
-        <Suspense fallback={<div className="min-h-[60vh]" aria-hidden="true" />}>
-        <WorldMapSection
-          dict={dict}
-          onSelectRegion={(regId, regLabel) => openArticle(regLabel, regId, `region-${regId.toLowerCase().slice(0, 6)}`)}
-          onAskAi={(query) => {
-            scrollToSection('ai');
-            handleSearchSubmit(query);
-          }}
-          regionalArticles={regionalArticles}
-          onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
-          isRefreshing={isLiveRefreshing}
-          lastUpdated={lastLiveUpdated}
-          lang={currentLang}
-        />
-        </Suspense>
-
-        {/* Live Intelligence Feed & Cards */}
+        {/* Secondary areas (all existing capabilities preserved) */}
         <FeedSection
           dict={dict}
           currentLang={currentLang}
@@ -360,7 +372,12 @@ export default function App() {
           countdown={liveCountdown}
         />
 
-        {/* HUMAYRO AI Intelligence Brief */}
+        <IntelligenceCommandCenter />
+
+        <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>
+          <McpConnectSection />
+        </Suspense>
+
         <ChatSection
           dict={dict}
           activeConversation={chatMessages}

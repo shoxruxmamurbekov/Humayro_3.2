@@ -14,6 +14,8 @@ interface IntelligenceHeroProps {
     uzbekistan: TrendingHotspotItem[];
     global: TrendingHotspotItem[];
   };
+  /** Slim search strip for the dashboard layout (headline and trending chips are moved elsewhere). */
+  compact?: boolean;
 }
 
 export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
@@ -21,7 +23,8 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
   currentLang,
   onSearch,
   isLoading,
-  trendingHotspots: propTrends
+  trendingHotspots: propTrends,
+  compact = false
 }) => {
   const [inputVal, setInputVal] = useState('');
   const [isListening, setIsListening] = useState(false);
@@ -127,27 +130,27 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
   const activeHotspots = trendTab === 'uz' ? uzTrends : glTrends;
 
   return (
-    <section id="search" className="relative pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 text-center z-10">
-      <div className="max-w-[980px] mx-auto">
+    <section id="search" className={compact ? 'relative pt-4 pb-4 px-4 sm:px-6 text-center z-10 scroll-mt-28' : 'relative pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 text-center z-10'}>
+      <div className={compact ? 'max-w-[1680px] mx-auto' : 'max-w-[980px] mx-auto'}>
         {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] tracking-[0.2em] text-(--accent) font-bold uppercase mb-6">
+        <div className={`${compact ? 'hidden' : 'inline-flex'} items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] tracking-[0.2em] text-(--accent) font-bold uppercase mb-6`}>
           <span className="w-1.5 h-1.5 rounded-full bg-(--accent) animate-pulse" />
           <span>{ui.hero_eyebrow}</span>
         </div>
 
         {/* Editorial Headline */}
-        <h1 className="font-editorial text-4xl sm:text-6xl lg:text-[76px] font-medium leading-[1.02] tracking-tight text-[#F5F7FA] max-w-[860px] mx-auto">
+        <h1 className={compact ? 'sr-only' : 'font-editorial text-4xl sm:text-6xl lg:text-[76px] font-medium leading-[1.02] tracking-tight text-[#F5F7FA] max-w-[860px] mx-auto'}>
           {ui.hero_title_1}<br />
           <span className="italic text-(--accent)">{ui.hero_title_2}</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="mt-6 text-sm sm:text-base text-[#7C8797] max-w-[620px] mx-auto leading-relaxed font-normal">
+        <p className={compact ? 'hidden' : 'mt-6 text-sm sm:text-base text-[#7C8797] max-w-[620px] mx-auto leading-relaxed font-normal'}>
           {ui.hero_sub}
         </p>
 
         {/* Intelligence Search Box */}
-        <div className="mt-8 max-w-[760px] mx-auto">
+        <div className={compact ? 'max-w-[760px] mx-auto' : 'mt-8 max-w-[760px] mx-auto'}>
           <form
             onSubmit={handleSubmit}
             className="relative flex items-center p-2 rounded-2xl bg-[#0B0F14] border border-white/[0.12] focus-within:border-(--accent) focus-within:ring-1 focus-within:ring-(--accent)/40 transition-all shadow-2xl shadow-black/60"
@@ -213,7 +216,7 @@ export const IntelligenceHero: React.FC<IntelligenceHeroProps> = ({
           </form>
 
           {/* Trending Suggestions */}
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs">
+          <div className={compact ? 'hidden' : 'mt-5 flex flex-wrap items-center justify-center gap-2 text-xs'}>
             <span className="text-zinc-500 font-mono text-[11px]">{ui.hero_trending}</span>
 
             {/* Quick switcher tab */}

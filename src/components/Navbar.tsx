@@ -78,26 +78,26 @@ export const Navbar: React.FC<NavbarProps> = ({
             : 'bg-[#05070A]/70 backdrop-blur-md border-white/[0.05]'
         }`}
       >
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-[68px] flex items-center justify-between gap-4">
+        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
           {/* Brand Logo */}
           <a
             href="#home"
-            className="flex items-center gap-3 group focus:outline-none"
+            className="flex items-center gap-2 sm:gap-3 group focus:outline-none shrink-0"
             aria-label="Violet Sun Home"
           >
-            <img src="/violet-sun-logo.svg" alt="" className="w-9 h-9 rounded-xl object-contain shrink-0" />
+            <img src="/violet-sun-logo.svg" alt="" className="w-8 h-8 rounded-lg object-contain shrink-0" />
             <div className="flex flex-col">
-              <span className="font-[Inter] font-bold text-base tracking-[0.14em] text-[#F5F7FA] group-hover:text-white transition-colors">
+              <span className="font-[Inter] font-bold text-[13px] sm:text-sm tracking-[0.14em] whitespace-nowrap text-[#F5F7FA] group-hover:text-white transition-colors leading-tight">
                 VIOLET SUN
               </span>
-              <span className="text-[9px] tracking-[0.22em] text-(--accent) uppercase font-semibold">
+              <span className="hidden sm:block text-[9px] tracking-[0.22em] whitespace-nowrap text-(--accent) uppercase font-semibold">
                 {ui.brand_sub || 'GLOBAL INTELLEKT'}
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation Links (Editorial style) */}
-          <nav className="hidden lg:flex items-center gap-7 text-xs font-medium tracking-wide text-[#7C8797]">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-7 whitespace-nowrap text-xs font-medium tracking-wide text-[#7C8797]">
             <button
               onClick={() => scrollTo('ai')}
               className="hover:text-[#F5F7FA] transition-colors py-1 cursor-pointer"
@@ -219,10 +219,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* User Profile / Auth Button */}
             <button
               onClick={onOpenAuth}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-(--accent) hover:bg-[#FF8A24] text-black font-semibold text-xs transition-colors cursor-pointer shadow-md shadow-(--accent)/20"
+              aria-label={user.email ? user.name : dict.nav_get_started}
+              className="flex items-center gap-2 px-2.5 sm:px-3 py-2 sm:py-1.5 rounded-lg bg-(--accent) hover:bg-[#FF8A24] text-black font-semibold text-xs transition-colors cursor-pointer shadow-md shadow-(--accent)/20"
             >
               <User className="w-3.5 h-3.5" />
-              <span className="max-w-[110px] truncate">
+              <span className="hidden sm:inline max-w-[110px] truncate">
                 {user.email ? user.name : dict.nav_get_started}
               </span>
             </button>
@@ -241,7 +242,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#05070A]/95 backdrop-blur-2xl flex flex-col justify-between p-6 pt-24 overflow-y-auto lg:hidden animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-40 bg-[#05070A]/95 backdrop-blur-2xl flex flex-col justify-between p-6 pt-20 overflow-y-auto lg:hidden animate-in fade-in duration-200">
           <div className="space-y-4">
             <div className="pb-4 border-b border-white/[0.08]">
               <span className="text-[10px] tracking-widest text-(--accent) uppercase font-bold">

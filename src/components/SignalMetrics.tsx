@@ -8,17 +8,43 @@ interface SignalMetricsProps {
   trendingCount?: number;
   aiAnalyzedCount?: number;
   currentLang?: SupportedLanguage;
+  /** Dashboard panel: shows only the values passed in (no placeholder/fallback numbers). */
+  compact?: boolean;
 }
 
 export const SignalMetrics: React.FC<SignalMetricsProps> = ({
   totalArticlesCount = 8421,
   trendingCount = 147,
   aiAnalyzedCount = 3208,
-  currentLang = 'uz'
+  currentLang = 'uz',
+  compact = false
 }) => {
   const ui = getUiText(currentLang);
   // Format numbers nicely with commas
   const formatNum = (n: number) => n.toLocaleString();
+
+  if (compact) {
+    const rows = [
+      { label: ui.metrics_activity, sub: ui.metrics_activity_sub, value: totalArticlesCount, icon: <Activity className="w-3.5 h-3.5 text-blue-400" /> },
+      { label: ui.metrics_trending, sub: ui.metrics_trending_sub, value: trendingCount, icon: <Flame className="w-3.5 h-3.5 text-[#22C55E]" /> }
+    ];
+    return (
+      <div className="h-full rounded-2xl bg-[#0B0F14] border border-white/[0.07] p-4 flex flex-col justify-between gap-4">
+        {rows.map(row => (
+          <div key={row.label}>
+            <div className="flex items-center justify-between text-[11px] font-mono text-[#7C8797]">
+              <span className="tracking-wider uppercase">{row.label}</span>
+              {row.icon}
+            </div>
+            <span className="mt-2 block font-[Inter] font-bold text-2xl text-[#F5F7FA] tracking-tight">
+              {formatNum(row.value)}
+            </span>
+            <span className="block text-[11px] text-[#7C8797] mt-0.5 font-mono">{row.sub}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   // If real live count is passed, scale realistically or show exact
   const displayTotal = totalArticlesCount > 500 ? totalArticlesCount : 8000 + (totalArticlesCount * 14);

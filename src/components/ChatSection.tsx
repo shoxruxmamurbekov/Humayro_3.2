@@ -36,6 +36,8 @@ export const ChatSection: React.FC<ChatSectionProps> = ({
   const ui = getUiText(currentLang);
 
   useEffect(() => {
+    // Skip the initial mount (empty conversation) so the page does not jump to the chat on load.
+    if (activeConversation.length === 0) return;
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [activeConversation, isLoading]);
 

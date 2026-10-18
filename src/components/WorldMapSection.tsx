@@ -43,6 +43,10 @@ interface WorldMapSectionProps {
   isRefreshing?: boolean;
   lastUpdated?: Date;
   lang?: SupportedLanguage;
+  /** 'dashboard' drops the landing-page header/padding so the map works as the main workspace. */
+  variant?: 'section' | 'dashboard';
+  /** Rendered between the map and the regional workspace (used for the dashboard's bottom panels). */
+  belowMap?: React.ReactNode;
 }
 
 interface HotspotPin extends Hotspot3D {
@@ -214,8 +218,11 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
   onSelectArticle,
   isRefreshing = false,
   lastUpdated,
-  lang = 'uz'
+  lang = 'uz',
+  variant = 'section',
+  belowMap
 }) => {
+  const isDash = variant === 'dashboard';
   const [selectedKey, setSelectedKey] = useState<string>('central-asia');
   const [viewMode, setViewMode] = useState<'3d-globe' | '2d-radar'>('2d-radar');
   const [workspaceTab, setWorkspaceTab] = useState<'overview' | 'events' | 'debates' | 'indicators' | 'videos' | 'live'>('overview');
@@ -279,20 +286,20 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
   };
 
   return (
-    <section id="map" className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
-      <div className="max-w-[1240px] mx-auto">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] tracking-[0.2em] text-(--accent) font-bold uppercase mb-4">
+    <section id="map" className={isDash ? 'relative z-10 scroll-mt-28' : 'relative py-16 sm:py-24 px-4 sm:px-6 z-10'}>
+      <div className={isDash ? 'w-full' : 'max-w-[1240px] mx-auto'}>
+        {/* Section Header (compact toolbar in dashboard mode) */}
+        <div className={isDash ? 'flex flex-wrap items-center justify-between gap-3 mb-3' : 'text-center max-w-3xl mx-auto mb-10'}>
+          <div className={`${isDash ? 'hidden' : 'inline-flex'} items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] sm:text-[11px] tracking-[0.2em] text-(--accent) font-bold uppercase mb-4`}>
             <span className="w-1.5 h-1.5 rounded-full bg-(--accent) animate-pulse" />
             <span>{ui.map_eyebrow}</span>
           </div>
 
-          <h2 className="font-editorial text-3xl sm:text-5xl font-medium tracking-tight text-[#F5F7FA] mb-3">
+          <h2 className={isDash ? 'sr-only' : 'font-editorial text-3xl sm:text-5xl font-medium tracking-tight text-[#F5F7FA] mb-3'}>
             {ui.map_title}
           </h2>
 
-          <p className="text-[#7C8797] text-sm sm:text-base leading-relaxed mb-6 font-normal">
+          <p className={isDash ? 'hidden' : 'text-[#7C8797] text-sm sm:text-base leading-relaxed mb-6 font-normal'}>
             {ui.map_sub}
           </p>
 
@@ -329,7 +336,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
         </div>
 
         {/* Hotspots Quick Switch Bar */}
-        <div className="flex items-center justify-center gap-2 flex-wrap mb-6">
+        <div className={`flex items-center gap-2 flex-wrap ${isDash ? 'justify-start mb-3' : 'justify-center mb-6'}`}>
           <span className="text-xs text-zinc-500 font-mono flex items-center gap-1 me-1">
             <Radio className="w-3.5 h-3.5 text-(--accent) animate-pulse" />
             <span>{ui.map_select_region}</span>
@@ -376,7 +383,7 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
           />
         ) : (
           /* View Mode 2: High-Fidelity 2D Tactical Radar SVG Map */
-          <div className="relative p-3 sm:p-6 rounded-3xl bg-[#0B0F14]/90 border border-white/10 backdrop-blur-2xl shadow-2xl overflow-hidden">
+          <div className={`relative ${isDash ? 'p-3' : 'p-3 sm:p-6'} rounded-3xl bg-[#0B0F14]/90 border border-white/10 backdrop-blur-2xl shadow-2xl overflow-hidden`}>
             {/* Top ambient orange indicator line */}
             <div className="absolute top-0 start-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-(--accent) to-transparent pointer-events-none" />
 
@@ -684,6 +691,8 @@ export const WorldMapSection: React.FC<WorldMapSectionProps> = ({
             </svg>
           </div>
         )}
+
+        {belowMap}
 
         {/* ========================================================================= */}
         {/* RE-ESTABLISHED & RESHAPED: REGIONAL INTELLIGENCE WORKSPACE (Mintaqalar Tahlili) */}

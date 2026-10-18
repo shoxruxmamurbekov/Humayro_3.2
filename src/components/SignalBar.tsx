@@ -34,7 +34,7 @@ export const SignalBar: React.FC<SignalBarProps> = ({
   if (!currentSignal) {
     return (
       <div id="signals" className="border-y border-white/[0.07] bg-[#0B0F14]">
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-11 flex items-center justify-between text-xs text-[#7C8797]">
+        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 h-10 flex items-center justify-between text-xs text-[#7C8797]">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1.5 text-[#22C55E] font-bold text-[11px] tracking-wider font-mono">
               <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
@@ -53,7 +53,7 @@ export const SignalBar: React.FC<SignalBarProps> = ({
 
   return (
     <div id="signals" className="border-y border-white/[0.07] bg-[#0B0F14] transition-colors">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-11 flex items-center justify-between gap-3 text-xs overflow-hidden">
+      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 h-10 flex items-center justify-between gap-3 text-xs overflow-hidden">
         {/* Left: Live status + current signal title */}
         <div className="flex items-center gap-3 min-w-0 flex-1">
           <span className="shrink-0 flex items-center gap-1.5 text-[#22C55E] font-bold text-[11px] tracking-wider font-mono">
