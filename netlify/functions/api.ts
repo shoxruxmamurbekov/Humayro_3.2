@@ -2,7 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import serverless from 'serverless-http';
 import { getLiveNewsFeed, searchNews, getCacheStats, getTrendingHotspots } from '../../server/newsService.ts';
-import { synthesizeNews, generateArticle, getAiProviderInfo } from '../../server/aiService.ts';
+import { synthesizeNews, generateArticle } from '../../server/aiService.ts';
+import { getAiProviderInfo, getAiProviderManagerSummary, saveAiProviderSettings, testAiProviderConnection } from '../../server/aiProviderManager.ts';
 import { getRequiredAdminSecret, timingSafeAdminCheck } from '../../server/security.ts';
 import { consumeQuota, getQuotaStatus, setQuotaBackend } from '../../server/quotaService.ts';
 import { createBlobsQuotaBackend } from '../../server/quotaBlobsBackend.ts';
@@ -155,7 +156,7 @@ app.get('/admin/metrics', async (req, res) => {
   const token = req.headers['x-admin-token'];
   if (!timingSafeAdminCheck(token, ADMIN_SECRET)) return res.status(401).json({ success: false, error: 'Unauthorized admin access' });
 
-  const aiInfo = getAiProviderInfo();
+  const aiInfo = await getAiProviderInfo();
   const cacheStats = getCacheStats();
   const articles = await getLiveNewsFeed();
   const metrics: SystemMetrics = {
@@ -171,6 +172,46 @@ app.get('/admin/metrics', async (req, res) => {
     lastIngestedAt: new Date().toISOString()
   };
   res.json({ success: true, metrics });
+});
+
+// Admin-only AI Provider Manager endpoints.
+app.get('/admin/ai-settings', async (req, res) => {
+  const token = req.headers['x-admin-token'];
+  if (!timingSafeAdminCheck(token, ADMIN_SECRET)) return res.status(401).json({ success: false, error: 'Unauthorized admin access' });
+  try {
+    const settings = await getAiProviderManagerSummary();
+    res.json({ success: true, settings });
+  } catch {
+    res.status(503).json({ success: false, error: 'AI settings storage is unavailable.' });
+  }
+});
+
+app.put('/admin/ai-settings', async (req, res) => {
+  const token = req.headers['x-admin-token'];
+  if (!timingSafeAdminCheck(token, ADMIN_SECRET)) return res.status(401).json({ success: false, error: 'Unauthorized admin access' });
+  try {
+    const settings = await saveAiProviderSettings(req.body);
+    res.json({ success: true, settings });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : '';
+    const clientMessage = message.includes('AI_SETTINGS_ENCRYPTION_KEY')
+      ? 'API keys cannot be stored yet. Configure AI_SETTINGS_ENCRYPTION_KEY (at least 32 characters) in the server environment.'
+      : message.includes('storage') || message.includes('persistent')
+        ? 'AI settings storage is unavailable. Check Netlify Blobs configuration.'
+        : 'AI settings were not accepted. Check provider, model ID, and API key fields.';
+    res.status(400).json({ success: false, error: clientMessage });
+  }
+});
+
+app.post('/admin/ai-settings/test', async (req, res) => {
+  const token = req.headers['x-admin-token'];
+  if (!timingSafeAdminCheck(token, ADMIN_SECRET)) return res.status(401).json({ success: false, error: 'Unauthorized admin access' });
+  try {
+    const result = await testAiProviderConnection(req.body?.provider, req.body?.apiKey, req.body?.model);
+    res.json({ success: true, result });
+  } catch {
+    res.status(400).json({ success: false, error: 'Choose a supported provider and valid model ID.' });
+  }
 });
 
 export const handler = serverless(app);

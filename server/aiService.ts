@@ -1,6 +1,6 @@
-import { GoogleGenAI } from '@google/genai';
 import type { AiArticleResponse, AiSynthesisResponse, SupportedLanguage, HistoricalParallel } from '../src/types/index.ts';
 import { searchNews } from './newsService.ts';
+import { generateAiJsonResponses } from './aiProviderManager.ts';
 import {
   asScore,
   asText,
@@ -9,6 +9,13 @@ import {
   normalizeSources,
   normalizeTimeline,
 } from './aiValidation.ts';
+
+// Shared Gemini model candidates used by the newsroom agent until it is migrated to the provider manager.
+export const CANDIDATE_MODELS = [
+  'gemini-3.1-flash-lite',
+  'gemini-flash-latest',
+  'gemini-3.8-flash'
+];
 
 const langNames: Record<SupportedLanguage, string> = {
   uz: "Uzbek (Oʻzbek tilida yuqori saviyali jurnalistik tahlil, aniq faktlar va ravon til)",
@@ -68,28 +75,6 @@ function safeJsonParse<T>(raw: string, fallback: T): T {
   }
 }
 
-export function getAiProviderInfo() {
-  const geminiReady = Boolean(process.env.GEMINI_API_KEY);
-  const groqReady = Boolean(process.env.GROQ_API_KEY);
-  const openRouterReady = Boolean(process.env.OPENROUTER_API_KEY);
-  const primary = process.env.AI_PROVIDER || (geminiReady ? 'gemini' : 'local-rss');
-  const fallback = process.env.FALLBACK_AI_PROVIDER || (groqReady ? 'groq' : openRouterReady ? 'openrouter' : 'rss-fallback');
-
-  return {
-    primary,
-    fallback,
-    geminiReady,
-    groqReady,
-    openRouterReady
-  };
-}
-
-// Active Gemini candidate models in order of verified operational status
-export const CANDIDATE_MODELS = [
-  'gemini-3.1-flash-lite',
-  'gemini-flash-latest',
-  'gemini-3.8-flash'
-];
 
 /**
  * Historical parallels & philosophical quotes for contextual grounding
@@ -251,11 +236,8 @@ export async function synthesizeNews(query: string, lang: SupportedLanguage = 'u
     ? liveDispatches.slice(0, 6).map((a, i) => `[${i + 1}] Source: ${a.source}\nTitle: ${a.title}\nDate: ${a.publishedAt}\nExcerpt: ${a.description}`).join('\n\n')
     : '';
 
-  // 2. Call Gemini AI with structured JSON mode and rigorous anti-superficial guidelines
-  if (process.env.GEMINI_API_KEY) {
-    const ai = new GoogleGenAI();
-
-    const prompt = `Siz "Humayro_3.2" global axborot va sun'iy intellekt tahliliy platformasining bosh xalqaro tahlilchisisiz.
+  // Use the configured primary provider, then the configured fallback and remaining available adapters.
+  const prompt = `Siz "Humayro_3.2" global axborot va sun'iy intellekt tahliliy platformasining bosh xalqaro tahlilchisisiz.
 Foydalanuvchi savoli: "${query}"
 
 ENG MUHIM TALABLAR:
@@ -313,17 +295,8 @@ Quyidagi JSON formatida qat'iy va faqat JSON javob bering:
   "confidenceNote": "Real-time AI telemetry & verified agency synthesis"
 }`;
 
-    for (const model of CANDIDATE_MODELS) {
-      try {
-        const response = await ai.models.generateContent({
-          model,
-          contents: prompt,
-          config: {
-            responseMimeType: 'application/json'
-          }
-        });
-
-        const responseText = response.text || '';
+  for await (const { provider, model, responseText } of generateAiJsonResponses(prompt)) {
+    try {
         const parsed = safeJsonParse<Partial<AiSynthesisResponse>>(responseText, {});
 
         const summary = asText(parsed.summary);
@@ -349,9 +322,8 @@ Quyidagi JSON formatida qat'iy va faqat JSON javob bering:
             isFallback: false
           };
         }
-      } catch (err: any) {
-        console.warn(`[AI] Model ${model} failed, trying next:`, err?.message || err);
-      }
+    } catch {
+      console.warn(`[AI] ${provider} model ${model} returned an unusable response.`);
     }
   }
 
@@ -446,9 +418,7 @@ export async function generateArticle(
     ? liveDispatches.slice(0, 5).map((a, i) => `[${i + 1}] Source: ${a.source}\nTitle: ${a.title}\nDetails: ${a.description}`).join('\n\n')
     : '';
 
-  if (process.env.GEMINI_API_KEY) {
-    const ai = new GoogleGenAI();
-    const prompt = `Siz "Humayro_3.2" xalqaro tahliliy nashrining bosh muharririsiz.
+  const prompt = `Siz "Humayro_3.2" xalqaro tahliliy nashrining bosh muharririsiz.
 Mavzu: "${topic}" ${region ? `(Mintaqa: ${region})` : ''}.
 
 Vazifa: Ushbu mavzu bo'yicha eng so'nggi voqealar, xalqaro tahlillar, raqamlar va aniq faktlarga asoslangan chuqur, professional tahliliy maqola (brief) tayyorlang.
@@ -489,17 +459,8 @@ Quyidagi JSON formatida qat'iy javob bering:
   }
 }`;
 
-    for (const model of CANDIDATE_MODELS) {
-      try {
-        const response = await ai.models.generateContent({
-          model,
-          contents: prompt,
-          config: {
-            responseMimeType: 'application/json'
-          }
-        });
-
-        const responseText = response.text || '';
+  for await (const { provider, model, responseText } of generateAiJsonResponses(prompt)) {
+    try {
         const parsed = safeJsonParse<Partial<AiArticleResponse>>(responseText, {});
 
         const title = asText(parsed.title, 300);
@@ -520,9 +481,8 @@ Quyidagi JSON formatida qat'iy javob bering:
             isFallback: false
           };
         }
-      } catch (err: any) {
-        console.warn(`[AI] Article model ${model} failed, trying next:`, err?.message || err);
-      }
+    } catch {
+      console.warn(`[AI] ${provider} model ${model} returned an unusable article response.`);
     }
   }
 

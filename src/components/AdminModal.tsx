@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Shield, Activity, RefreshCw, Server, Zap, CheckCircle2, XCircle } from 'lucide-react';
 import { SystemMetrics } from '../types';
 import { fetchSystemMetrics } from '../services/api';
+import { AiProviderManager } from './AiProviderManager';
 
 interface AdminModalProps {
   isOpen: boolean;
@@ -157,6 +158,8 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                   </span>
                 </div>
               </div>
+
+              <AiProviderManager token={authToken} />
 
               {/* Provider Health Matrix */}
               <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 flex flex-col gap-3">
