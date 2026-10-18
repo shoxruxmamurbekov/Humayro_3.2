@@ -196,3 +196,76 @@ export async function fetchTrendingData(lang: SupportedLanguage = 'uz'): Promise
     return null;
   }
 }
+
+
+export type AiProviderId = 'gemini' | 'groq' | 'openrouter';
+export type AiFallbackId = AiProviderId | 'rss-fallback';
+
+export interface AiProviderManagerSettings {
+  primaryProvider: AiProviderId;
+  fallbackProvider: AiFallbackId;
+  encryptionReady: boolean;
+  storageMode: 'netlify-blobs' | 'local-memory' | string;
+  updatedAt: string | null;
+  providers: Record<AiProviderId, {
+    configured: boolean;
+    keySource: 'managed' | 'environment' | 'none';
+    model: string;
+    ready: boolean;
+  }>;
+}
+
+type AiProviderSettingsPayload = {
+  primaryProvider?: AiProviderId;
+  fallbackProvider?: AiFallbackId;
+  models?: Partial<Record<AiProviderId, string>>;
+  apiKeys?: Partial<Record<AiProviderId, string>>;
+  removeKeys?: AiProviderId[];
+};
+
+async function adminAiRequest<T>(token: string, path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(path, {
+    ...init,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-admin-token': token,
+      ...(init?.headers || {})
+    }
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || json.success === false) {
+    throw new Error(typeof json.error === 'string' ? json.error : 'AI provider management request failed.');
+  }
+  return json as T;
+}
+
+export async function fetchSystemAiSettings(token: string): Promise<AiProviderManagerSettings> {
+  const json = await adminAiRequest<{ settings: AiProviderManagerSettings }>(
+    token,
+    '/api/admin/ai-settings',
+    { method: 'GET' }
+  );
+  return json.settings;
+}
+
+export async function saveSystemAiSettings(
+  token: string,
+  settings: AiProviderSettingsPayload
+): Promise<AiProviderManagerSettings> {
+  const json = await adminAiRequest<{ settings: AiProviderManagerSettings }>(
+    token,
+    '/api/admin/ai-settings',
+    { method: 'PUT', body: JSON.stringify(settings) }
+  );
+  return json.settings;
+}
+
+export async function testSystemAiProvider(
+  token: string,
+  input: { provider: AiProviderId; apiKey?: string; model?: string }
+): Promise<{ success: boolean; provider: AiProviderId; model?: string; latencyMs: number; message?: string; error?: string }> {
+  return adminAiRequest(token, '/api/admin/ai-settings/test', {
+    method: 'POST',
+    body: JSON.stringify(input)
+  });
+}
