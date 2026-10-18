@@ -126,13 +126,13 @@ export const DEFAULT_HOTSPOTS_3D: Hotspot3D[] = [
 
 // 3D Communication Arcs connecting major hubs
 const ARCS_CONFIG = [
-  { from: 'central-asia', to: 'east-asia', color: '#FF6A00' },
-  { from: 'central-asia', to: 'europe', color: '#FFA84D' },
-  { from: 'central-asia', to: 'middle-east', color: '#00E5FF' },
+  { from: 'central-asia', to: 'east-asia', color: '#FF00AE' },
+  { from: 'central-asia', to: 'europe', color: '#FF66CC' },
+  { from: 'central-asia', to: 'middle-east', color: '#C1FF1A' },
   { from: 'europe', to: 'north-america', color: '#FF3366' },
-  { from: 'middle-east', to: 'africa', color: '#00E5FF' },
-  { from: 'east-asia', to: 'oceania', color: '#FFA84D' },
-  { from: 'north-america', to: 'south-america', color: '#FF6A00' }
+  { from: 'middle-east', to: 'africa', color: '#C1FF1A' },
+  { from: 'east-asia', to: 'oceania', color: '#FF66CC' },
+  { from: 'north-america', to: 'south-america', color: '#FF00AE' }
 ];
 
 export interface CyberGlobe3DProps {
@@ -367,9 +367,9 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
         cy,
         Math.max(2, curRadius * 1.35)
       );
-      glowGrad.addColorStop(0, 'rgba(255, 106, 0, 0.06)');
-      glowGrad.addColorStop(0.6, 'rgba(255, 106, 0, 0.04)');
-      glowGrad.addColorStop(0.85, 'rgba(255, 106, 0, 0.02)');
+      glowGrad.addColorStop(0, 'rgba(255, 0, 174, 0.06)');
+      glowGrad.addColorStop(0.6, 'rgba(255, 0, 174, 0.04)');
+      glowGrad.addColorStop(0.85, 'rgba(255, 0, 174, 0.02)');
       glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
       ctx.beginPath();
@@ -390,11 +390,11 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
       );
       horizonGrad.addColorStop(0, 'rgba(16, 16, 22, 0.95)');
       horizonGrad.addColorStop(0.8, 'rgba(8, 8, 12, 0.98)');
-      horizonGrad.addColorStop(1, 'rgba(255, 106, 0, 0.35)');
+      horizonGrad.addColorStop(1, 'rgba(255, 0, 174, 0.35)');
       ctx.fillStyle = horizonGrad;
       ctx.fill();
       ctx.lineWidth = 1.5;
-      ctx.strokeStyle = 'rgba(255, 106, 0, 0.4)';
+      ctx.strokeStyle = 'rgba(255, 0, 174, 0.4)';
       ctx.stroke();
 
       // 3. Draw 3D Grid Meridian & Parallel Wireframe Lines
@@ -411,7 +411,7 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
             ctx.lineTo(sx, sy);
           }
         }
-        ctx.strokeStyle = 'rgba(255, 106, 0, 0.09)';
+        ctx.strokeStyle = 'rgba(255, 0, 174, 0.09)';
         ctx.stroke();
       }
 
@@ -528,7 +528,7 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
         if (!isFront) continue; // Behind sphere horizon
 
         const beaconColor =
-          h.status === 'critical' ? '#FF2A55' : h.status === 'elevated' ? '#FF6A00' : '#00E5FF';
+          h.status === 'critical' ? '#FF2A55' : h.status === 'elevated' ? '#FF00AE' : '#C1FF1A';
 
         // Outer expanding radar pulse ring (guarantee strictly positive modulo in [0, 1))
         const rawRingProg = (pulseTime * 1.5 + (Math.abs(h.lat) * 0.1)) % 1;
@@ -580,8 +580,8 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
         const ly = p.sy - 8 * zoomScale;
 
         // Pill background
-        ctx.fillStyle = isSelected ? 'rgba(255, 106, 0, 0.9)' : 'rgba(8, 8, 12, 0.85)';
-        ctx.strokeStyle = isSelected ? '#FFFFFF' : 'rgba(255, 106, 0, 0.4)';
+        ctx.fillStyle = isSelected ? 'rgba(255, 0, 174, 0.9)' : 'rgba(8, 8, 12, 0.85)';
+        ctx.strokeStyle = isSelected ? '#FFFFFF' : 'rgba(255, 0, 174, 0.4)';
         ctx.lineWidth = 1;
 
         ctx.beginPath();
@@ -821,7 +821,7 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
             transform: 'translate(0, -50%)'
           }}
         >
-          <div className="w-64 p-3.5 rounded-2xl bg-[#0d0d12]/95 border border-white/10 shadow-[0_10px_30px_rgba(255,106,0,0.25)] backdrop-blur-xl animate-in fade-in zoom-in-95 duration-100">
+          <div className="w-64 p-3.5 rounded-2xl bg-[#0d0d12]/95 border border-white/10 shadow-[0_10px_30px_rgba(255, 0, 174,0.25)] backdrop-blur-xl animate-in fade-in zoom-in-95 duration-100">
             <div className="flex items-center justify-between gap-2 mb-1.5">
               <span className="font-mono text-xs font-bold text-(--accent)">
                 {hoveredHotspot.code}
@@ -842,8 +842,8 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
               <span className="flex items-center gap-1.5 text-(--accent)">
                 {hoveredHotspot.liveCount ? (
                   <>
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-emerald-400 font-semibold">{hoveredHotspot.liveCount} ta jonli xabar</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C1FF1A] animate-pulse" />
+                    <span className="text-[#C1FF1A] font-semibold">{hoveredHotspot.liveCount} ta jonli xabar</span>
                     <span className="text-zinc-600">·</span>
                     <span className="text-zinc-400">{hoveredHotspot.videoCount} video</span>
                   </>

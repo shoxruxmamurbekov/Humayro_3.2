@@ -32,7 +32,7 @@ export const SignalMetrics: React.FC<SignalMetricsProps> = ({
         <div className="p-5 rounded-2xl bg-[#0B0F14] border border-white/[0.07] hover:border-white/[0.12] transition-colors flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs font-mono text-[#7C8797]">
             <span className="tracking-wider uppercase">{ui.metrics_activity}</span>
-            <Activity className="w-3.5 h-3.5 text-blue-400" />
+            <Activity className="w-3.5 h-3.5 text-[#A3AAB6]" />
           </div>
           <div className="mt-3">
             <span className="font-[Inter] font-bold text-2xl sm:text-3xl text-[#F5F7FA] tracking-tight">
@@ -61,7 +61,7 @@ export const SignalMetrics: React.FC<SignalMetricsProps> = ({
         </div>
 
         {/* Metric 3: Trending Signals */}
-        <div className="p-5 rounded-2xl bg-[#0B0F14] border border-white/[0.07] hover:border-emerald-500/30 transition-colors flex flex-col justify-between">
+        <div className="p-5 rounded-2xl bg-[#0B0F14] border border-white/[0.07] hover:border-[#C1FF1A]/30 transition-colors flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs font-mono text-[#7C8797]">
             <span className="tracking-wider uppercase">{ui.metrics_trending}</span>
             <Flame className="w-3.5 h-3.5 text-[#22C55E]" />

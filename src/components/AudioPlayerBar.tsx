@@ -130,7 +130,7 @@ export const AudioPlayerBar: React.FC<AudioPlayerBarProps> = ({
       {/* Left: Speaker icon & status */}
       <div className="flex items-center gap-2.5">
         <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-colors ${
-          isPlaying ? 'bg-(--accent) text-black shadow-[0_0_12px_#FF6A00]' : 'bg-white/5 text-zinc-400'
+          isPlaying ? 'bg-(--accent) text-black shadow-[0_0_12px_#FF00AE]' : 'bg-white/5 text-zinc-400'
         }`}>
           <Volume2 className="w-4 h-4" />
         </div>
@@ -188,7 +188,7 @@ export const AudioPlayerBar: React.FC<AudioPlayerBarProps> = ({
           <button
             type="button"
             onClick={handlePlay}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-(--accent) text-black hover:bg-[#FF8A24] transition-all cursor-pointer shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-(--accent) text-black hover:bg-[#FF3DBE] transition-all cursor-pointer shadow-sm"
           >
             <Play className="w-3.5 h-3.5 fill-black" />
             <span>{dict.audio_listen}</span>
@@ -197,7 +197,7 @@ export const AudioPlayerBar: React.FC<AudioPlayerBarProps> = ({
           <button
             type="button"
             onClick={handlePause}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-500 text-black hover:bg-amber-400 transition-all cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#FF00AE] text-black hover:bg-[#FF00AE] transition-all cursor-pointer"
           >
             <Pause className="w-3.5 h-3.5 fill-black" />
             <span>{dict.audio_pause}</span>

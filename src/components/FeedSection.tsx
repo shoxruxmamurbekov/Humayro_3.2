@@ -176,13 +176,13 @@ function formatTimeAgo(dateStr?: string): string {
 
 function getSourceBadgeClass(sourceName: string): string {
   const s = sourceName.toLowerCase();
-  if (s.includes('reuters')) return 'bg-amber-500/15 text-amber-400 border-amber-500/30';
+  if (s.includes('reuters')) return 'bg-[#FF00AE]/15 text-[#FF00AE] border-[#FF00AE]/30';
   if (s.includes('bbc')) return 'bg-red-500/15 text-red-400 border-red-500/30';
-  if (s.includes('bloomberg')) return 'bg-purple-500/15 text-purple-400 border-purple-500/30';
-  if (s.includes('al jazeera')) return 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
-  if (s.includes('dw') || s.includes('deutsche')) return 'bg-blue-500/15 text-blue-400 border-blue-500/30';
-  if (s.includes('uza') || s.includes("o'za") || s.includes('gazeta')) return 'bg-teal-500/15 text-teal-400 border-teal-500/30';
-  return 'bg-(--accent)/15 text-[#FF8A24] border-white/10';
+  if (s.includes('bloomberg')) return 'bg-[#A3AAB6]/15 text-[#A3AAB6] border-[#A3AAB6]/30';
+  if (s.includes('al jazeera')) return 'bg-[#C1FF1A]/15 text-[#C1FF1A] border-[#C1FF1A]/30';
+  if (s.includes('dw') || s.includes('deutsche')) return 'bg-[#A3AAB6]/15 text-[#A3AAB6] border-[#A3AAB6]/30';
+  if (s.includes('uza') || s.includes("o'za") || s.includes('gazeta')) return 'bg-[#A3AAB6]/15 text-[#A3AAB6] border-[#A3AAB6]/30';
+  return 'bg-(--accent)/15 text-[#FF3DBE] border-white/10';
 }
 
 export const FeedSection: React.FC<FeedSectionProps> = ({
@@ -253,7 +253,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
               onClick={() => setViewMode('live-stream')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'live-stream'
-                  ? 'bg-(--accent) text-black shadow-[0_0_15px_rgba(255,106,0,0.35)] font-bold'
+                  ? 'bg-(--accent) text-black shadow-[0_0_15px_rgba(255, 0, 174,0.35)] font-bold'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
@@ -269,7 +269,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
               onClick={() => setViewMode('magazine')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'magazine'
-                  ? 'bg-(--accent) text-black shadow-[0_0_15px_rgba(255,106,0,0.35)] font-bold'
+                  ? 'bg-(--accent) text-black shadow-[0_0_15px_rgba(255, 0, 174,0.35)] font-bold'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
@@ -282,7 +282,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
               onClick={() => setViewMode('terminal')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'terminal'
-                  ? 'bg-(--accent) text-black shadow-[0_0_15px_rgba(255,106,0,0.35)] font-bold'
+                  ? 'bg-(--accent) text-black shadow-[0_0_15px_rgba(255, 0, 174,0.35)] font-bold'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
@@ -295,8 +295,8 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
         {/* Real-time Telemetry Status Bar */}
         <div className="mt-4 p-3.5 rounded-2xl bg-black/50 border border-white/10 backdrop-blur-xl flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-3 flex-wrap font-mono">
-            <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span className="flex items-center gap-1.5 text-[#C1FF1A] font-semibold">
+              <span className="w-2 h-2 rounded-full bg-[#C1FF1A] animate-ping" />
               <span>JONLI EFIR MONITORINGI</span>
             </span>
             <span className="text-zinc-600 hidden sm:inline">|</span>
@@ -391,7 +391,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
                 <div
                   key={`${topic.key}-${index}`}
                   onClick={() => onSelectTopic(label)}
-                  className="group w-[260px] aspect-[3/4] p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/10 backdrop-blur-xl flex flex-col justify-between cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(255,106,0,0.3)] shrink-0 relative overflow-hidden"
+                  className="group w-[260px] aspect-[3/4] p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/10 backdrop-blur-xl flex flex-col justify-between cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(255, 0, 174,0.3)] shrink-0 relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-(--accent)/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
@@ -431,14 +431,14 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
             {/* Terminal Top Command Bar */}
             <div className="flex flex-wrap items-center justify-between px-6 py-3 border-b border-white/10 bg-white/[0.02] text-xs font-mono">
               <div className="flex items-center gap-2 text-zinc-400">
-                <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-                <span className="text-emerald-400 font-bold">HUMAYRO INTELLIGENCE DESK</span>
+                <Radio className="w-3.5 h-3.5 text-[#C1FF1A] animate-pulse" />
+                <span className="text-[#C1FF1A] font-bold">HUMAYRO INTELLIGENCE DESK</span>
                 <span className="text-zinc-600">|</span>
                 <span>DESPATCHES: {liveArticles.length} ACTIVE LIVE STREAMS</span>
               </div>
               <div className="flex items-center gap-3 text-zinc-500">
                 <span>FEED: REAL-TIME SECURE</span>
-                <span className="text-emerald-500">200 OK</span>
+                <span className="text-[#C1FF1A]">200 OK</span>
               </div>
             </div>
 
@@ -474,7 +474,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
                             {article.source}
                           </span>
                         </td>
-                        <td className="py-3.5 px-6 text-white font-sans font-semibold text-sm group-hover:text-[#FF8A24] transition-colors max-w-md truncate">
+                        <td className="py-3.5 px-6 text-white font-sans font-semibold text-sm group-hover:text-[#FF3DBE] transition-colors max-w-md truncate">
                           {article.title}
                         </td>
                         <td className="py-3.5 px-6 font-mono text-zinc-400">

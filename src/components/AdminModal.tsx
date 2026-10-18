@@ -111,7 +111,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-full bg-(--accent) text-black font-semibold text-sm hover:bg-[#FF8A24] transition-colors cursor-pointer disabled:opacity-50"
+                className="w-full py-3 rounded-full bg-(--accent) text-black font-semibold text-sm hover:bg-[#FF3DBE] transition-colors cursor-pointer disabled:opacity-50"
               >
                 {loading ? 'Verifying...' : 'Access System Desk'}
               </button>
@@ -143,7 +143,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                   <span className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">
                     Cache Keys
                   </span>
-                  <span className="font-[Inter] text-2xl font-bold text-cyan-400">
+                  <span className="font-[Inter] text-2xl font-bold text-[#A3AAB6]">
                     {metrics.cachedQueries}
                   </span>
                 </div>
@@ -152,7 +152,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                   <span className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">
                     Uptime
                   </span>
-                  <span className="font-[Inter] text-lg font-bold text-emerald-400 font-mono">
+                  <span className="font-[Inter] text-lg font-bold text-[#C1FF1A] font-mono">
                     {Math.floor(metrics.uptimeSeconds / 60)}m {metrics.uptimeSeconds % 60}s
                   </span>
                 </div>
@@ -173,7 +173,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-zinc-400 font-mono">Primary</span>
                   </div>
                   <span className={`inline-flex items-center gap-1 font-mono text-[11px] ${
-                    metrics.geminiConfigured ? 'text-emerald-400' : 'text-amber-400'
+                    metrics.geminiConfigured ? 'text-[#C1FF1A]' : 'text-[#FF00AE]'
                   }`}>
                     {metrics.geminiConfigured ? (
                       <>
@@ -192,12 +192,12 @@ export const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
                 {/* Groq / OpenRouter Fallback */}
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
-                    <Server className="w-4 h-4 text-purple-400" />
+                    <Server className="w-4 h-4 text-[#A3AAB6]" />
                     <span className="font-medium text-white">Groq / OpenRouter</span>
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-zinc-400 font-mono">Fallback</span>
                   </div>
                   <span className={`inline-flex items-center gap-1 font-mono text-[11px] ${
-                    metrics.groqConfigured || metrics.openRouterConfigured ? 'text-emerald-400' : 'text-zinc-500'
+                    metrics.groqConfigured || metrics.openRouterConfigured ? 'text-[#C1FF1A]' : 'text-zinc-500'
                   }`}>
                     {metrics.groqConfigured || metrics.openRouterConfigured ? (
                       <>
