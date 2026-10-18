@@ -173,7 +173,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
                   onClick={() => onSelectArticle(item)}
                   className="inline-flex items-center gap-2.5 text-xs text-zinc-300 hover:text-white transition-colors cursor-pointer group/item py-1"
                 >
-                  <span className={`text-[10px] font-bold uppercase font-mono px-2 py-0.5 rounded border ${badgeStyle}`}>
+                  <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded border ${badgeStyle}`}>
                     {item.source}
                   </span>
 
@@ -297,7 +297,7 @@ export const BreakingTicker: React.FC<BreakingTickerProps> = ({
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className={`text-[10px] font-bold uppercase font-mono px-2 py-0.5 rounded border ${badgeStyle}`}>
+                          <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded border ${badgeStyle}`}>
                             {item.source}
                           </span>
                           {item.isTrending && (

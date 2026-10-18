@@ -238,7 +238,7 @@ export const FeedSection: React.FC<FeedSectionProps> = ({
         {/* Header with Title and Mode Switcher */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-white/10">
           <div>
-            <span className="text-[10px] font-mono tracking-[0.2em] text-(--accent) font-bold uppercase block mb-2">
+            <span className="text-[10px] tracking-[0.2em] text-(--accent) font-bold uppercase block mb-2">
               LIVE INTELLIGENCE
             </span>
             <h2 className="font-editorial text-3xl sm:text-5xl font-medium tracking-tight text-[#F5F7FA]">

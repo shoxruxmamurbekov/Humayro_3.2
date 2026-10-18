@@ -82,7 +82,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
           {/* Top Bar Navigation & Actions */}
           <div className="flex items-center justify-between gap-4 pb-6 mb-8 border-b border-white/[0.08]">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono tracking-[0.2em] text-(--accent) font-bold uppercase">
+              <span className="text-[10px] tracking-[0.2em] text-(--accent) font-bold uppercase">
                 {ui.reader_title}
               </span>
             </div>
@@ -193,7 +193,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
               {/* Key Takeaways */}
               {article.keyPoints && article.keyPoints.length > 0 && (
                 <div className="mb-8 p-6 rounded-2xl bg-[#11161D] border border-white/[0.08]">
-                  <h4 className="text-xs font-mono font-bold tracking-widest uppercase text-(--accent) mb-4 flex items-center gap-2">
+                  <h4 className="text-xs font-bold tracking-widest uppercase text-(--accent) mb-4 flex items-center gap-2">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>{dict.keypoints_label}</span>
                   </h4>
@@ -232,7 +232,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
               {/* Verified Sources */}
               {article.sources && article.sources.length > 0 && (
                 <div className="mt-8 pt-6 border-t border-white/[0.08]">
-                  <span className="block text-xs font-mono font-semibold text-[#7C8797] uppercase tracking-wider mb-3">
+                  <span className="block text-xs font-semibold text-[#7C8797] uppercase tracking-wider mb-3">
                     {dict.chat_sources_label}
                   </span>
                   <div className="flex flex-wrap gap-2">

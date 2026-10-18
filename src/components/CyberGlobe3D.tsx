@@ -755,7 +755,7 @@ export const CyberGlobe3D: React.FC<CyberGlobe3DProps> = ({
       <div className="absolute top-4 start-4 z-20 flex flex-col gap-1 pointer-events-none">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-(--accent) animate-pulse" />
-          <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-300">
+          <span className="text-[11px] uppercase tracking-widest text-zinc-300">
             Hologram 3D Sphere · 360° Realtime
           </span>
         </div>

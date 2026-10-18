@@ -89,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="font-[Inter] font-bold text-base tracking-[0.14em] text-[#F5F7FA] group-hover:text-white transition-colors">
                 {ui.brand_name || 'HUMAYRO'}
               </span>
-              <span className="text-[9px] font-mono tracking-[0.22em] text-(--accent) uppercase font-semibold">
+              <span className="text-[9px] tracking-[0.22em] text-(--accent) uppercase font-semibold">
                 {ui.brand_sub || 'GLOBAL INTELLEKT'}
               </span>
             </div>
@@ -243,7 +243,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="fixed inset-0 z-40 bg-[#05070A]/95 backdrop-blur-2xl flex flex-col justify-between p-6 pt-24 overflow-y-auto lg:hidden animate-in fade-in duration-200">
           <div className="space-y-4">
             <div className="pb-4 border-b border-white/[0.08]">
-              <span className="text-[10px] font-mono tracking-widest text-(--accent) uppercase font-bold">
+              <span className="text-[10px] tracking-widest text-(--accent) uppercase font-bold">
                 HUMAYRO GLOBAL INTELLIGENCE
               </span>
             </div>
