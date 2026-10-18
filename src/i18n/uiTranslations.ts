@@ -103,7 +103,7 @@ export interface UiDictionary {
 
 const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
   uz: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "GLOBAL INTELLEKT",
     nav_intelligence: "AI Tahlil",
     nav_world: "Dunyo",
@@ -115,9 +115,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "AI ASOSIDAGI GLOBAL AXBOROT TIZIMI",
     hero_title_1: "DUNYO OʻZGARMOQDA.",
-    hero_title_2: "HUMAYRO SABABINI TUSHUNTIRADI.",
+    hero_title_2: "VIOLET SUN SABABINI TUSHUNTIRADI.",
     hero_sub: "Tasdiqlangan manbalar, AI sintezi va global kontekstga ega real-vaqt yangiliklar intellekti.",
-    hero_placeholder: "Humayro'dan har qanday mavzu haqida soʻrang…",
+    hero_placeholder: "Violet Sun'dan har qanday mavzu haqida soʻrang…",
     hero_analyze: "Tahlil qilish",
     hero_analyzing: "Tahlil qilinmoqda…",
     hero_trending: "Trendda:",
@@ -168,7 +168,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "Trendda",
     card_ai_analysis: "AI Tahlili",
 
-    brief_eyebrow: "HUMAYRO AI TAHLILIY HISOBOTI",
+    brief_eyebrow: "VIOLET SUN AI TAHLILIY HISOBOTI",
     brief_title: "Sarlavhalardan intellekt sari.",
     brief_sub: "Sunʼiy intellekt orqali koʻp manbali tekshiruv, jamoatchilik munosabati va tarixiy oʻxshashliklar tahlili.",
     brief_status_ready: "AI SINTEZI TAYYOR",
@@ -189,7 +189,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Ishonchlilik darajasi:",
     reader_keypoints: "ASOSIY XULOSALAR",
     reader_sources: "TASDIQLANGAN MANBALAR",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "Bosh sahifa",
     bnav_signals: "Signallar",
@@ -203,7 +203,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "kun oldin"
   },
   ru: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "ГЛОБАЛЬНЫЙ ИНТЕЛЛЕКТ",
     nav_intelligence: "AI Анализ",
     nav_world: "Мир",
@@ -215,9 +215,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "ГЛОБАЛЬНЫЙ ИНТЕЛЛЕКТ НА БАЗЕ ИИ",
     hero_title_1: "МИР МЕНЯЕТСЯ.",
-    hero_title_2: "HUMAYRO ОБЪЯСНЯЕТ ПРИЧИНЫ.",
+    hero_title_2: "VIOLET SUN ОБЪЯСНЯЕТ ПРИЧИНЫ.",
     hero_sub: "Интеллект новостей в реальном времени на основе проверенных источников, синтеза ИИ и глобального контекста.",
-    hero_placeholder: "Спросите Humayro о чём угодно…",
+    hero_placeholder: "Спросите Violet Sun о чём угодно…",
     hero_analyze: "Анализировать",
     hero_analyzing: "Анализ…",
     hero_trending: "В тренде:",
@@ -268,7 +268,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "В тренде",
     card_ai_analysis: "Анализ AI",
 
-    brief_eyebrow: "АНАЛИТИЧЕСКИЙ ОТЧЕТ HUMAYRO AI",
+    brief_eyebrow: "АНАЛИТИЧЕСКИЙ ОТЧЕТ VIOLET SUN AI",
     brief_title: "От заголовков к глубокому смыслу.",
     brief_sub: "Проверка источников, общественный резонанс и исторические параллели через ИИ.",
     brief_status_ready: "СИНТЕЗ AI ГОТОВ",
@@ -289,7 +289,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Уверенность модели:",
     reader_keypoints: "КЛЮЧЕВЫЕ ВЫВОДЫ",
     reader_sources: "ПРОВЕРЕННЫЕ ИСТОЧНИКИ",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "Главная",
     bnav_signals: "Сигналы",
@@ -303,7 +303,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "дн. назад"
   },
   en: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "GLOBAL INTELLIGENCE",
     nav_intelligence: "Intelligence",
     nav_world: "World",
@@ -315,9 +315,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "AI-POWERED GLOBAL INTELLIGENCE",
     hero_title_1: "THE WORLD IS MOVING.",
-    hero_title_2: "HUMAYRO EXPLAINS WHY.",
+    hero_title_2: "VIOLET SUN EXPLAINS WHY.",
     hero_sub: "Real-time news intelligence powered by AI, verified sources and global context.",
-    hero_placeholder: "Ask Humayro about anything…",
+    hero_placeholder: "Ask Violet Sun about anything…",
     hero_analyze: "Analyze",
     hero_analyzing: "Analyzing…",
     hero_trending: "Trending:",
@@ -368,7 +368,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "Trending",
     card_ai_analysis: "AI Analysis",
 
-    brief_eyebrow: "HUMAYRO AI INTELLIGENCE BRIEF",
+    brief_eyebrow: "VIOLET SUN AI INTELLIGENCE BRIEF",
     brief_title: "From headlines to intelligence.",
     brief_sub: "Multi-source verification, public sentiment and historical analogies powered by AI.",
     brief_status_ready: "AI SYNTHESIS READY",
@@ -389,7 +389,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Model Confidence:",
     reader_keypoints: "KEY TAKEAWAYS",
     reader_sources: "VERIFIED SOURCES",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "Home",
     bnav_signals: "Signals",
@@ -403,7 +403,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "d ago"
   },
   ko: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "글로벌 인텔리전스",
     nav_intelligence: "AI 분석",
     nav_world: "세계",
@@ -415,9 +415,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "AI 기반 글로벌 인텔리전스",
     hero_title_1: "세상이 움직이고 있습니다.",
-    hero_title_2: "HUMAYRO가 그 이유를 설명합니다.",
+    hero_title_2: "VIOLET SUN가 그 이유를 설명합니다.",
     hero_sub: "AI, 검증된 출처 및 글로벌 맥락 기반의 실시간 뉴스 인텔리전스.",
-    hero_placeholder: "Humayro에게 무엇이든 물어보세요…",
+    hero_placeholder: "Violet Sun에게 무엇이든 물어보세요…",
     hero_analyze: "분석하기",
     hero_analyzing: "분석 중…",
     hero_trending: "인기 주제:",
@@ -468,7 +468,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "트렌딩",
     card_ai_analysis: "AI 분석",
 
-    brief_eyebrow: "HUMAYRO AI 인텔리전스 브리프",
+    brief_eyebrow: "VIOLET SUN AI 인텔리전스 브리프",
     brief_title: "헤드라인에서 심층 인텔리전스로.",
     brief_sub: "AI 기반의 다중 출처 검증, 대중 여론 및 역사적 유사성 분석.",
     brief_status_ready: "AI 합성 준비 완료",
@@ -489,7 +489,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "신뢰도:",
     reader_keypoints: "핵심 시사점",
     reader_sources: "검증된 출처",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "홈",
     bnav_signals: "시그널",
@@ -503,7 +503,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "일 전"
   },
   kk: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "ЖАҺАНДЫҚ ИНТЕЛЛЕКТ",
     nav_intelligence: "AI Талдау",
     nav_world: "Әлем",
@@ -515,9 +515,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "AI НЕГІЗІНДЕГІ ЖАҺАНДЫҚ АҚПАРАТ ЖҮЙЕСІ",
     hero_title_1: "ӘЛЕМ ӨЗГЕРУДЕ.",
-    hero_title_2: "HUMAYRO СЕБЕБІН ТҮСІНДІРЕДІ.",
+    hero_title_2: "VIOLET SUN СЕБЕБІН ТҮСІНДІРЕДІ.",
     hero_sub: "Тексерілген дереккөздер мен AI талдауы бар нақты уақыттағы жаңалықтар инсайты.",
-    hero_placeholder: "Humayro-дан кез келген тақырып бойынша сұраңыз…",
+    hero_placeholder: "Violet Sun-дан кез келген тақырып бойынша сұраңыз…",
     hero_analyze: "Талдау",
     hero_analyzing: "Талдануда…",
     hero_trending: "Трендте:",
@@ -568,7 +568,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "Трендте",
     card_ai_analysis: "AI Талдауы",
 
-    brief_eyebrow: "HUMAYRO AI ТАЛДАУ ЕСЕБІ",
+    brief_eyebrow: "VIOLET SUN AI ТАЛДАУ ЕСЕБІ",
     brief_title: "Тақырыптардан терең мағынаға.",
     brief_sub: "Жасанды интеллект арқылы тексерілген деректер мен тарихи параллельдер.",
     brief_status_ready: "AI СИНТЕЗІ ДАЙЫН",
@@ -589,7 +589,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Сенімділік деңгейі:",
     reader_keypoints: "НЕГІЗГІ ТҰЖЫРЫМДАР",
     reader_sources: "ТЕКСЕРІЛГЕН ДЕРЕККӨЗДЕР",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "Басты",
     bnav_signals: "Сигналдар",
@@ -603,7 +603,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "күн бұрын"
   },
   ky: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "ГЛОБАЛДЫК ИНТЕЛЛЕКТ",
     nav_intelligence: "AI Анализ",
     nav_world: "Дүйнө",
@@ -615,9 +615,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "AI НЕГИЗИНДЕГИ ГЛОБАЛДЫК МААЛЫМАТ СИСТЕМАСЫ",
     hero_title_1: "ДҮЙНӨ ӨЗГӨРҮҮДӨ.",
-    hero_title_2: "HUMAYRO СЕБЕБИН ТҮШҮНДҮРӨТ.",
+    hero_title_2: "VIOLET SUN СЕБЕБИН ТҮШҮНДҮРӨТ.",
     hero_sub: "Текшерилген булактар жана AI анализи бар реалдуу убакыттагы жаңылыктар.",
-    hero_placeholder: "Humayro'дон каалаган тема боюнча сураңыз…",
+    hero_placeholder: "Violet Sun'дон каалаган тема боюнча сураңыз…",
     hero_analyze: "Анализдөө",
     hero_analyzing: "Анализделүүдө…",
     hero_trending: "Трендде:",
@@ -668,7 +668,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "Трендде",
     card_ai_analysis: "AI Анализи",
 
-    brief_eyebrow: "HUMAYRO AI АНАЛИТИКАЛЫК ОТЧЕТУ",
+    brief_eyebrow: "VIOLET SUN AI АНАЛИТИКАЛЫК ОТЧЕТУ",
     brief_title: "Аталыштардан терең маңызга.",
     brief_sub: "AI аркылуу булактарды текшерүү жана тарыхый салыштыруулар.",
     brief_status_ready: "AI СИНТЕЗИ ДАЯР",
@@ -689,7 +689,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Ишеним деңгээли:",
     reader_keypoints: "НЕГИЗГИ ТЫЯНАКТАР",
     reader_sources: "ТЕКШЕРИЛГЕН БУЛАКТАР",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "Башкы",
     bnav_signals: "Сигналдар",
@@ -703,7 +703,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "күн мурун"
   },
   tg: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "ИНТЕЛЛЕКТИ ГЛОБАЛӢ",
     nav_intelligence: "Таҳлили AI",
     nav_world: "Ҷаҳон",
@@ -715,9 +715,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "НИЗОМИ ИТТИЛООТИИ ГЛОБАЛИИ AI",
     hero_title_1: "ҶАҲОН ДАР ҲОЛИ ТАҒЙИР АСТ.",
-    hero_title_2: "HUMAYRO САБАБРО ШАРҲ МЕДИҲАД.",
+    hero_title_2: "VIOLET SUN САБАБРО ШАРҲ МЕДИҲАД.",
     hero_sub: "Иктишофи хабарии вақти воқеӣ бо манбаъҳои тасдиқшуда ва таҳлили AI.",
-    hero_placeholder: "Аз Humayro дар бораи ҳар мавзӯъ бипурсед…",
+    hero_placeholder: "Аз Violet Sun дар бораи ҳар мавзӯъ бипурсед…",
     hero_analyze: "Таҳлил кардан",
     hero_analyzing: "Дар ҳоли таҳлил…",
     hero_trending: "Дар тренд:",
@@ -768,7 +768,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "Дар тренд",
     card_ai_analysis: "Таҳлили AI",
 
-    brief_eyebrow: "ҲИСОБОТИ ТАҲЛИЛИИ HUMAYRO AI",
+    brief_eyebrow: "ҲИСОБОТИ ТАҲЛИЛИИ VIOLET SUN AI",
     brief_title: "Аз сарлавҳаҳо то дарки амиқ.",
     brief_sub: "Тафтиши сарчашмаҳо ва параллелҳои таърихӣ бо зеҳни сунъӣ.",
     brief_status_ready: "СИНТЕЗИ AI ОМОДА АСТ",
@@ -789,7 +789,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Боварии модел:",
     reader_keypoints: "ХУЛОСАҲОИ МУҲИМ",
     reader_sources: "САРЧАШМАҲОИ ТАСДИҚШУДА",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "Асосӣ",
     bnav_signals: "Сигналҳо",
@@ -803,7 +803,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "рӯз пеш"
   },
   tk: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "GLOBAL INTELLEKT",
     nav_intelligence: "AI Seljerme",
     nav_world: "Dünýä",
@@ -815,9 +815,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "AI ESASYNDA GLOBAL MAGLUMAT ULGAMY",
     hero_title_1: "DÜNÝÄ ÜÝTGEYÄR.",
-    hero_title_2: "HUMAYRO SEBÄBINI DÜŞÜNDIRÝÄR.",
+    hero_title_2: "VIOLET SUN SEBÄBINI DÜŞÜNDIRÝÄR.",
     hero_sub: "Barlanylan çeşmeler we AI seljermesi bilen hakyky wagt habar intellekti.",
-    hero_placeholder: "Humayro-dan islendik mowzuk barada soraň…",
+    hero_placeholder: "Violet Sun-dan islendik mowzuk barada soraň…",
     hero_analyze: "Seljermek",
     hero_analyzing: "Seljerilýär…",
     hero_trending: "Trendde:",
@@ -868,7 +868,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "Trendde",
     card_ai_analysis: "AI Seljermesi",
 
-    brief_eyebrow: "HUMAYRO AI SELJERME HASABATY",
+    brief_eyebrow: "VIOLET SUN AI SELJERME HASABATY",
     brief_title: "Sözbaşylardan çuňňur manysyna.",
     brief_sub: "AI arkaly çeşmeleri barlamak we taryhy meňzeşlikler.",
     brief_status_ready: "AI SINTEZI TAÝÝAR",
@@ -889,7 +889,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Ynam derejesi:",
     reader_keypoints: "ESASY NETIJELER",
     reader_sources: "BARLANYLAN ÇEŞMELER",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "Baş sahypa",
     bnav_signals: "Signallar",
@@ -903,7 +903,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "gün öň"
   },
   az: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "QƏLƏBƏLİK İNTELLEKT",
     nav_intelligence: "AI Analizi",
     nav_world: "Dünya",
@@ -915,9 +915,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "AI ƏSASLI QLOBAL MƏLUMAT SİSTEMİ",
     hero_title_1: "DÜNYA DƏYİŞİR.",
-    hero_title_2: "HUMAYRO SƏBƏBİNİ İZAH EDİR.",
+    hero_title_2: "VIOLET SUN SƏBƏBİNİ İZAH EDİR.",
     hero_sub: "Yoxlanılmış mənbələr, AI sintezi və qlobal kontekstlə real vaxt xəbər intellekti.",
-    hero_placeholder: "Humayro-dan hər hansı mövzu barədə soruşun…",
+    hero_placeholder: "Violet Sun-dan hər hansı mövzu barədə soruşun…",
     hero_analyze: "Analiz et",
     hero_analyzing: "Analiz edilir…",
     hero_trending: "Trenddə:",
@@ -968,7 +968,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "Trenddə",
     card_ai_analysis: "AI Analizi",
 
-    brief_eyebrow: "HUMAYRO AI ANALİTİK HESABATI",
+    brief_eyebrow: "VIOLET SUN AI ANALİTİK HESABATI",
     brief_title: "Başlıqlardan dərin mənaya.",
     brief_sub: "Süni intellektlə mənbələrin yoxlanılması və tarixi paralellər.",
     brief_status_ready: "AI SİNTEZİ HAZIRDIR",
@@ -989,7 +989,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "İnam dərəcəsi:",
     reader_keypoints: "ƏSAS NƏTİCƏLƏR",
     reader_sources: "TƏSDİQLƏNMİŞ MƏNBƏLƏR",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "Ana səhifə",
     bnav_signals: "Siqnallar",
@@ -1003,7 +1003,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "gün əvvəl"
   },
   tr: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "KÜRESEL İSTİHBARAT",
     nav_intelligence: "Yapay Zeka",
     nav_world: "Dünya",
@@ -1015,9 +1015,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "YAPAY ZEKA DESTEKLİ KÜRESEL İSTİHBARAT",
     hero_title_1: "DÜNYA DEĞİŞİYOR.",
-    hero_title_2: "HUMAYRO NEDENİNİ AÇIKLIYOR.",
+    hero_title_2: "VIOLET SUN NEDENİNİ AÇIKLIYOR.",
     hero_sub: "Doğrulanmış kaynaklar, yapay zeka sentezi ve küresel bağlamla gerçek zamanlı haber istihbaratı.",
-    hero_placeholder: "Humayro'ya herhangi bir konuyu sorun…",
+    hero_placeholder: "Violet Sun'ya herhangi bir konuyu sorun…",
     hero_analyze: "Analiz Et",
     hero_analyzing: "Analiz ediliyor…",
     hero_trending: "Gündemde:",
@@ -1068,7 +1068,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "Gündemde",
     card_ai_analysis: "Yapay Zeka Analizi",
 
-    brief_eyebrow: "HUMAYRO AI İSTİHBARAT RAPORU",
+    brief_eyebrow: "VIOLET SUN AI İSTİHBARAT RAPORU",
     brief_title: "Manşetlerden derin kavrayışa.",
     brief_sub: "Yapay zeka ile çok kaynaklı doğrulama, kamuoyu duyarlılığı ve tarihsel paralellikler.",
     brief_status_ready: "AI SENTEZİ HAZIR",
@@ -1089,7 +1089,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "Model Güveni:",
     reader_keypoints: "ÖNEMLİ ÇIKARIMLAR",
     reader_sources: "DOĞRULANMIŞ KAYNAKLAR",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "Ana Sayfa",
     bnav_signals: "Sinyaller",
@@ -1103,7 +1103,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "gün önce"
   },
   ar: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "الذكاء العالمي",
     nav_intelligence: "تحليل الذكاء",
     nav_world: "العالم",
@@ -1115,9 +1115,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "منظومة الاستخبارات العالمية بالذكاء الاصطناعي",
     hero_title_1: "العالم يتغير باستمرار.",
-    hero_title_2: "HUMAYRO يشرح لك الأسباب.",
+    hero_title_2: "VIOLET SUN يشرح لك الأسباب.",
     hero_sub: "استخبارات إخبارية فورية مدعومة بمصادر موثوقة وتحليل متقدم بالذكاء الاصطناعي.",
-    hero_placeholder: "اسأل Humayro عن أي موضوع…",
+    hero_placeholder: "اسأل Violet Sun عن أي موضوع…",
     hero_analyze: "تحليل",
     hero_analyzing: "جار التحليل…",
     hero_trending: "الموضوعات الرائجة:",
@@ -1168,7 +1168,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "رائج",
     card_ai_analysis: "تحليل AI",
 
-    brief_eyebrow: "تقرير HUMAYRO AI التحليلي",
+    brief_eyebrow: "تقرير VIOLET SUN AI التحليلي",
     brief_title: "من العناوين إلى الفهم العميق.",
     brief_sub: "تحقق متعدد المصادر، نبض الرأي العام ومقارنات تاريخية بالذكاء الاصطناعي.",
     brief_status_ready: "التقرير التحليلي جاهز",
@@ -1189,7 +1189,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "نسبة الثقة:",
     reader_keypoints: "النقاط الجوهرية",
     reader_sources: "المصادر المعتمدة",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "الرئيسية",
     bnav_signals: "الإشارات",
@@ -1203,7 +1203,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     time_day_ago: "يوم مضى"
   },
   fa: {
-    brand_name: "HUMAYRO",
+    brand_name: "VIOLET SUN",
     brand_sub: "اطلاعات جهانی",
     nav_intelligence: "تحلیل هوش مصنوعی",
     nav_world: "جهان",
@@ -1215,9 +1215,9 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
 
     hero_eyebrow: "سیستم هوشمند اخبار جهانی مبتنی بر هوش مصنوعی",
     hero_title_1: "جهان در حال تغییر است.",
-    hero_title_2: "HUMAYRO دلایل آن را توضیح می‌دهد.",
+    hero_title_2: "VIOLET SUN دلایل آن را توضیح می‌دهد.",
     hero_sub: "بینش خبری لحظه‌ای با تکیه بر منابع معتبر و تحلیل هوشمند داده‌ها.",
-    hero_placeholder: "از Humayro درباره هر موضوعی بپرسید…",
+    hero_placeholder: "از Violet Sun درباره هر موضوعی بپرسید…",
     hero_analyze: "تحلیل",
     hero_analyzing: "در حال تحلیل…",
     hero_trending: "موضوعات داغ:",
@@ -1268,7 +1268,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     card_trending: "داغ",
     card_ai_analysis: "تحلیل AI",
 
-    brief_eyebrow: "گزارش تحلیلی HUMAYRO AI",
+    brief_eyebrow: "گزارش تحلیلی VIOLET SUN AI",
     brief_title: "از تیترها تا درک عمیق.",
     brief_sub: "راستی‌آزمایی چندمنبعی، بازخورد افکار عمومی و تطبیق تاریخی با هوش مصنوعی.",
     brief_status_ready: "تحلیل آماده است",
@@ -1289,7 +1289,7 @@ const UI_TEXT: Record<SupportedLanguage, UiDictionary> = {
     reader_confidence: "میزان اطمینان:",
     reader_keypoints: "نکات کلیدی",
     reader_sources: "منابع معتبر",
-    reader_engine: "HUMAYRO 3.2 INTELLIGENCE ENGINE",
+    reader_engine: "VIOLET SUN INTELLIGENCE ENGINE",
 
     bnav_home: "خانه",
     bnav_signals: "سیگنال‌ها",
