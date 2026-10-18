@@ -296,7 +296,7 @@ app.post('/api/admin/ai-settings/test', async (req, res) => {
   }
   try {
     const result = await testAiProviderConnection(req.body?.provider, req.body?.apiKey, req.body?.model);
-    res.json({ success: true, ...result });
+    res.json({ success: true, result });
   } catch {
     res.status(400).json({ success: false, error: 'Choose a supported provider and valid model ID.' });
   }
