@@ -87,6 +87,15 @@ function decryptApiKey(value: EncryptedSecret): string {
   ]).toString('utf8');
 }
 
+function canDecryptApiKey(value: EncryptedSecret | undefined): boolean {
+  if (!value || !isEncryptionReady()) return false;
+  try {
+    return Boolean(decryptApiKey(value));
+  } catch {
+    return false;
+  }
+}
+
 async function readStoredSettings(): Promise<StoredSettings | null> {
   if (!process.env.NETLIFY) return localRecord;
   try {
@@ -189,12 +198,12 @@ export async function getAiProviderManagerSummary() {
   }>;
 
   for (const provider of AI_PROVIDERS) {
-    const managedKey = Boolean(stored?.encryptedKeys?.[provider]);
+    const encryptedKey = stored?.encryptedKeys?.[provider];
+    const managedKey = Boolean(encryptedKey);
+    const managedKeyUsable = canDecryptApiKey(encryptedKey);
     const environmentKey = providerHasEnvironmentKey(provider);
-    const keySource = managedKey ? 'managed' : environmentKey ? 'environment' : 'none';
-    const ready = managedKey
-      ? isEncryptionReady()
-      : environmentKey;
+    const keySource = managedKeyUsable ? 'managed' : environmentKey ? 'environment' : managedKey ? 'managed' : 'none';
+    const ready = managedKeyUsable || environmentKey;
     providers[provider] = {
       configured: ready,
       keySource,
