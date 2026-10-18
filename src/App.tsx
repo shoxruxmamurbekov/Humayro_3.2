@@ -315,49 +315,7 @@ export default function App() {
           trendingHotspots={trendingHotspots}
         />
 
-        {/* Dashboard: left monitoring sidebar + central world map + bottom analytics row */}
-        <div className="mx-auto w-full max-w-[1680px] px-3 sm:px-4 lg:px-6 pb-6 grid grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[272px_minmax(0,1fr)] gap-4 items-start">
-          <div className="order-2 lg:order-1 min-w-0 lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
-            <DashboardSidebar
-              lang={currentLang}
-              regionalArticles={regionalArticles}
-              latestBreaking={latestBreaking}
-              isRefreshing={isLiveRefreshing}
-              lastUpdated={lastLiveUpdated}
-              countdown={liveCountdown}
-              onRefresh={refreshLiveNow}
-              onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
-            />
-          </div>
-
-          <div className="order-1 lg:order-2 min-w-0">
-            <Suspense fallback={<div className="min-h-[60vh]" aria-hidden="true" />}>
-              <WorldMapSection
-                variant="dashboard"
-                dict={dict}
-                onSelectRegion={(regId, regLabel) => openArticle(regLabel, regId, `region-${regId.toLowerCase().slice(0, 6)}`)}
-                onAskAi={(query) => {
-                  scrollToSection('ai');
-                  handleSearchSubmit(query);
-                }}
-                regionalArticles={regionalArticles}
-                onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
-                isRefreshing={isLiveRefreshing}
-                lastUpdated={lastLiveUpdated}
-                lang={currentLang}
-                belowMap={
-                  <DashboardBottomPanels
-                    lang={currentLang}
-                    liveArticles={liveArticles}
-                    trendingHotspots={trendingHotspots}
-                    onSelectArticle={(a) => openArticle(a.title, a.category, a.id)}
-                    onSearch={handleSearchSubmit}
-                  />
-                }
-              />
-            </Suspense>
-          </div>
-        </div>
+        {/* Global map and regional monitoring section removed by request. */}
 
         {/* Secondary areas (all existing capabilities preserved) */}
         <FeedSection
