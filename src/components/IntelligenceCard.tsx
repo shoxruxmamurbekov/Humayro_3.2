@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bookmark, Sparkles, TrendingUp, ExternalLink } from 'lucide-react';
+import { Icon, brightFocusRing } from './icons';
 import { Article, SupportedLanguage } from '../types';
 import { isArticleBookmarked, toggleBookmark } from '../services/userStore';
 import { getUiText, formatTimeAgoLocale } from '../i18n/uiTranslations';
@@ -42,15 +42,15 @@ export const IntelligenceCard: React.FC<IntelligenceCardProps> = ({
 
           <div className="flex items-center gap-1.5">
             {article.isTrending && (
-              <span className="flex items-center gap-1 text-[10px] font-mono text-[#22C55E]">
-                <TrendingUp className="w-3 h-3" />
+              <span className="flex items-center gap-1 text-[10px] font-mono text-[var(--bright-secondary)]">
+                <Icon name="trend" size="sm" tone="secondary" className="w-3 h-3" />
                 <span className="hidden sm:inline uppercase">{ui.card_trending}</span>
               </span>
             )}
             <button
               type="button"
               onClick={handleBookmark}
-              className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+              className={`p-1.5 rounded-lg transition-colors cursor-pointer ${brightFocusRing} ${
                 isBookmarked
                   ? 'text-(--accent) bg-(--accent)/15'
                   : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.05]'
@@ -58,7 +58,7 @@ export const IntelligenceCard: React.FC<IntelligenceCardProps> = ({
               title={isBookmarked ? (currentLang === 'uz' ? 'Saqlangan' : currentLang === 'ru' ? 'Сохранено' : 'Saved') : (currentLang === 'uz' ? 'Saqlash' : currentLang === 'ru' ? 'Сохранить' : 'Bookmark')}
               aria-label="Bookmark"
             >
-              <Bookmark className="w-3.5 h-3.5 fill-current" />
+              <Icon name="bookmark" size="sm" tone={isBookmarked ? 'primary' : 'inherit'} className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>

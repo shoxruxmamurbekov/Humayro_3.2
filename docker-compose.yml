@@ -1,0 +1,22 @@
+services:
+  humayro-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: humayro:latest
+    container_name: humayro-production
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - AI_PROVIDER=${AI_PROVIDER:-gemini}
+      - ADMIN_SECRET=${ADMIN_SECRET:-humayro-secure-admin-secret-2026}
+      - YOUTUBE_API_KEY=${YOUTUBE_API_KEY:-}
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
